@@ -7,32 +7,75 @@
   </head>
   <body>
     <div id="top">
-      <div id="glassDiv">
-        <mat-card class="login-card">
-          <mat-card-header>
+      <div id="leftDiv">
+        <div id="glassDiv">
+          <mat-card class="login-card">
+            <mat-card-header class="login-card-header">
+              <mat-tab-group mat-align-tabs="center" animationDuration="0ms">
+                <mat-tab id="loginTab" label="Log in">
+                  <mat-card-content>
+                    <form [formGroup]="signin">
+                      <mat-form-field class="field">
+                        <mat-label>Email</mat-label>
+                        <input
+                          matInput
+                          formControlName="email"
+                          required
+                          placeholder="Ex. pat@example.com"
+                        />
+                        <mat-error
+                          *ngIf="
+                            emailFormControl.hasError('email') &&
+                            !emailFormControl.hasError('required')
+                          "
+                        >
+                          Please enter a valid email address
+                        </mat-error>
+                        <mat-error
+                          *ngIf="emailFormControl.hasError('required')"
+                        >
+                          Email is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="field">
+                        <input
+                          matInput
+                          placeholder="Password"
+                          [type]="hide ? 'password' : 'text'"
+                          formControlName="password"
+                          required
+                        />
+                        <mat-icon matSuffix (click)="hide = !hide">{{
+                          hide ? "visibility_off" : "visibility"
+                        }}</mat-icon>
+                        <mat-hint *ngIf="!passwordInput.value"
+                          >Enter your password</mat-hint
+                        >
+                      </mat-form-field>
+                    </form>
+                  </mat-card-content>
+                </mat-tab>
+                <mat-tab id="singupTab" label="Sing up"> Content 2 </mat-tab>
+              </mat-tab-group>
+            </mat-card-header>
 
-          </mat-card-header>
-          <mat-card-content>
-            <div>
-            <form class="example-form">
-              <mat-form-field class="example-full-width">
-                <mat-label>Email</mat-label>
-                <input matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
-                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                  Please enter a valid email address
-                </mat-error>
-                <mat-error *ngIf="emailFormControl.hasError('required')">
-                  Email is <strong>required</strong>
-                </mat-error>
-              </mat-form-field>
-            </form>
-          </div>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
-          </mat-card-actions>
-        </mat-card>
+            <mat-card-actions>
+              <button mat-button>LOG IN</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+
+      <div id="rightDiv" fxLayout="column" fxLayoutAlign="end end">
+        <h1>Welcome</h1>
+        <div id="orangeRectangle"></div>
+        <div id="blueRectangle">
+          <h2>to bookworm</h2>
+        </div>
+        <div id="logo">
+          <img src="../../assets/bookwormlogo.png" alt="logo" />
+        </div>
+
       </div>
     </div>
     <div id="bottom"></div>

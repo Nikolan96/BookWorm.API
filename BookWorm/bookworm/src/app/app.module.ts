@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginPageModule } from './login-page/login-page.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, NgForm, FormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +20,7 @@ import { ReactiveFormsModule, NgForm, FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
