@@ -1,4 +1,5 @@
 ﻿using BookWorm.Entities.Entities;
+using System.Linq;
 
 namespace BookWorm.Contracts.Repositories
 {
@@ -6,6 +7,7 @@ namespace BookWorm.Contracts.Repositories
     {
         void AddCriticReview(CriticReview entity);
         void RemoveCriticReview(CriticReview entity);
-        void UpdateCriticReview(CriticReview entity);
+        void UpdateCriticReview(CriticReview existing, CriticReview entity);
+        IQueryable<CriticReview> AsQueryable();
     }
 }

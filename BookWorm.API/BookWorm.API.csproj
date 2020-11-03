@@ -19,8 +19,4 @@
     <ProjectReference Include="..\BookWorm.Services\BookWorm.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

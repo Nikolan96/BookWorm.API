@@ -1,9 +1,7 @@
 ﻿using BookWorm.Contracts.Wrapper;
 using BookWorm.Entities.Entities;
-using System;
 using BookWorm.Contracts.Services;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace BookWorm.Services.Services
 {
@@ -15,6 +13,11 @@ namespace BookWorm.Services.Services
         {
             _repositoryWrapper = repositoryWrapper;
             //_logger = logger;
+        }
+
+        public IQueryable<UserReview> AsQueryable()
+        {
+            return _repositoryWrapper.UserReview.AsQueryable();
         }
 
         public UserReview AddUserReview(UserReview userReview)
@@ -31,9 +34,9 @@ namespace BookWorm.Services.Services
             // _logger.WriteInfo($"Removed user with id: {user.Id}.");
         }
 
-        public UserReview UpdateUserReview(UserReview userReview)
+        public UserReview UpdateUserReview(UserReview existing, UserReview userReview)
         {
-            _repositoryWrapper.UserReview.UpdateUserReview(userReview);
+            _repositoryWrapper.UserReview.UpdateUserReview(existing, userReview);
             // _logger.WriteInfo($"Updated user with id: {user.Id}.");
 
             return userReview;

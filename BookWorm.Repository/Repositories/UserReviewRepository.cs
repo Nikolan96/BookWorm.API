@@ -22,9 +22,9 @@ namespace BookWorm.Repository.Repositories
             Remove(entity);
         }
 
-        public void UpdateUserReview(UserReview entity)
+        public void UpdateUserReview(UserReview existing, UserReview entity)
         {
-            Update(entity);
+            Update(existing, entity);
         }
     }
 }

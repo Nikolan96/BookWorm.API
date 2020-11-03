@@ -22,9 +22,9 @@ namespace BookWorm.Repository.Repositories
             Remove(entity);
         }
 
-        public void UpdateCase(Case entity)
+        public void UpdateCase(Case existing, Case entity)
         {
-            Update(entity);
+            Update(existing, entity);
         }
     }
 }

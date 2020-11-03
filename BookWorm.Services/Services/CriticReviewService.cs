@@ -1,9 +1,7 @@
 ﻿using BookWorm.Contracts.Wrapper;
 using BookWorm.Entities.Entities;
-using System;
 using BookWorm.Contracts.Services;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace BookWorm.Services.Services
 {
@@ -15,6 +13,11 @@ namespace BookWorm.Services.Services
         {
             _repositoryWrapper = repositoryWrapper;
             //_logger = logger;
+        }
+
+        public IQueryable<CriticReview> AsQueryable()
+        {
+            return _repositoryWrapper.CriticReview.AsQueryable();
         }
 
         public CriticReview AddCriticReview(CriticReview criticReview)
@@ -31,9 +34,9 @@ namespace BookWorm.Services.Services
             // _logger.WriteInfo($"Removed user with id: {user.Id}.");
         }
 
-        public CriticReview UpdateCriticReview(CriticReview criticReview)
+        public CriticReview UpdateCriticReview(CriticReview existing, CriticReview criticReview)
         {
-            _repositoryWrapper.CriticReview.UpdateCriticReview(criticReview);
+            _repositoryWrapper.CriticReview.UpdateCriticReview(existing, criticReview);
             // _logger.WriteInfo($"Updated user with id: {user.Id}.");
 
             return criticReview;

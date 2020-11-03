@@ -1,4 +1,5 @@
 ﻿using BookWorm.Entities.Entities;
+using System.Linq;
 
 namespace BookWorm.Contracts.Repositories
 {
@@ -6,6 +7,7 @@ namespace BookWorm.Contracts.Repositories
     {
         void AddBookCase(BookCase entity);
         void RemoveBookCase(BookCase entity);
-        void UpdateBookCase(BookCase entity);
+        void UpdateBookCase(BookCase existing, BookCase entity);
+        IQueryable<BookCase> AsQueryable();
     }
 }

@@ -1,6 +1,8 @@
 ﻿using BookWorm.Entities;
 using BookWorm.Entities.Base;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 
 namespace BookWorm.Repository.Base
 {
@@ -13,10 +15,10 @@ namespace BookWorm.Repository.Base
             DataContext = dataContext;
         }
 
-        //public IQueryable<T> AsQueryable()
-        //{
-        //    return this.DataContext.Set<T>();
-        //}
+        public IQueryable<T> AsQueryable()
+        {
+            return DataContext.Set<T>();
+        }
 
         public void Add(T entity)
         {
@@ -24,9 +26,10 @@ namespace BookWorm.Repository.Base
             SaveChanges();
         }
 
-        public void Update(T entity)
+        public void Update(T existing,T entity)
         {
             // In case AsNoTracking is used
+            DataContext.Entry(existing).State = EntityState.Detached;
             DataContext.Entry(entity).State = EntityState.Modified;
             SaveChanges();
         }

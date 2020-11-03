@@ -1,4 +1,5 @@
 ﻿using BookWorm.Entities.Entities;
+using System.Linq;
 
 namespace BookWorm.Contracts.Services
 {
@@ -6,6 +7,7 @@ namespace BookWorm.Contracts.Services
     {
         BookAuthor AddBookAuthor(BookAuthor bookAuthor);
         void RemoveBookAuthor(BookAuthor bookAuthor);
-        BookAuthor UpdateBookAuthor(BookAuthor bookAuthor);
+        BookAuthor UpdateBookAuthor(BookAuthor existing, BookAuthor bookAuthor);
+        IQueryable<BookAuthor> AsQueryable();
     }
 }

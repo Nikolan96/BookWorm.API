@@ -22,9 +22,9 @@ namespace BookWorm.Repository.Repositories
             Remove(entity);
         }
 
-        public void UpdateReasonToRead(ReasonToRead entity)
+        public void UpdateReasonToRead(ReasonToRead existing, ReasonToRead entity)
         {
-            Update(entity);
+            Update(existing, entity);
         }
     }
 }

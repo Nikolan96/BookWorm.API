@@ -1,4 +1,5 @@
 ﻿using BookWorm.Entities.Entities;
+using System.Linq;
 
 namespace BookWorm.Contracts.Services
 {
@@ -6,6 +7,7 @@ namespace BookWorm.Contracts.Services
     {
         ReasonToRead AddReasonToRead(ReasonToRead reasonToRead);
         void RemoveReasonToRead(ReasonToRead reasonToRead);
-        ReasonToRead UpdateReasonToRead(ReasonToRead reasonToRead);
+        ReasonToRead UpdateReasonToRead(ReasonToRead existing, ReasonToRead reasonToRead);
+        IQueryable<ReasonToRead> AsQueryable();
     }
 }

@@ -1,9 +1,7 @@
 ﻿using BookWorm.Contracts.Wrapper;
 using BookWorm.Entities.Entities;
 using BookWorm.Contracts.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace BookWorm.Services.Services
 {
@@ -15,6 +13,11 @@ namespace BookWorm.Services.Services
         {
             _repositoryWrapper = repositoryWrapper;
             //_logger = logger;
+        }
+
+        public IQueryable<Case> AsQueryable()
+        {
+            return _repositoryWrapper.Case.AsQueryable();
         }
 
         public Case AddCase(Case @case)
@@ -31,9 +34,9 @@ namespace BookWorm.Services.Services
             // _logger.WriteInfo($"Removed user with id: {user.Id}.");
         }
 
-        public Case UpdateCase(Case @case)
+        public Case UpdateCase(Case existing, Case @case)
         {
-            _repositoryWrapper.Case.UpdateCase(@case);
+            _repositoryWrapper.Case.UpdateCase(existing, @case);
             // _logger.WriteInfo($"Updated user with id: {user.Id}.");
 
             return @case;
