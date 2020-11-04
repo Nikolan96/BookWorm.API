@@ -5,7 +5,10 @@
   align-items: center;
   //align-content: center;
 }
-
+@mixin fontVerdana {
+  font-family: Verdana;
+  font-style: normal;
+}
 #top {
   display: flex;
   flex-direction: row !important;
@@ -15,19 +18,16 @@
   padding: 0;
   background-color: #01579b;
 }
-#bottom {
-  background-color: #e1f5fe;
-  height: 30%;
-}
-#rightDiv {
+
+#rightTopDiv {
   width: 40%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
 }
-#leftDiv {
+#leftTopDiv {
   display: flex;
-  width: 60%;
+  width: 55%;
   height: 100%;
 }
 #glassDiv {
@@ -39,6 +39,7 @@
 }
 
 .login-card {
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -55,11 +56,18 @@
   width: 100%;
 }
 
+mat-tab-group {
+}
+
+mat-card-content {
+  margin-top: 20px;
+}
+
 mat-card-actions {
   @include flexCenter();
 }
 
-#rightDiv h1 {
+#rightTopDiv h1 {
   position: absolute;
   width: 490px;
   height: 102px;
@@ -85,9 +93,8 @@ mat-card-actions {
 }
 
 #blueRectangle h2 {
+  @include fontVerdana;
   text-transform: uppercase;
-  font-family: Verdana;
-  font-style: normal;
   font-weight: normal;
   font-size: 28px;
   line-height: 34px;
@@ -107,10 +114,53 @@ mat-card-actions {
 }
 
 #logo {
- width: 100%;
- text-align: right;
+  width: 100%;
+  text-align: right;
 }
 
-#loginButton{
-width: 40%;
+#loginButton {
+  width: 40%;
+  color: white;
+}
+
+#bottom {
+  @include flexCenter();
+  background-color: #e1f5fe;
+  height: 30%;
+  width: 100%;
+  flex-direction: row !important;
+}
+#leftBottomDiv {
+  @include flexCenter();
+  width: 50%;
+  height: 100%;
+  flex-direction: row !important;
+}
+
+#booksImg img {
+  width: 200px;
+}
+#booksText {
+  text-align:left ;
+}
+#booksText h2 {
+  font-family: Verdana;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 35px;
+  line-height: 43px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #01579b;
+  margin-left: 40px;
+  width: 70%;
+}
+
+#rightBottomDiv p{
+  @include fontVerdana;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: 0.1em;
+  color: #01579B;
 }

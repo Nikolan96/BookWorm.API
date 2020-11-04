@@ -7,10 +7,9 @@
   </head>
   <body>
     <div id="top">
-      <div id="leftDiv">
+      <div id="leftTopDiv">
         <div id="glassDiv">
           <mat-card class="login-card">
-            <mat-card-header class="login-card-header">
               <mat-tab-group mat-align-tabs="center" animationDuration="0ms">
                 <mat-tab id="loginTab" label="Log in">
                   <mat-card-content>
@@ -57,16 +56,16 @@
                 </mat-tab>
                 <mat-tab id="singupTab" label="Sing up"> Content 2 </mat-tab>
               </mat-tab-group>
-            </mat-card-header>
+
 
             <mat-card-actions>
-              <button id="loginButton" color="accent" mat-button>LOG IN</button>
+              <button id="loginButton" color="accent" mat-raised-button>LOG IN</button>
             </mat-card-actions>
           </mat-card>
         </div>
       </div>
 
-      <div id="rightDiv" fxLayout="column" fxLayoutAlign="end end">
+      <div id="rightTopDiv" fxLayout="column" fxLayoutAlign="end end">
         <h1>Welcome</h1>
         <div id="orangeRectangle"></div>
         <div id="blueRectangle">
@@ -78,6 +77,25 @@
 
       </div>
     </div>
-    <div id="bottom"></div>
+    <div id="bottom">
+      <div id="leftBottomDiv">
+        <div id="booksImg">
+          <img  src="../../assets/books.png" alt="books" />
+        </div>
+        <div id="booksText">
+          <h2>why you should read books?</h2>
+        </div>
+      </div>
+      <div id="rightBottomDiv">
+        <p>Books improve your brain. <br>
+          Books improve imagination.<br>
+          Books develop critical thinking. <br>
+          Books reduce stress.<br>
+          Books motivate you.<br>
+          Books build self-esteem.<br>
+          Books improve creativity.</p>
+      </div>
+
+    </div>
   </body>
 </html>
