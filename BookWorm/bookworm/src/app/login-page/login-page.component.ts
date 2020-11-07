@@ -11,6 +11,7 @@ import { User } from '../user';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
 import { createComponent } from '@angular/compiler/src/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-page',
@@ -66,7 +67,8 @@ export class LoginPageComponent implements OnInit {
           console.log('sve se poklapa');
           this.router.navigate(['/home-page']);
         } else {
-          document.getElementById("wrongData").innerHTML = 'Wrong Credentials. Invalid username or password';
+          let wrongCredentials =  document.getElementById("wrongData") as HTMLDivElement;
+          wrongCredentials.innerHTML = 'Wrong Credentials. Invalid username or password';
 
         }
       });
