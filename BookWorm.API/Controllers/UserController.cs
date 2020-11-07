@@ -77,17 +77,7 @@ namespace BookWorm.API.Controllers
             }
 
             var newAddress = _addressService.AddAddress(request.Address);
-
-            var newUser = new User
-            {
-                Email = request.UserRegistration.Email,
-                FirstName = request.UserRegistration.FirstName,
-                LastName = request.UserRegistration.LastName,
-                DateOfBirth = request.UserRegistration.DateOfBirth,
-                Password = request.UserRegistration.Password,
-                Gender = request.UserRegistration.Gender,
-                AddressId = newAddress.Id,
-            };
+            var newUser = MapUserRegistrationToUser(request, newAddress.Id);
 
             var user = _userService.AddUser(newUser);
 
@@ -138,6 +128,20 @@ namespace BookWorm.API.Controllers
             _userService.RemoveUser(item);
 
             return Ok();
+        }
+
+        private static User MapUserRegistrationToUser(RegisterRequest request, Guid addressId)
+        {
+            return new User
+            {
+                Email = request.UserRegistration.Email,
+                FirstName = request.UserRegistration.FirstName,
+                LastName = request.UserRegistration.LastName,
+                DateOfBirth = request.UserRegistration.DateOfBirth,
+                Password = request.UserRegistration.Password,
+                Gender = request.UserRegistration.Gender,
+                AddressId = addressId,
+            };
         }
     }
 }
