@@ -47,6 +47,16 @@ namespace BookWorm.API.Controllers
                 return BadRequest();
             }
 
+            var existing = _criticReviewService
+                  .AsQueryable()
+                  .Where(x => x.BookId == newItem.BookId && x.UserId == newItem.BookId)
+                  .FirstOrDefault();
+
+            if (existing != null)
+            {
+                return BadRequest("User already reviewed this book!");
+            }
+
             var item = _criticReviewService.AddUserReview(newItem);
 
             return Ok(item);
