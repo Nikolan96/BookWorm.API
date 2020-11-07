@@ -3,7 +3,7 @@ using BookWorm.Contracts.Wrapper;
 using BookWorm.Entities;
 using BookWorm.Repository.Repositories;
 
-namespace BookWorm.Repository.Wrapper
+namespace BookWorm.Services.Wrapper
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
@@ -20,10 +20,25 @@ namespace BookWorm.Repository.Wrapper
         private IReasonToReadRepository _reasonToReadRepository;
         private IUserRepository _userRepository;
         private IUserReviewRepository _userReviewRepository;
+        private IUserBookNoteRepository _userBookNoteRepository;
 
         public RepositoryWrapper(DataContext dataContext)
         {
             _dataContext = dataContext;
+        }
+
+        public IUserBookNoteRepository UserBookNote
+        {
+            get
+            {
+
+                if (_userBookNoteRepository == null)
+                {
+                    _userBookNoteRepository = new UserBookNoteRepository(_dataContext);
+                }
+
+                return _userBookNoteRepository;
+            }
         }
 
         public IAuthorFactRepository AuthorFact

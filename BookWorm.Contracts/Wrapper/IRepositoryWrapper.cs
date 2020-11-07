@@ -15,5 +15,6 @@ namespace BookWorm.Contracts.Wrapper
         IReasonToReadRepository ReasonToRead{ get; }
         IUserRepository User { get; }
         IUserReviewRepository UserReview{ get; }
+        IUserBookNoteRepository UserBookNote { get; }
     }
 }

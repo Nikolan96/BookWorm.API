@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookWorm.Contracts\BookWorm.Contracts.csproj" />
+    <ProjectReference Include="..\BookWorm.Repository\BookWorm.Repository.csproj" />
   </ItemGroup>
 
 </Project>

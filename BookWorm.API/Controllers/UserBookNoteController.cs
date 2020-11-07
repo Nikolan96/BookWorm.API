@@ -9,19 +9,19 @@ namespace BookWorm.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookCaseController : ControllerBase
+    public class UserBookNoteController : ControllerBase
     {
-        private readonly IBookCaseService _bookAuthorService;
+        private readonly IUserBookNoteService _userBookNoteService;
 
-        public BookCaseController(IBookCaseService bookCaseService)
+        public UserBookNoteController(IUserBookNoteService bookService)
         {
-            _bookAuthorService = bookCaseService;
+            _userBookNoteService = bookService;
         }
 
         [HttpGet("{id}")]
-        public ActionResult<BookCase> Get(Guid id)
+        public ActionResult<UserBookNote> Get(Guid id)
         {
-            var item = _bookAuthorService.AsQueryable()
+            var item = _userBookNoteService.AsQueryable()
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
 
@@ -32,40 +32,40 @@ namespace BookWorm.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<BookCase>> Get()
+        public ActionResult<IEnumerable<UserBookNote>> Get()
         {
-            return Ok(_bookAuthorService
+            return Ok(_userBookNoteService
                 .AsQueryable()
                 .ToList());
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] BookCase newItem)
+        public ActionResult Post([FromBody] UserBookNote newItem)
         {
             if (newItem is null)
             {
                 return BadRequest();
             }
 
-            var item = _bookAuthorService.AddBookCase(newItem);
+            var item = _userBookNoteService.AddUserBookNote(newItem);
 
             return Ok(item);
         }
 
         [HttpPut]
-        public ActionResult Put([FromBody] BookCase changedItem)
+        public ActionResult Put([FromBody] UserBookNote changedItem)
         {
             if (changedItem is null)
                 return BadRequest();
 
-            var existingItem = _bookAuthorService.AsQueryable()
+            var existingItem = _userBookNoteService.AsQueryable()
                 .Where(x => x.Id == changedItem.Id)
                 .FirstOrDefault();
 
             if (existingItem is null)
                 return NotFound();
 
-            var item = _bookAuthorService.UpdateBookCase(existingItem, changedItem);
+            var item = _userBookNoteService.UpdateUserBookNote(existingItem, changedItem);
 
             return Ok(item);
         }
@@ -73,14 +73,14 @@ namespace BookWorm.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            var item = _bookAuthorService.AsQueryable()
+            var item = _userBookNoteService.AsQueryable()
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
 
             if (item is null)
                 return NotFound();
 
-            _bookAuthorService.RemoveBookCase(item);
+            _userBookNoteService.RemoveUserBookNote(item);
 
             return Ok();
         }

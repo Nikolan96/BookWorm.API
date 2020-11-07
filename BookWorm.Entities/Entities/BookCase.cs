@@ -12,6 +12,7 @@ namespace BookWorm.Entities.Entities
         public Guid BookId { get; set; }
         public Guid CaseId { get; set; }
 
+        // EF Core relations
         [ForeignKey("BookId")]
         public virtual Book Book { get; set; }
         [ForeignKey("CaseId")]

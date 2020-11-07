@@ -1,19 +1,21 @@
 ﻿using BookWorm.Entities.Base;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
 namespace BookWorm.Entities.Entities
 {
-    [Table("UserReview")]
-    public class UserReview : EntityBase
+    [Table("UserBookNote")]
+    public class UserBookNote : EntityBase
     {
-        public Guid BookId { get; set; }
-        public Guid UserId { get; set; }
+        [Required]
+        public string Title { get; set; }
         [Required]
         public string Text { get; set; }
-        [Required]
-        public int Rating { get; set; }
+        public Guid BookId { get; set; }
+        public Guid UserId { get; set; }
 
 
         // EF Core relations

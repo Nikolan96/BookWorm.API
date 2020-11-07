@@ -1,8 +1,5 @@
 ﻿using BookWorm.Entities.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BookWorm.Entities
 {
@@ -25,6 +22,7 @@ namespace BookWorm.Entities
         public DbSet<Author> Authors { get; set; }
         public DbSet<BookAuthor> BookAuthors { get; set; }
         public DbSet<AuthorFact> AuthorFacts { get; set; }
+        public DbSet<UserBookNote> UserBookNotes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -65,6 +63,9 @@ namespace BookWorm.Entities
 
             modelBuilder.Entity<User>()
                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<UserBookNote>()
+              .HasKey(x => x.Id);
 
             #endregion
 
@@ -111,8 +112,27 @@ namespace BookWorm.Entities
                 .HasMany(c => c.Cases)
                 .WithOne(e => e.User);
 
+            modelBuilder.Entity<UserBookNote>()
+                .HasOne(bc => bc.Book)
+                .WithMany(b => b.UserBookNotes)
+                .HasForeignKey(bc => bc.BookId);
+            modelBuilder.Entity<UserBookNote>()
+                .HasOne(bc => bc.User)
+                .WithMany(c => c.UserBookNotes)
+                .HasForeignKey(bc => bc.UserId);
 
 
+            #region Uniques
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
+            modelBuilder.Entity<Book>()
+               .HasIndex(u => u.ISBN)
+               .IsUnique();
+
+            #endregion
 
         }
     }
