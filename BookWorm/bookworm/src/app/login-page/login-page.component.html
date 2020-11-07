@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="top">
+      <div id="leftTopDiv">
+        <div id="glassDiv">
+          <mat-card class="login-card">
+              <mat-tab-group mat-align-tabs="center" animationDuration="0ms">
+                <mat-tab id="loginTab" label="Log in">
+                  <mat-card-content>
+                    <h2>Already a member?</h2>
+                    <form [formGroup]="login">
+                      <mat-form-field class="field">
+                        <mat-label>Email</mat-label>
+                        <input
+                          matInput
+                          formControlName="email"
+                          required
+                          placeholder="Ex. pat@example.com"
+                        />
+                        <mat-error
+                          *ngIf="
+                            emailFormControl.hasError('email') &&
+                            !emailFormControl.hasError('required')
+                          "
+                        >
+                          Please enter a valid email address
+                        </mat-error>
+                        <mat-error
+                          *ngIf="emailFormControl.hasError('required')"
+                        >
+                          Email is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="field">
+                        <input
+                          matInput
+                          placeholder="Password"
+                          [type]="hide ? 'password' : 'text'"
+                          formControlName="password"
+                          required
+                        />
+                        <mat-icon matSuffix (click)="hide = !hide">{{
+                          hide ? "visibility_off" : "visibility"
+                        }}</mat-icon>
+                        <mat-hint *ngIf="!passwordInput.value"
+                          >Enter your password</mat-hint
+                        >
+                      </mat-form-field>
+                    </form>
+                  </mat-card-content>
+                    <button (click)="logIn()" id="loginButton" color="accent" mat-raised-button>LOG IN</button>
+                </mat-tab>
+                <mat-tab id="singupTab" label="Sing up"> Content 2 </mat-tab>
+              </mat-tab-group>
+
+
+
+          </mat-card>
+        </div>
+      </div>
+
+      <div id="rightTopDiv" fxLayout="column" fxLayoutAlign="end end">
+        <h1>Welcome</h1>
+        <div id="orangeRectangle"></div>
+        <div id="blueRectangle">
+          <h2>to bookworm</h2>
+        </div>
+        <div id="logo">
+          <img src="../../assets/bookwormlogo.png" alt="logo" />
+        </div>
+
+      </div>
+    </div>
+    <div id="bottom">
+      <div id="leftBottomDiv">
+        <div id="booksImg">
+          <img  src="../../assets/books.png" alt="books" />
+        </div>
+        <div id="booksText">
+          <h2>why you should read books?</h2>
+        </div>
+      </div>
+      <div id="rightBottomDiv">
+        <p>Books improve your brain. <br>
+          Books improve imagination.<br>
+          Books develop critical thinking. <br>
+          Books reduce stress.<br>
+          Books motivate you.<br>
+          Books build self-esteem.<br>
+          Books improve creativity.</p>
+      </div>
+
+    </div>
+  </body>
+</html>
