@@ -9,6 +9,20 @@
   font-family: Verdana;
   font-style: normal;
 }
+
+@mixin noSelect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome and Opera */
+}
+#top,
+#bottom {
+  @include noSelect;
+}
 #top {
   display: flex;
   flex-direction: row !important;
@@ -20,7 +34,7 @@
 }
 
 #rightTopDiv {
-  width: 40%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -42,9 +56,11 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  max-width: 50%;
-  height: 40%;
+  justify-content: flex-start;
+  text-align: center;
+  width: 50%;
+  height: 50%;
+
 }
 .example-form {
   min-width: 150px;
@@ -55,12 +71,15 @@
 .field {
   width: 100%;
 }
-
-mat-tab-group {
+.login-card h2 {
+  font-weight: bold;
+  font-size: 22px;
+  color: #01579b;
 }
-
 mat-card-content {
   margin-top: 20px;
+  padding:0 50px;
+
 }
 
 mat-card-actions {
@@ -114,7 +133,7 @@ mat-card-actions {
 }
 
 #logo {
-  width: 100%;
+  width: 100% !important;
   text-align: right;
 }
 
@@ -141,7 +160,7 @@ mat-card-actions {
   width: 200px;
 }
 #booksText {
-  text-align:left ;
+  text-align: left;
 }
 #booksText h2 {
   font-family: Verdana;
@@ -156,11 +175,11 @@ mat-card-actions {
   width: 70%;
 }
 
-#rightBottomDiv p{
+#rightBottomDiv p {
   @include fontVerdana;
   font-weight: normal;
   font-size: 24px;
   line-height: 30px;
   letter-spacing: 0.1em;
-  color: #01579B;
+  color: #01579b;
 }
