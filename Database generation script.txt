@@ -1,4 +1,4 @@
-/*** Create "Bookworm" database first and execute this script on it ***/
+/*** Create "Bookworm" a database first and execute this script on it ***/
 
 CREATE TABLE [dbo].[Book](
 	[Id] [uniqueidentifier] NOT NULL,
