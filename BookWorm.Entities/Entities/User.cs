@@ -21,9 +21,12 @@ namespace BookWorm.Entities.Entities
         public string Gender { get; set; }
         [Required]
         public DateTime DateOfBirth { get; set; }
-        public string Address { get; set; }
+        public Guid AddressId { get; set; }
+
 
         // EF Core relations
+        [ForeignKey("AddressId")]
+        public Address Address { get; set; }
         public virtual ICollection<UserReview> UserReviews { get; set; }
         public virtual ICollection<Case> Cases { get; set; }
         public virtual ICollection<UserBookNote> UserBookNotes { get; set; }

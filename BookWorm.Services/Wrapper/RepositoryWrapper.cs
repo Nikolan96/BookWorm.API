@@ -21,10 +21,25 @@ namespace BookWorm.Services.Wrapper
         private IUserRepository _userRepository;
         private IUserReviewRepository _userReviewRepository;
         private IUserBookNoteRepository _userBookNoteRepository;
+        private IAddressRepository _addressRepository;
 
         public RepositoryWrapper(DataContext dataContext)
         {
             _dataContext = dataContext;
+        }
+
+        public IAddressRepository Address
+        {
+            get
+            {
+
+                if (_addressRepository == null)
+                {
+                    _addressRepository = new AddressRepository(_dataContext);
+                }
+
+                return _addressRepository;
+            }
         }
 
         public IUserBookNoteRepository UserBookNote

@@ -23,6 +23,7 @@ namespace BookWorm.Entities
         public DbSet<BookAuthor> BookAuthors { get; set; }
         public DbSet<AuthorFact> AuthorFacts { get; set; }
         public DbSet<UserBookNote> UserBookNotes { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -65,6 +66,9 @@ namespace BookWorm.Entities
                .HasKey(x => x.Id);
 
             modelBuilder.Entity<UserBookNote>()
+              .HasKey(x => x.Id);
+
+            modelBuilder.Entity<Address>()
               .HasKey(x => x.Id);
 
             #endregion
@@ -121,6 +125,9 @@ namespace BookWorm.Entities
                 .WithMany(c => c.UserBookNotes)
                 .HasForeignKey(bc => bc.UserId);
 
+            modelBuilder.Entity<Address>()
+               .HasMany(c => c.Users)
+               .WithOne(e => e.Address);
 
             #region Uniques
 

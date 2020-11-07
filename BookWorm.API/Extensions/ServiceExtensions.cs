@@ -59,6 +59,8 @@ namespace BookWorm.API.Extensions
             services.AddScoped<IReasonToReadService, ReasonToReadService>();
             services.AddScoped<IUserReviewService, UserReviewService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAddressService, AddressService>();
+            services.AddScoped<IUserBookNoteService, UserBookNoteService>();
         }
     }
 }
