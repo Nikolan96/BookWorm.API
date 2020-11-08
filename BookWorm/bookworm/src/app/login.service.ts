@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { UserLogin } from './userLogin';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { User } from './user';
 
 @Injectable({
@@ -13,6 +14,15 @@ export class LoginService {
   getUsers(): Observable<User[]>  {
     return this.http.get<User[]>('http://localhost:57339/api/User');
   }
+
+  login(loginForm: UserLogin): Observable<UserLogin> {
+    return this.http.post<UserLogin>(`http://localhost:57339/api/User/Login`, loginForm);
+  }
+
+  handleError(error: HttpErrorResponse) {
+    return throwError(error);
+}
+
   // getUsers(id: any): Observable<User[]>  {
   //   return this.http.get<User[]>(`http://localhost:57339/api/User/${id}`);
   // }

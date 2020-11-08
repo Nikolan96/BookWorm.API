@@ -1,17 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ErrorStateMatcher } from '@angular/material/core';
 import {
   FormControl,
   FormGroup,
-  FormGroupDirective,
-  NgForm,
   Validators,
 } from '@angular/forms';
-import { User } from '../user';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
-import { createComponent } from '@angular/compiler/src/core';
-import { HttpClient } from '@angular/common/http';
+import { UserLogin } from '../userLogin';
 
 @Component({
   selector: 'app-login-page',
@@ -19,59 +14,76 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
-  public user: User = {
-    adress: '',
-    addressId: '',
-    cases: '',
-    dateOfBirth: null,
+  public user: UserLogin = {
     email: '',
-    firstName: '',
-    gender: '',
-    id: '',
-    lastName: '',
     password: '',
-    userBookNotes: '',
-    userReviews: '',
   };
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
 
   login: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.required, Validators.min(3)]),
   });
   hide = true;
+
+  singup: FormGroup = new FormGroup(
+    {
+      emailSingUp: new FormControl('', [Validators.email, Validators.required]),
+      passwordSingUp: new FormControl('', [
+        Validators.required,
+        Validators.min(3),
+      ]),
+      confirmPassword: new FormControl('', [
+        Validators.required,
+        Validators.min(3),
+      ]),
+
+    }
+  );
+
   get emailInput() {
     return this.login.get('email');
   }
   get passwordInput() {
     return this.login.get('password');
   }
-
+  get emailInputSingup() {
+    return this.singup.get('emailSingUp');
+  }
+  get passwordInputSingUp() {
+    return this.singup.get('passwordSingUp');
+  }
+  get passwordInputConfirm() {
+    return this.singup.get('confirmPassword');
+  }
   constructor(private loginService: LoginService, private router: Router) {}
 
   ngOnInit(): void {}
+
   logIn(): void {
-    this.user.email = this.emailInput.value;
-    this.user.password = this.passwordInput.value;
+    this.loginService.login(this.login.value).subscribe(
+      (response) => {
+        this.router.navigate(['home-page']);
+      },
+      (error) => {
+        const wrongCredentials = document.getElementById(
+          'wrongData'
+        ) as HTMLDivElement;
+        wrongCredentials.innerHTML = error.error;
+        console.log(error.error);
+      }
+    );
+  }
+  singUp(): void {
+    if (this.checkPasswords) {
+      console.log('cao');
+    }
+  }
 
-    this.loginService.getUsers().subscribe((user) => {
-      console.log(user);
-      user.forEach((element) => {
-        if (
-          element.email === this.user.email &&
-          element.password === this.user.password
-        ) {
-          console.log('sve se poklapa');
-          this.router.navigate(['/home-page']);
-        } else {
-          let wrongCredentials =  document.getElementById("wrongData") as HTMLDivElement;
-          wrongCredentials.innerHTML = 'Wrong Credentials. Invalid username or password';
-
-        }
-      });
-    });
+  checkPasswords(): boolean {
+    if (this.passwordInputSingUp.value === this.passwordInputConfirm.value) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

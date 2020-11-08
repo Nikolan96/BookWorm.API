@@ -8,12 +8,12 @@
   <body>
     <div id="top">
       <div id="leftTopDiv">
-        <div id="glassDiv">
+        <div id="glassDiv" (keyup.enter)="logIn()">
           <mat-card class="login-card">
               <mat-tab-group mat-align-tabs="center" animationDuration="0ms">
                 <mat-tab id="loginTab" label="Log in">
                   <mat-card-content>
-                    <h2>Already a member?</h2>
+                    <h2>Already a Member?</h2>
                     <form [formGroup]="login">
                       <mat-form-field class="field">
                         <mat-label>Email</mat-label>
@@ -25,14 +25,14 @@
                         />
                         <mat-error
                           *ngIf="
-                            emailFormControl.hasError('email') &&
-                            !emailFormControl.hasError('required')
+                          login.hasError('email') &&
+                            !login.hasError('required')
                           "
                         >
                           Please enter a valid email address
                         </mat-error>
                         <mat-error
-                          *ngIf="emailFormControl.hasError('required')"
+                          *ngIf="login.hasError('required')"
                         >
                           Email is <strong>required</strong>
                         </mat-error>
@@ -55,10 +55,71 @@
                     </form>
                     <h4 id="wrongData"></h4>
                   </mat-card-content>
-                    <button (click)="logIn()" id="loginButton" color="accent" mat-raised-button>LOG IN</button>
+                    <button  (click)="logIn()" id="loginButton" color="accent" mat-raised-button>LOG IN</button>
 
                 </mat-tab>
-                <mat-tab id="singupTab" label="Sing up"> Content 2 </mat-tab>
+                <mat-tab id="singupTab" label="Sing up">
+                  <mat-card-content>
+                    <h2>Become our Member</h2>
+                    <form [formGroup]="singup">
+                      <mat-form-field class="field">
+                        <mat-label>Email</mat-label>
+                        <input
+                          matInput
+                          formControlName="emailSingUp"
+                          required
+                          placeholder="Ex. pat@example.com"
+                        />
+                        <mat-error
+                          *ngIf="
+                          singup.hasError('email') &&
+                            !singup.hasError('required')
+                          "
+                        >
+                          Please enter a valid email address
+                        </mat-error>
+                        <mat-error
+                          *ngIf="singup.hasError('required')"
+                        >
+                          Email is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="field">
+                        <input
+                          matInput
+                          placeholder="Password"
+                          [type]="hide ? 'password' : 'text'"
+                          formControlName="passwordSingUp"
+                          required
+                        />
+                        <mat-icon matSuffix (click)="hide = !hide">{{
+                          hide ? "visibility_off" : "visibility"
+                        }}</mat-icon>
+                        <mat-hint *ngIf="!passwordInput.value"
+                          >Enter your password</mat-hint
+                        >
+                      </mat-form-field>
+                      <mat-form-field class="field">
+                        <input
+                          matInput
+                          placeholder="Password"
+                          [type]="hide ? 'password' : 'text'"
+                          formControlName="confirmPassword"
+                          required
+                        />
+                        <mat-icon matSuffix (click)="hide = !hide">{{
+                          hide ? "visibility_off" : "visibility"
+                        }}</mat-icon>
+                        <mat-hint *ngIf="!passwordInput.value"
+                          >Confirm your password</mat-hint
+                        >
+                      </mat-form-field>
+                    </form>
+                    <h4 id="wrongData"></h4>
+                  </mat-card-content>
+                    <button  (click)="singUp()" id="singUpButton" color="accent" mat-raised-button>SING UP</button>
+
+                </mat-tab>
               </mat-tab-group>
 
 
