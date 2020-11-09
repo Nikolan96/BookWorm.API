@@ -9,17 +9,17 @@ namespace BookWorm.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReasonToReadController : ControllerBase
+    public class ReasonsToReadController : ControllerBase
     {
         private readonly IReasonToReadService _criticReviewService;
 
-        public ReasonToReadController(IReasonToReadService reasonToReadService)
+        public ReasonsToReadController(IReasonToReadService reasonToReadService)
         {
             _criticReviewService = reasonToReadService;
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ReasonToRead> Get(Guid id)
+        public ActionResult<ReasonsToRead> Get(Guid id)
         {
             var item = _criticReviewService.AsQueryable()
                 .Where(x => x.Id == id)
@@ -32,7 +32,7 @@ namespace BookWorm.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ReasonToRead>> Get()
+        public ActionResult<IEnumerable<ReasonsToRead>> Get()
         {
             return Ok(_criticReviewService
                 .AsQueryable()
@@ -40,7 +40,7 @@ namespace BookWorm.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] ReasonToRead newItem)
+        public ActionResult Post([FromBody] ReasonsToRead newItem)
         {
             if (newItem is null)
             {
@@ -53,7 +53,7 @@ namespace BookWorm.API.Controllers
         }
 
         [HttpPut]
-        public ActionResult Put([FromBody] ReasonToRead changedItem)
+        public ActionResult Put([FromBody] ReasonsToRead changedItem)
         {
             if (changedItem is null)
                 return BadRequest();

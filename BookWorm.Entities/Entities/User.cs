@@ -21,6 +21,7 @@ namespace BookWorm.Entities.Entities
         public string Gender { get; set; }
         [Required]
         public DateTime DateOfBirth { get; set; }
+        [Required]
         public Guid AddressId { get; set; }
 
 

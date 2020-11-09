@@ -8,6 +8,7 @@ namespace BookWorm.Entities.Entities
     [Table("AuthorFact")]
     public class AuthorFact : EntityBase
     {
+        [Required]
         public Guid AuthorId { get; set; }
         [Required]
         public string Text { get; set; }

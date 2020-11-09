@@ -13,7 +13,7 @@ namespace BookWorm.Entities
 
         public DbSet<User> Users { get; set; }
         public DbSet<UserReview> UserReviews { get; set; }
-        public DbSet<ReasonToRead> ReasonsToRead { get; set; }
+        public DbSet<ReasonsToRead> ReasonsToRead { get; set; }
         public DbSet<CriticReview> CriticReviews { get; set; }
         public DbSet<Case> Cases { get; set; }
         public DbSet<BookCase> BookCases { get; set; }
@@ -31,7 +31,7 @@ namespace BookWorm.Entities
         {
 
             #region Id setup
-            modelBuilder.Entity<ReasonToRead>()
+            modelBuilder.Entity<ReasonsToRead>()
                 .HasKey(x => x.Id);
 
             modelBuilder.Entity<BookFact>()
