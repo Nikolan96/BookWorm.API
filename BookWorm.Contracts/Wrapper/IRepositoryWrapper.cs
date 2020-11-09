@@ -17,5 +17,8 @@ namespace BookWorm.Contracts.Wrapper
         IUserReviewRepository UserReview{ get; }
         IUserBookNoteRepository UserBookNote { get; }
         IAddressRepository Address { get; }
+        IGenreRepository Genre { get; }
+        IUserOpenedBookPageRepository UserOpenedBookPage { get; }
+        IBooksReadRepository BooksRead { get; }
     }
 }

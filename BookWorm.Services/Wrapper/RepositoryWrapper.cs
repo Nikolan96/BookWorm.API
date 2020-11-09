@@ -22,10 +22,56 @@ namespace BookWorm.Services.Wrapper
         private IUserReviewRepository _userReviewRepository;
         private IUserBookNoteRepository _userBookNoteRepository;
         private IAddressRepository _addressRepository;
+        private IGenreRepository _genreRepository;
+        private IUserOpenedBookPageRepository _userOpenedBookPageRepository;
+        private IBooksReadRepository _booksReadRepository;
 
         public RepositoryWrapper(DataContext dataContext)
         {
             _dataContext = dataContext;
+        }
+
+        public IBooksReadRepository BooksRead
+        {
+            get
+            {
+
+                if (_booksReadRepository == null)
+                {
+                    _booksReadRepository = new BooksReadRepository(_dataContext);
+                }
+
+                return _booksReadRepository;
+            }
+        }
+
+
+        public IUserOpenedBookPageRepository UserOpenedBookPage
+        {
+            get
+            {
+
+                if (_userOpenedBookPageRepository == null)
+                {
+                    _userOpenedBookPageRepository = new UserOpenedBookPageRepository(_dataContext);
+                }
+
+                return _userOpenedBookPageRepository;
+            }
+        }
+
+        public IGenreRepository Genre
+        {
+            get
+            {
+
+                if (_genreRepository == null)
+                {
+                    _genreRepository = new GenreRepository(_dataContext);
+                }
+
+                return _genreRepository;
+            }
         }
 
         public IAddressRepository Address

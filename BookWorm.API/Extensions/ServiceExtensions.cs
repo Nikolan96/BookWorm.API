@@ -61,6 +61,9 @@ namespace BookWorm.API.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IUserBookNoteService, UserBookNoteService>();
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IUserOpenedBookPageService, UserOpenedBookPageService>();
+            services.AddScoped<IBooksReadService, BooksReadService>();
         }
     }
 }

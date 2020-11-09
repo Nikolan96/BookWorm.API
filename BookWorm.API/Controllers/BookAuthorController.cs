@@ -12,10 +12,16 @@ namespace BookWorm.API.Controllers
     public class BookAuthorController : ControllerBase
     {
         private readonly IBookAuthorService _bookAuthorService;
+        private readonly IAuthorService _authorService;
+        private readonly IBookService _bookService;
 
-        public BookAuthorController(IBookAuthorService bookAuthorService)
+        public BookAuthorController(IBookAuthorService bookAuthorService,
+            IAuthorService authorService,
+            IBookService bookService)
         {
             _bookAuthorService = bookAuthorService;
+            _authorService = authorService;
+            _bookService = bookService;
         }
 
         [HttpGet("{id}")]
@@ -50,6 +56,26 @@ namespace BookWorm.API.Controllers
             var item = _bookAuthorService.AddBookAuthor(newItem);
 
             return Ok(item);
+        }
+
+        [HttpGet]
+        [Route("RandomlyGenerateBookAuthors")]
+        public ActionResult RandomlyGenerateBookAuthors()
+        {
+            var authors = _authorService.AsQueryable().ToList();
+            var books = _bookService.AsQueryable().ToList();
+            Random rnd = new Random();
+            for (int i = 0; i < books.Count; i++)
+            {
+                BookAuthor bookAuthor = new BookAuthor
+                {
+                    AuthorId = authors[rnd.Next(0, authors.Count - 1)].Id,
+                    BookId = books[i].Id
+                };
+                _bookAuthorService.AddBookAuthor(bookAuthor);
+            }
+
+            return Ok();
         }
 
         [HttpPut]
