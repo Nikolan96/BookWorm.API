@@ -391,7 +391,7 @@ namespace BookWorm.API.Controllers
                 {
                     var newGenre = new Genre
                     {
-                        Name = GetRandomString()
+                        Name = GetRandomGenre()
                     };
 
                     _genreService.AddGenre(newGenre);

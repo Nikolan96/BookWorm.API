@@ -14,3 +14,4 @@ DELETE FROM [User];
 DELETE FROM [Address];
 DELETE FROM [Book];
 DELETE FROM ReasonsToRead;
+DELETE FROM Genre;
