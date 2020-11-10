@@ -9,19 +9,19 @@ namespace BookWorm.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReasonToReadController : ControllerBase
+    public class BooksReadController : ControllerBase
     {
-        private readonly IReasonToReadService _criticReviewService;
+        private readonly IBooksReadService _booksReadService;
 
-        public ReasonToReadController(IReasonToReadService reasonToReadService)
+        public BooksReadController(IBooksReadService booksReadService)
         {
-            _criticReviewService = reasonToReadService;
+            _booksReadService = booksReadService;
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ReasonToRead> Get(Guid id)
+        public ActionResult<BooksRead> Get(Guid id)
         {
-            var item = _criticReviewService.AsQueryable()
+            var item = _booksReadService.AsQueryable()
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
 
@@ -32,40 +32,50 @@ namespace BookWorm.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ReasonToRead>> Get()
+        public ActionResult<IEnumerable<BooksRead>> Get()
         {
-            return Ok(_criticReviewService
+            return Ok(_booksReadService
                 .AsQueryable()
                 .ToList());
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] ReasonToRead newItem)
+        public ActionResult Post([FromBody] BooksRead newItem)
         {
             if (newItem is null)
             {
                 return BadRequest();
             }
 
-            var item = _criticReviewService.AddReasonToRead(newItem);
+            var exists = _booksReadService
+                .AsQueryable()
+                .Where(x => x.BookId == newItem.BookId && x.UserId == newItem.UserId)
+                .FirstOrDefault();
+
+            if (exists != null)
+            {
+                return BadRequest("You already read that book!");
+            }
+
+            var item = _booksReadService.AddBooksRead(newItem);
 
             return Ok(item);
         }
 
         [HttpPut]
-        public ActionResult Put([FromBody] ReasonToRead changedItem)
+        public ActionResult Put([FromBody] BooksRead changedItem)
         {
             if (changedItem is null)
                 return BadRequest();
 
-            var existingItem = _criticReviewService.AsQueryable()
+            var existingItem = _booksReadService.AsQueryable()
                 .Where(x => x.Id == changedItem.Id)
                 .FirstOrDefault();
 
             if (existingItem is null)
                 return NotFound();
 
-            var item = _criticReviewService.UpdateReasonToRead(existingItem, changedItem);
+            var item = _booksReadService.UpdateBooksRead(existingItem, changedItem);
 
             return Ok(item);
         }
@@ -73,14 +83,14 @@ namespace BookWorm.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            var item = _criticReviewService.AsQueryable()
+            var item = _booksReadService.AsQueryable()
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
 
             if (item is null)
                 return NotFound();
 
-            _criticReviewService.RemoveReasonToRead(item);
+            _booksReadService.RemoveBooksRead(item);
 
             return Ok();
         }

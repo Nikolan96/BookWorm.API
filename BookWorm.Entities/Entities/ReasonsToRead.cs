@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookWorm.Entities.Entities
 {
-    [Table("ReasonToRead")]
-    public class ReasonToRead : EntityBase
+    [Table("ReasonsToRead")]
+    public class ReasonsToRead : EntityBase
     {
         [Required]
         public string Text { get; set; }

@@ -15,8 +15,9 @@ namespace BookWorm.Entities.Entities
         public DateTime PublishDate { get; set; }
         [Required]
         public string Title { get; set; }
-        [Required]
         public string Cover { get; set; }
+        [Required]
+        public Guid GenreId { get; set; }
 
         // EF Core relations
         public virtual ICollection<BookAuthor> BookAuthors { get; set; }
@@ -25,5 +26,24 @@ namespace BookWorm.Entities.Entities
         public virtual ICollection<CriticReview> CriticReviews { get; set; }
         public virtual ICollection<UserReview> UserReviews { get; set; }
         public virtual ICollection<UserBookNote> UserBookNotes { get; set; }
+        public virtual ICollection<UserOpenedBookPage> UserOpenedBookPages { get; set; }
+        public virtual ICollection<BooksRead> BooksRead { get; set; }
+        
+
+        [ForeignKey("GenreId")]
+        public virtual Genre Genre { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var book = (Book)obj;
+            return Id == book.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return ISBN.GetHashCode() ^
+                Title.GetHashCode() ^
+                Id.GetHashCode();
+        }
     }
 }

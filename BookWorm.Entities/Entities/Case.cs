@@ -9,10 +9,10 @@ namespace BookWorm.Entities.Entities
     [Table("Case")]
     public class Case : EntityBase
     {
+        [Required]
         public Guid UserId { get; set; }
         [Required]
         public string Title { get; set; }
-        [Required]
         public int NumberOfBooks { get; set; }
 
         // EF Core relations

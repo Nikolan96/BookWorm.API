@@ -47,7 +47,6 @@ namespace BookWorm.API.Controllers
         [Route("Login")]
         public ActionResult<IEnumerable<User>> Login([FromBody]LoginRequest request)
         {
-
             if (request is null)
             {
                 return BadRequest();

@@ -4,16 +4,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookWorm.Entities.Entities
 {
-    [Table("BookCase")]
-    public class BookCase : EntityBase
+    [Table("UserOpenedBookPage")]
+    public class UserOpenedBookPage : EntityBase
     {
         public Guid BookId { get; set; }
-        public Guid CaseId { get; set; }
+        public Guid UserId { get; set; }
+
 
         // EF Core relations
         [ForeignKey("BookId")]
         public virtual Book Book { get; set; }
-        [ForeignKey("CaseId")]
-        public virtual Case Case { get; set; }
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
     }
 }

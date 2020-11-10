@@ -21,6 +21,7 @@ namespace BookWorm.Entities.Entities
         public string Gender { get; set; }
         [Required]
         public DateTime DateOfBirth { get; set; }
+        [Required]
         public Guid AddressId { get; set; }
 
 
@@ -30,5 +31,7 @@ namespace BookWorm.Entities.Entities
         public virtual ICollection<UserReview> UserReviews { get; set; }
         public virtual ICollection<Case> Cases { get; set; }
         public virtual ICollection<UserBookNote> UserBookNotes { get; set; }
+        public virtual ICollection<UserOpenedBookPage> UserOpenedBookPages { get; set; }
+        public virtual ICollection<BooksRead> BooksRead { get; set; }
     }
 }

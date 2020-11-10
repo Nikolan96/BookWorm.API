@@ -1,0 +1,17 @@
+DELETE FROM UserOpenedBookPage;
+DELETE FROM UserReview;
+DELETE FROM UserBookNote;
+DELETE FROM BooksRead;
+DELETE FROM BookAuthor;
+DELETE FROM BookFact;
+DELETE FROM AuthorFact;
+DELETE FROM BookAuthor;
+DELETE FROM Author;
+DELETE FROM CriticReview;
+DELETE FROM BookCase;
+DELETE FROM [Case];
+DELETE FROM [User];
+DELETE FROM [Address];
+DELETE FROM [Book];
+DELETE FROM ReasonsToRead;
+DELETE FROM Genre;

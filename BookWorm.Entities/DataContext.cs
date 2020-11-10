@@ -13,7 +13,7 @@ namespace BookWorm.Entities
 
         public DbSet<User> Users { get; set; }
         public DbSet<UserReview> UserReviews { get; set; }
-        public DbSet<ReasonToRead> ReasonsToRead { get; set; }
+        public DbSet<ReasonsToRead> ReasonsToRead { get; set; }
         public DbSet<CriticReview> CriticReviews { get; set; }
         public DbSet<Case> Cases { get; set; }
         public DbSet<BookCase> BookCases { get; set; }
@@ -24,12 +24,14 @@ namespace BookWorm.Entities
         public DbSet<AuthorFact> AuthorFacts { get; set; }
         public DbSet<UserBookNote> UserBookNotes { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<UserOpenedBookPage> UserOpenedBookPages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             #region Id setup
-            modelBuilder.Entity<ReasonToRead>()
+            modelBuilder.Entity<ReasonsToRead>()
                 .HasKey(x => x.Id);
 
             modelBuilder.Entity<BookFact>()
@@ -69,6 +71,15 @@ namespace BookWorm.Entities
               .HasKey(x => x.Id);
 
             modelBuilder.Entity<Address>()
+              .HasKey(x => x.Id);
+
+            modelBuilder.Entity<Genre>()
+              .HasKey(x => x.Id);
+
+            modelBuilder.Entity<UserOpenedBookPage>()
+              .HasKey(x => x.Id);
+
+            modelBuilder.Entity<BooksRead>()
               .HasKey(x => x.Id);
 
             #endregion
@@ -128,6 +139,28 @@ namespace BookWorm.Entities
             modelBuilder.Entity<Address>()
                .HasMany(c => c.Users)
                .WithOne(e => e.Address);
+
+            modelBuilder.Entity<Genre>()
+               .HasMany(c => c.Books)
+               .WithOne(e => e.Genre);
+
+            modelBuilder.Entity<UserOpenedBookPage>()
+               .HasOne(bc => bc.Book)
+               .WithMany(b => b.UserOpenedBookPages)
+               .HasForeignKey(bc => bc.BookId);
+            modelBuilder.Entity<UserOpenedBookPage>()
+                .HasOne(bc => bc.User)
+                .WithMany(c => c.UserOpenedBookPages)
+                .HasForeignKey(bc => bc.UserId);
+
+            modelBuilder.Entity<BooksRead>()
+                .HasOne(bc => bc.Book)
+                .WithMany(b => b.BooksRead)
+                .HasForeignKey(bc => bc.BookId);
+            modelBuilder.Entity<BooksRead>()
+                .HasOne(bc => bc.User)
+                .WithMany(c => c.BooksRead)
+                .HasForeignKey(bc => bc.UserId);
 
             #region Uniques
 

@@ -15,12 +15,12 @@ namespace BookWorm.Services.Services
             //_logger = logger;
         }
 
-        public IQueryable<ReasonToRead> AsQueryable()
+        public IQueryable<ReasonsToRead> AsQueryable()
         {
             return _repositoryWrapper.ReasonToRead.AsQueryable();
         }
 
-        public ReasonToRead AddReasonToRead(ReasonToRead reasonToRead)
+        public ReasonsToRead AddReasonToRead(ReasonsToRead reasonToRead)
         {
             _repositoryWrapper.ReasonToRead.AddReasonToRead(reasonToRead);
             //_logger.WriteInfo($"Added user with id: {user.Id}.");
@@ -28,13 +28,13 @@ namespace BookWorm.Services.Services
             return reasonToRead;
         }
 
-        public void RemoveReasonToRead(ReasonToRead reasonToRead)
+        public void RemoveReasonToRead(ReasonsToRead reasonToRead)
         {
             _repositoryWrapper.ReasonToRead.RemoveReasonToRead(reasonToRead);
             // _logger.WriteInfo($"Removed user with id: {user.Id}.");
         }
 
-        public ReasonToRead UpdateReasonToRead(ReasonToRead existing, ReasonToRead reasonToRead)
+        public ReasonsToRead UpdateReasonToRead(ReasonsToRead existing, ReasonsToRead reasonToRead)
         {
             _repositoryWrapper.ReasonToRead.UpdateReasonToRead(existing, reasonToRead);
             // _logger.WriteInfo($"Updated user with id: {user.Id}.");

@@ -1,18 +1,5 @@
 /*** Create "Bookworm" a database first and execute this script on it ***/
 
-CREATE TABLE [dbo].[Book](
-	[Id] [uniqueidentifier] NOT NULL,
-	[ISBN] [nvarchar](200) NOT NULL,
-	[PublishDate] [datetime] NOT NULL,
-	[Title] [nvarchar](300) NOT NULL,
-	[Cover] [nvarchar](200) NULL,
- CONSTRAINT [PK_Book] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
 CREATE TABLE [dbo].[Address](
 	[Id] [uniqueidentifier] NOT NULL,
 	[Line1] [nvarchar](200) NOT NULL,
@@ -29,9 +16,6 @@ CREATE TABLE [dbo].[Address](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-
-
-
 
 CREATE TABLE [dbo].[User](
 	[Id] [uniqueidentifier] NOT NULL,
@@ -56,8 +40,6 @@ GO
 ALTER TABLE [dbo].[User] CHECK CONSTRAINT [FK_User_Address]
 GO
 
-
-
 CREATE TABLE [dbo].[Author](
 	[Id] [uniqueidentifier] NOT NULL,
 	[FirstName] [nvarchar](100) NOT NULL,
@@ -72,51 +54,46 @@ CREATE TABLE [dbo].[Author](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
-CREATE TABLE [dbo].[BookFact](
+CREATE TABLE [dbo].[Genre](
 	[Id] [uniqueidentifier] NOT NULL,
-	[BookId] [uniqueidentifier] NOT NULL,
- CONSTRAINT [PK_BookFact] PRIMARY KEY CLUSTERED 
+	[Name] [nvarchar](200) NOT NULL,
+ CONSTRAINT [PK_Genre] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[BookFact]  WITH CHECK ADD  CONSTRAINT [FK_BookFact_Book] FOREIGN KEY([BookId])
-REFERENCES [dbo].[Book] ([Id])
-GO
-
-ALTER TABLE [dbo].[BookFact] CHECK CONSTRAINT [FK_BookFact_Book]
-GO
-
-CREATE TABLE [dbo].[ReasonsToRead](
+CREATE TABLE [dbo].[Book](
 	[Id] [uniqueidentifier] NOT NULL,
-	[Text] [nvarchar](max) NOT NULL,
- CONSTRAINT [PK_ReasonsToRead] PRIMARY KEY CLUSTERED 
+	[ISBN] [nvarchar](200) NOT NULL,
+	[PublishDate] [datetime] NOT NULL,
+	[Title] [nvarchar](300) NOT NULL,
+	[Cover] [nvarchar](200) NULL,
+	[GenreId] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_Book] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Book]  WITH CHECK ADD  CONSTRAINT [FK_Book_Genre] FOREIGN KEY([GenreId])
+REFERENCES [dbo].[Genre] ([Id])
+GO
+
+ALTER TABLE [dbo].[Book] CHECK CONSTRAINT [FK_Book_Genre]
 GO
 
 CREATE TABLE [dbo].[BookAuthor](
 	[BookId] [uniqueidentifier] NOT NULL,
-	[AuthorId] [uniqueidentifier] NOT NULL
+	[AuthorId] [uniqueidentifier] NOT NULL,
+	[Id] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_BookAuthor] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-GO
-
-ALTER TABLE [dbo].[BookAuthor]  WITH CHECK ADD  CONSTRAINT [FK_BookAuthor_Author] FOREIGN KEY([AuthorId])
-REFERENCES [dbo].[Author] ([Id])
-GO
-
-ALTER TABLE [dbo].[BookAuthor] CHECK CONSTRAINT [FK_BookAuthor_Author]
-GO
-
-ALTER TABLE [dbo].[BookAuthor]  WITH CHECK ADD  CONSTRAINT [FK_BookAuthor_Book] FOREIGN KEY([BookId])
-REFERENCES [dbo].[Book] ([Id])
-GO
-
-ALTER TABLE [dbo].[BookAuthor] CHECK CONSTRAINT [FK_BookAuthor_Book]
 GO
 
 CREATE TABLE [dbo].[AuthorFact](
@@ -133,19 +110,144 @@ GO
 ALTER TABLE [dbo].[AuthorFact] CHECK CONSTRAINT [FK_AuthorFact_Author]
 GO
 
+CREATE TABLE [dbo].[ReasonsToRead](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Text] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_ReasonsToRead] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[BookFact](
+	[Id] [uniqueidentifier] NOT NULL,
+	[BookId] [uniqueidentifier] NOT NULL,
+	[Text] [nvarchar](1000) NOT NULL,
+ CONSTRAINT [PK_BookFact] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[BookFact]  WITH CHECK ADD  CONSTRAINT [FK_BookFact_Book] FOREIGN KEY([BookId])
+REFERENCES [dbo].[Book] ([Id])
+GO
+
+ALTER TABLE [dbo].[BookFact] CHECK CONSTRAINT [FK_BookFact_Book]
+GO
+
+CREATE TABLE [dbo].[CriticReview](
+	[Id] [uniqueidentifier] NOT NULL,
+	[BookId] [uniqueidentifier] NOT NULL,
+	[Title] [nvarchar](200) NOT NULL,
+	[Text] [nvarchar](max) NOT NULL,
+	[Rating] [float] NOT NULL,
+ CONSTRAINT [PK_CriticReview] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[CriticReview]  WITH CHECK ADD  CONSTRAINT [FK_CriticReview_Book] FOREIGN KEY([BookId])
+REFERENCES [dbo].[Book] ([Id])
+GO
+
+ALTER TABLE [dbo].[CriticReview] CHECK CONSTRAINT [FK_CriticReview_Book]
+GO
+
+CREATE TABLE [dbo].[Case](
+	[Id] [uniqueidentifier] NOT NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+	[Title] [nvarchar](150) NOT NULL,
+	[NumberOfBooks] [int] NULL,
+ CONSTRAINT [PK_Case] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Case]  WITH CHECK ADD  CONSTRAINT [FK_Case_User] FOREIGN KEY([UserId])
+REFERENCES [dbo].[User] ([Id])
+GO
+
+ALTER TABLE [dbo].[Case] CHECK CONSTRAINT [FK_Case_User]
+GO
+
+CREATE TABLE [dbo].[BookCase](
+	[BookId] [uniqueidentifier] NOT NULL,
+	[CaseId] [uniqueidentifier] NOT NULL,
+	[Id] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_BookCase] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[BookCase]  WITH CHECK ADD  CONSTRAINT [FK_BookCase_Book] FOREIGN KEY([BookId])
+REFERENCES [dbo].[Book] ([Id])
+GO
+
+ALTER TABLE [dbo].[BookCase] CHECK CONSTRAINT [FK_BookCase_Book]
+GO
+
+ALTER TABLE [dbo].[BookCase]  WITH CHECK ADD  CONSTRAINT [FK_BookCase_Case] FOREIGN KEY([CaseId])
+REFERENCES [dbo].[Case] ([Id])
+GO
+
+ALTER TABLE [dbo].[BookCase] CHECK CONSTRAINT [FK_BookCase_Case]
+GO
+
+CREATE TABLE [dbo].[UserOpenedBookPage](
+	[Id] [uniqueidentifier] NOT NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+	[BookId] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_UserOpenedBookPage] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[UserOpenedBookPage]  WITH CHECK ADD  CONSTRAINT [FK_UserOpenedBookPage_Book] FOREIGN KEY([BookId])
+REFERENCES [dbo].[Book] ([Id])
+GO
+
+ALTER TABLE [dbo].[UserOpenedBookPage] CHECK CONSTRAINT [FK_UserOpenedBookPage_Book]
+GO
+
+ALTER TABLE [dbo].[UserOpenedBookPage]  WITH CHECK ADD  CONSTRAINT [FK_UserOpenedBookPage_User] FOREIGN KEY([UserId])
+REFERENCES [dbo].[User] ([Id])
+GO
+
+ALTER TABLE [dbo].[UserOpenedBookPage] CHECK CONSTRAINT [FK_UserOpenedBookPage_User]
+GO
+
 CREATE TABLE [dbo].[UserReview](
 	[BookId] [uniqueidentifier] NOT NULL,
 	[UserId] [uniqueidentifier] NOT NULL,
 	[Text] [nvarchar](max) NOT NULL,
 	[Rating] [int] NOT NULL,
- CONSTRAINT [PK_UserReview] PRIMARY KEY CLUSTERED 
+	[Id] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_UserReview_1] PRIMARY KEY CLUSTERED 
 (
-	[BookId] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[UserReview]  WITH CHECK ADD  CONSTRAINT [FK_UserReview_User] FOREIGN KEY([BookId])
+ALTER TABLE [dbo].[UserReview]  WITH CHECK ADD  CONSTRAINT [FK_UserReview_Book] FOREIGN KEY([BookId])
+REFERENCES [dbo].[Book] ([Id])
+GO
+
+ALTER TABLE [dbo].[UserReview] CHECK CONSTRAINT [FK_UserReview_Book]
+GO
+
+ALTER TABLE [dbo].[UserReview]  WITH CHECK ADD  CONSTRAINT [FK_UserReview_User] FOREIGN KEY([UserId])
 REFERENCES [dbo].[User] ([Id])
 GO
 
@@ -179,64 +281,30 @@ GO
 ALTER TABLE [dbo].[UserBookNote] CHECK CONSTRAINT [FK_UserBookNote_User]
 GO
 
-CREATE TABLE [dbo].[Case](
+CREATE TABLE [dbo].[BooksRead](
 	[Id] [uniqueidentifier] NOT NULL,
+	[BookId] [uniqueidentifier] NOT NULL,
 	[UserId] [uniqueidentifier] NOT NULL,
-	[Title] [nvarchar](150) NOT NULL,
-	[NumberOfBooks] [int] NOT NULL,
- CONSTRAINT [PK_Case] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_BooksRead] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[Case]  WITH CHECK ADD  CONSTRAINT [FK_Case_User] FOREIGN KEY([UserId])
-REFERENCES [dbo].[User] ([Id])
-GO
-
-ALTER TABLE [dbo].[Case] CHECK CONSTRAINT [FK_Case_User]
-GO
-
-CREATE TABLE [dbo].[BookCase](
-	[BookId] [uniqueidentifier] NOT NULL,
-	[CaseId] [uniqueidentifier] NOT NULL
-) ON [PRIMARY]
-GO
-
-ALTER TABLE [dbo].[BookCase]  WITH CHECK ADD  CONSTRAINT [FK_BookCase_Book] FOREIGN KEY([BookId])
-REFERENCES [dbo].[Case] ([Id])
-GO
-
-ALTER TABLE [dbo].[BookCase] CHECK CONSTRAINT [FK_BookCase_Book]
-GO
-
-ALTER TABLE [dbo].[BookCase]  WITH CHECK ADD  CONSTRAINT [FK_BookCase_Case] FOREIGN KEY([CaseId])
-REFERENCES [dbo].[Case] ([Id])
-GO
-
-ALTER TABLE [dbo].[BookCase] CHECK CONSTRAINT [FK_BookCase_Case]
-GO
-
-
-CREATE TABLE [dbo].[CriticReview](
-	[Id] [uniqueidentifier] NOT NULL,
-	[BookId] [uniqueidentifier] NOT NULL,
- CONSTRAINT [PK_CriticReview] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-ALTER TABLE [dbo].[CriticReview]  WITH CHECK ADD  CONSTRAINT [FK_CriticReview_Book] FOREIGN KEY([BookId])
+ALTER TABLE [dbo].[BooksRead]  WITH CHECK ADD  CONSTRAINT [FK_BooksRead_Book] FOREIGN KEY([BookId])
 REFERENCES [dbo].[Book] ([Id])
 GO
 
-ALTER TABLE [dbo].[CriticReview] CHECK CONSTRAINT [FK_CriticReview_Book]
+ALTER TABLE [dbo].[BooksRead] CHECK CONSTRAINT [FK_BooksRead_Book]
 GO
 
+ALTER TABLE [dbo].[BooksRead]  WITH CHECK ADD  CONSTRAINT [FK_BooksRead_User] FOREIGN KEY([UserId])
+REFERENCES [dbo].[User] ([Id])
+GO
 
+ALTER TABLE [dbo].[BooksRead] CHECK CONSTRAINT [FK_BooksRead_User]
+GO
 
 
 

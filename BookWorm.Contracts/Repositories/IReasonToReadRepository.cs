@@ -5,9 +5,9 @@ namespace BookWorm.Contracts.Repositories
 {
     public interface IReasonToReadRepository
     {
-        void AddReasonToRead(ReasonToRead entity);
-        void RemoveReasonToRead(ReasonToRead entity);
-        void UpdateReasonToRead(ReasonToRead existing, ReasonToRead entity);
-        IQueryable<ReasonToRead> AsQueryable();
+        void AddReasonToRead(ReasonsToRead entity);
+        void RemoveReasonToRead(ReasonsToRead entity);
+        void UpdateReasonToRead(ReasonsToRead existing, ReasonsToRead entity);
+        IQueryable<ReasonsToRead> AsQueryable();
     }
 }
