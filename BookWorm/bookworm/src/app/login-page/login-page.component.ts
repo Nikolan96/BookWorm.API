@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
 import { UserLogin } from '../userLogin';
@@ -18,27 +14,23 @@ export class LoginPageComponent implements OnInit {
     email: '',
     password: '',
   };
-
   login: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.required, Validators.min(3)]),
   });
   hide = true;
 
-  singup: FormGroup = new FormGroup(
-    {
-      emailSingUp: new FormControl('', [Validators.email, Validators.required]),
-      passwordSingUp: new FormControl('', [
-        Validators.required,
-        Validators.min(3),
-      ]),
-      confirmPassword: new FormControl('', [
-        Validators.required,
-        Validators.min(3),
-      ]),
-
-    }
-  );
+  singup: FormGroup = new FormGroup({
+    emailSingUp: new FormControl('', [Validators.email, Validators.required]),
+    passwordSingUp: new FormControl('', [
+      Validators.required,
+      Validators.min(3),
+    ]),
+    confirmPassword: new FormControl('', [
+      Validators.required,
+      Validators.min(3),
+    ]),
+  });
 
   get emailInput() {
     return this.login.get('email');
@@ -74,9 +66,24 @@ export class LoginPageComponent implements OnInit {
     );
   }
   singUp(): void {
-    if (this.checkPasswords) {
-      console.log('cao');
-    }
+    this.loginService.getUsers().subscribe(
+      (users) => {
+        users.forEach((user) => {
+          if (user.email === this.emailInputSingup.value) {
+            console.log('User already exists');
+          } else {
+            if (this.checkPasswords) {
+              this.router.navigate(['registration-page']);
+            } else {
+              console.log('Passwords do not match!');
+            }
+          }
+        });
+      },
+      (error) => {
+        console.log(error.error);
+      }
+    );
   }
 
   checkPasswords(): boolean {

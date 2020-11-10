@@ -15,8 +15,13 @@ export class LoginService {
     return this.http.get<User[]>('http://localhost:57339/api/User');
   }
 
+
   login(loginForm: UserLogin): Observable<UserLogin> {
     return this.http.post<UserLogin>(`http://localhost:57339/api/User/Login`, loginForm);
+  }
+
+  singup(singupForm: UserLogin): Observable<UserLogin> {
+    return this.http.post<UserLogin>(`http://localhost:57339/api/User/Register`, singupForm);
   }
 
   handleError(error: HttpErrorResponse) {

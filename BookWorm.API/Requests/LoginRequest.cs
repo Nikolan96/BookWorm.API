@@ -2,7 +2,7 @@
 
 namespace BookWorm.API.Requests
 {
-    public class LoginRequest
+    public class LoginRequest 
     {
         [Required]
         public string Email { get; set; }

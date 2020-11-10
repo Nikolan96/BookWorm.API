@@ -9,10 +9,12 @@ import { ReactiveFormsModule, NgForm, FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import { HomePageComponent } from './home-page/home-page.component';
+import { RegistrationPageComponent } from './registration-page/registration-page.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
+    RegistrationPageComponent,
 
   ],
   imports: [
