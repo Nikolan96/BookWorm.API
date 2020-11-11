@@ -65,6 +65,20 @@ namespace BookWorm.API.Controllers
             return Ok(user);
         }
 
+        [HttpGet]
+        [Route("CheckIfEmailExists/{email}")]
+        public ActionResult<bool> CheckIfEmailExists(string email)
+        {
+            var existingUser = _userService.AsQueryable().Where(x => x.Email == email).FirstOrDefault();
+
+            if (existingUser is null)
+            {
+                return Ok(false);
+            }
+
+            return Ok(true);
+        }
+
         [HttpPost]
         [Route("Register")]
         public ActionResult<IEnumerable<User>> Register([FromBody]RegisterRequest request)

@@ -144,6 +144,16 @@ namespace BookWorm.API.Controllers
             return Ok(_recommendedBooks);
         }
 
+        [HttpGet("PickOfTheWeek")]
+        public ActionResult<List<Book>> PickOfTheWeek()
+        {
+            var booksRead = _userOpndBookPageService
+                .AsQueryable()
+                .Distinct()
+                .ToList();
+
+            return Ok();
+        } 
 
         private void GetBooksUserHasReadOrViewed(Guid userId)
         {
