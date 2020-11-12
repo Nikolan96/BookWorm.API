@@ -135,8 +135,13 @@
             <form [formGroup]="firstFormGroup">
               <ng-template matStepLabel>Fill out your name</ng-template>
               <mat-form-field>
-                <mat-label>Name</mat-label>
-                <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+                <mat-label>First Name</mat-label>
+                <input matInput placeholder="First name" formControlName="firstCtrl" required>
+              </mat-form-field>
+              <br>
+              <mat-form-field>
+                <mat-label>Last Name</mat-label>
+                <input matInput placeholder="Last name" formControlName="firstCtrl" required>
               </mat-form-field>
               <div>
                 <button mat-button matStepperNext>Next</button>
@@ -148,8 +153,21 @@
               <ng-template matStepLabel>Fill out your address</ng-template>
               <mat-form-field>
                 <mat-label>Address</mat-label>
-                <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St"
                        required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>City</mat-label>
+                <input matInput formControlName="secondCtrl" placeholder="Ex. New York"
+                       required>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Country</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let country of this.countries" [value]="country">
+                    {{country}}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
               <div>
                 <button mat-button matStepperPrevious>Back</button>

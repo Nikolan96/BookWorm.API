@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatStepperModule} from '@angular/material/stepper';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [],
@@ -29,7 +30,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatDialogModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSelectModule
   ],
   exports: [
     MatCardModule,
@@ -43,7 +45,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatDialogModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSelectModule
   ]
 })
 export class SharedModule { }
