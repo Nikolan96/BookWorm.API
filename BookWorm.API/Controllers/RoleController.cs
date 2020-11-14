@@ -32,6 +32,17 @@ namespace BookWorm.API.Controllers
         }
 
         [HttpGet]
+        [Route("GetAdminRoleId")]
+        public ActionResult GetAdminRoleId()
+        {
+            var adminRoleId = _roleService.AsQueryable()
+                 .Where(x => x.Name == "Admin")
+                 .FirstOrDefault().Id;
+
+            return Ok(adminRoleId); 
+        }
+
+        [HttpGet]
         public ActionResult<IEnumerable<Role>> Get()
         {
             return Ok(_roleService

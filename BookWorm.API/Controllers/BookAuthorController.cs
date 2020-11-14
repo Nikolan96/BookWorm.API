@@ -1,4 +1,5 @@
-﻿using BookWorm.Contracts.Services;
+﻿using BookWorm.API.Requests;
+using BookWorm.Contracts.Services;
 using BookWorm.Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -43,6 +44,19 @@ namespace BookWorm.API.Controllers
             return Ok(_bookAuthorService
                 .AsQueryable()
                 .ToList());
+        }
+
+        [HttpPost]
+        [Route("GetWithPagination")]
+
+        public ActionResult GetWithPagination(PaginationRequest request)
+        {
+            var list = _bookAuthorService.AsQueryable()
+                   .Skip((request.Page - 1) * request.ItemsPerPage)
+                   .Take(request.ItemsPerPage)
+                   .ToList();
+
+            return Ok(list);
         }
 
         [HttpPost]

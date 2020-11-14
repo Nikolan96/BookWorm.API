@@ -1,4 +1,5 @@
-﻿using BookWorm.Contracts.Services;
+﻿using BookWorm.API.Requests;
+using BookWorm.Contracts.Services;
 using BookWorm.Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,17 +12,17 @@ namespace BookWorm.API.Controllers
     [ApiController]
     public class ReasonsToReadController : ControllerBase
     {
-        private readonly IReasonToReadService _criticReviewService;
+        private readonly IReasonToReadService _reasonsToReadService;
 
         public ReasonsToReadController(IReasonToReadService reasonToReadService)
         {
-            _criticReviewService = reasonToReadService;
+            _reasonsToReadService = reasonToReadService;
         }
 
         [HttpGet("{id}")]
         public ActionResult<ReasonsToRead> Get(Guid id)
         {
-            var item = _criticReviewService.AsQueryable()
+            var item = _reasonsToReadService.AsQueryable()
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
 
@@ -34,9 +35,22 @@ namespace BookWorm.API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ReasonsToRead>> Get()
         {
-            return Ok(_criticReviewService
+            return Ok(_reasonsToReadService
                 .AsQueryable()
                 .ToList());
+        }
+
+        [HttpPost]
+        [Route("GetWithPagination")]
+
+        public ActionResult GetWithPagination(PaginationRequest request)
+        {
+            var list = _reasonsToReadService.AsQueryable()
+                   .Skip((request.Page - 1) * request.ItemsPerPage)
+                   .Take(request.ItemsPerPage)
+                   .ToList();
+
+            return Ok(list);
         }
 
         [HttpPost]
@@ -47,7 +61,7 @@ namespace BookWorm.API.Controllers
                 return BadRequest();
             }
 
-            var item = _criticReviewService.AddReasonToRead(newItem);
+            var item = _reasonsToReadService.AddReasonToRead(newItem);
 
             return Ok(item);
         }
@@ -58,14 +72,14 @@ namespace BookWorm.API.Controllers
             if (changedItem is null)
                 return BadRequest();
 
-            var existingItem = _criticReviewService.AsQueryable()
+            var existingItem = _reasonsToReadService.AsQueryable()
                 .Where(x => x.Id == changedItem.Id)
                 .FirstOrDefault();
 
             if (existingItem is null)
                 return NotFound();
 
-            var item = _criticReviewService.UpdateReasonToRead(existingItem, changedItem);
+            var item = _reasonsToReadService.UpdateReasonToRead(existingItem, changedItem);
 
             return Ok(item);
         }
@@ -73,14 +87,14 @@ namespace BookWorm.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            var item = _criticReviewService.AsQueryable()
+            var item = _reasonsToReadService.AsQueryable()
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
 
             if (item is null)
                 return NotFound();
 
-            _criticReviewService.RemoveReasonToRead(item);
+            _reasonsToReadService.RemoveReasonToRead(item);
 
             return Ok();
         }

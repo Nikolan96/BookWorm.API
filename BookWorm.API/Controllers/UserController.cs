@@ -44,6 +44,19 @@ namespace BookWorm.API.Controllers
         }
 
         [HttpPost]
+        [Route("GetWithPagination")]
+
+        public ActionResult GetWithPagination(PaginationRequest request)
+        {
+            var list = _userService.AsQueryable()
+                   .Skip((request.Page - 1) * request.ItemsPerPage)
+                   .Take(request.ItemsPerPage)
+                   .ToList();
+
+            return Ok(list);
+        }
+
+        [HttpPost]
         [Route("Login")]
         public ActionResult<IEnumerable<User>> Login([FromBody]LoginRequest request)
         {
