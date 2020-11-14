@@ -137,7 +137,7 @@ mat-card-actions {
   text-align: right;
 }
 
-#loginButton {
+#loginButton,#singUpButton {
   width: 40%;
   color: white;
 }
@@ -182,4 +182,10 @@ mat-card-actions {
   line-height: 30px;
   letter-spacing: 0.1em;
   color: #01579b;
+}
+
+#wrongData {
+  text-align: left;
+  color: red;
+  font-size: 12px ;
 }
