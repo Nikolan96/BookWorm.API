@@ -76,6 +76,19 @@ header {
   background-color: #E0E0E0;
 }
 
+.forms {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-form-field {
+  width: 50%;
+}
+
+mat-radio-button{
+  margin: 20px 0 0 10px;
+}
+
 #leftPage {
   display: flex;
   flex-direction: column;

@@ -73,6 +73,7 @@ export class LoginPageComponent implements OnInit {
             console.log('User already exists');
           } else {
             if (this.checkPasswords) {
+              localStorage.setItem('email', this.emailInputSingup.value);
               this.router.navigate(['registration-page']);
             } else {
               console.log('Passwords do not match!');

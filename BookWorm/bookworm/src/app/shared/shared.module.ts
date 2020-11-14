@@ -14,7 +14,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatStepperModule} from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatRadioModule} from '@angular/material/radio';
 @NgModule({
   declarations: [],
   imports: [
@@ -31,7 +33,10 @@ import { MatSelectModule } from '@angular/material/select';
     BrowserAnimationsModule,
     FlexLayoutModule,
     MatStepperModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule
   ],
   exports: [
     MatCardModule,
@@ -46,7 +51,10 @@ import { MatSelectModule } from '@angular/material/select';
     BrowserAnimationsModule,
     FlexLayoutModule,
     MatStepperModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule
   ]
 })
 export class SharedModule { }
