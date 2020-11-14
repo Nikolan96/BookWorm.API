@@ -17,6 +17,8 @@ namespace BookWorm.Entities.Entities
         public int BooksPublished { get; set; }
         [Required]
         public string ShortBio { get; set; }
+        [Required]
+        public string Gender { get; set; }
 
         // EF Core relations
         public virtual ICollection<AuthorFact> AuthorFacts { get; set; }

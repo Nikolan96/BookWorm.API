@@ -27,6 +27,8 @@ namespace BookWorm.Entities
         public DbSet<Genre> Genres { get; set; }
         public DbSet<UserOpenedBookPage> UserOpenedBookPages { get; set; }
 
+        public DbSet<Role> Roles { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -81,6 +83,9 @@ namespace BookWorm.Entities
 
             modelBuilder.Entity<BooksRead>()
               .HasKey(x => x.Id);
+
+            modelBuilder.Entity<Role>()
+             .HasKey(x => x.Id);
 
             #endregion
 
@@ -161,6 +166,11 @@ namespace BookWorm.Entities
                 .HasOne(bc => bc.User)
                 .WithMany(c => c.BooksRead)
                 .HasForeignKey(bc => bc.UserId);
+
+            modelBuilder.Entity<User>()
+                .HasOne(x => x.Role)
+                .WithMany(x => x.Users)
+                .HasForeignKey(x => x.RoleId);
 
             #region Uniques
 
