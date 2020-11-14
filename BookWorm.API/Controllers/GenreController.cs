@@ -92,6 +92,16 @@ namespace BookWorm.API.Controllers
                 return BadRequest();
             }
 
+            var existingGenres = _genreService.AsQueryable().ToList();
+
+            foreach (var existingGenre in existingGenres)
+            {
+                if (newItem.Name.ToLower() == existingGenre.Name.ToLower())
+                {
+                    return BadRequest($"Genre {newItem.Name} already exists!");
+                }
+            }
+
             var item = _genreService.AddGenre(newItem);
 
             return Ok(item);

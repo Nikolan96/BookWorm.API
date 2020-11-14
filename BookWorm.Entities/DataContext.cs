@@ -182,6 +182,14 @@ namespace BookWorm.Entities
                .HasIndex(u => u.ISBN)
                .IsUnique();
 
+            modelBuilder.Entity<Genre>()
+             .HasIndex(u => u.Name)
+             .IsUnique();
+
+            modelBuilder.Entity<Role>()
+             .HasIndex(u => u.Name)
+             .IsUnique();
+
             #endregion
 
         }

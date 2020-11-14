@@ -58,6 +58,16 @@ namespace BookWorm.API.Controllers
                 return BadRequest();
             }
 
+            var existingRoles = _roleService.AsQueryable().ToList();
+
+            foreach (var existingRole in existingRoles)
+            {
+                if (newItem.Name.ToLower() == existingRole.Name.ToLower())
+                {
+                    return BadRequest($"Role {newItem.Name} already exists!");
+                }
+            }
+
             var item = _roleService.AddRole(newItem);
 
             return Ok(item);
