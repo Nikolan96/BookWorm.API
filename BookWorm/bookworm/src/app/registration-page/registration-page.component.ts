@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import * as countriesJson from '../../assets/countries.json';
+import countriesJson from '../../assets/countries.json';
 import { Registration } from '../registration';
 import { LoginService } from '../login.service';
 
@@ -31,7 +31,7 @@ export class RegistrationPageComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
-  countries: [];
+  countries: any[];
   email: string;
   hide = true;
   constructor(private httpService: HttpClient, private formBuilder: FormBuilder, private loginService: LoginService) { }
@@ -48,7 +48,7 @@ export class RegistrationPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.email = localStorage.getItem('email');
-    this.countries = countriesJson.default;
+    this.countries = countriesJson;
 
     this.firstFormGroup = this.formBuilder.group({
       firstname: ['', Validators.required],
