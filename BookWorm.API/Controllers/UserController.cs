@@ -135,7 +135,6 @@ namespace BookWorm.API.Controllers
 
             var newAddress = _addressService.AddAddress(request.Address);
             var newUser = MapUserRegistrationToUser(request, newAddress.Id);
-
             var user = _userService.AddUser(newUser);
 
             return Ok(user);
@@ -198,6 +197,7 @@ namespace BookWorm.API.Controllers
                 Password = request.UserRegistration.Password,
                 Gender = request.UserRegistration.Gender,
                 AddressId = addressId,
+                RoleId = request.UserRegistration.RoleId
             };
         }
     }
