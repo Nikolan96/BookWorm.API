@@ -167,7 +167,7 @@
                   {{ gender }}
                 </mat-radio-button>
               </mat-radio-group>
-              <br>
+              <br />
               <mat-form-field appearance="fill">
                 <mat-label>Input disabled</mat-label>
                 <input
@@ -232,7 +232,8 @@
               <mat-form-field>
                 <mat-label>Email</mat-label>
                 <input
-                  matInput [(ngModel)]="email"
+                  matInput
+                  [(ngModel)]="email"
                   formControlName="email"
                   required
                 />
@@ -263,7 +264,7 @@
                 <mat-icon matSuffix (click)="hide = !hide">{{
                   hide ? "visibility_off" : "visibility"
                 }}</mat-icon>
-                <mat-hint *ngIf="!passwordInput.value"
+                <mat-hint *ngIf="!passwordInputConfirm.value"
                   >Confirm your password</mat-hint
                 >
               </mat-form-field>

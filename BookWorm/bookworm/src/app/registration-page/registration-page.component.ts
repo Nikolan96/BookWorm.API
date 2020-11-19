@@ -8,7 +8,7 @@ import { LoginService } from '../login.service';
 @Component({
   selector: 'app-registration-page',
   templateUrl: './registration-page.component.html',
-  styleUrls: ['./registration-page.component.scss']
+  styleUrls: ['./registration-page.component.scss'],
 })
 export class RegistrationPageComponent implements OnInit {
   public registration: Registration = {
@@ -18,13 +18,13 @@ export class RegistrationPageComponent implements OnInit {
       email: '',
       password: '',
       gender: '',
-      dateOfBirth: null
+      dateOfBirth: null,
     },
     Address: {
       line1: '',
       city: '',
       country: '',
-    }
+    },
   };
   gender = ['Female', 'Male'];
   isLinear = false;
@@ -34,17 +34,11 @@ export class RegistrationPageComponent implements OnInit {
   countries: any[];
   email: string;
   hide = true;
-  constructor(private httpService: HttpClient, private formBuilder: FormBuilder, private loginService: LoginService) { }
-
-
-  // tslint:disable-next-line: typedef
-  get passwordInput() {
-    return this.thirdFormGroup.get('password');
-  }
-  // tslint:disable-next-line: typedef
-  get passwordInputConfirm() {
-    return this.thirdFormGroup.get('confirmPassword');
-  }
+  constructor(
+    private httpService: HttpClient,
+    private formBuilder: FormBuilder,
+    private loginService: LoginService
+  ) {}
 
   ngOnInit(): void {
     this.email = localStorage.getItem('email');
@@ -59,19 +53,21 @@ export class RegistrationPageComponent implements OnInit {
     this.secondFormGroup = this.formBuilder.group({
       address: ['', Validators.required],
       city: ['', Validators.required],
-      country: ['', Validators.required]
+      country: ['', Validators.required],
     });
     this.thirdFormGroup = this.formBuilder.group({
       email: ['', Validators.required],
-      password:  [
-        Validators.required,
-        Validators.min(3),
-      ],
-      confirmPassword: [
-        Validators.required,
-        Validators.min(3),
-      ],
+      password: ['', Validators.required, Validators.min(3)],
+      confirmPassword: ['', Validators.required, Validators.min(3)],
     });
+  }
+
+  get passwordInput() {
+    return this.thirdFormGroup.get('password');
+  }
+
+  get passwordInputConfirm() {
+    return this.thirdFormGroup.get('confirmPassword');
   }
 
   finishRegistration(): void {
