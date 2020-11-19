@@ -19,6 +19,7 @@ export class RegistrationPageComponent implements OnInit {
       password: '',
       gender: '',
       dateOfBirth: null,
+      roleId: null
     },
     Address: {
       line1: '',
@@ -33,6 +34,7 @@ export class RegistrationPageComponent implements OnInit {
   thirdFormGroup: FormGroup;
   countries: any[];
   email: string;
+  role: string;
   hide = true;
   constructor(
     private httpService: HttpClient,
@@ -57,8 +59,8 @@ export class RegistrationPageComponent implements OnInit {
     });
     this.thirdFormGroup = this.formBuilder.group({
       email: ['', Validators.required],
-      password: ['', Validators.required, Validators.min(3)],
-      confirmPassword: ['', Validators.required, Validators.min(3)],
+      password: [Validators.required, Validators.min(3)],
+      confirmPassword: [Validators.required, Validators.min(3)],
     });
   }
 
@@ -71,6 +73,9 @@ export class RegistrationPageComponent implements OnInit {
   }
 
   finishRegistration(): void {
+    console.log(this.role);
+    console.log(this.checkPasswords());
+    this.getRole();
     this.fillOutForm();
     console.log(this.registration);
     this.loginService.register(this.registration).subscribe(
@@ -93,5 +98,21 @@ export class RegistrationPageComponent implements OnInit {
     this.registration.Address.country = this.secondFormGroup.value.country;
     this.registration.UserRegistration.email = this.thirdFormGroup.value.email;
     this.registration.UserRegistration.password = this.thirdFormGroup.value.password;
+    this.registration.UserRegistration.roleId = this.role;
+  }
+
+  getRole(): void {
+    this.loginService.getRoleId().subscribe((response) => {
+      this.role = response;
+
+    });
+  }
+
+  checkPasswords(): boolean {
+    if (this.passwordInput.value === this.passwordInputConfirm.value) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

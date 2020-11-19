@@ -6,6 +6,7 @@ export interface Registration {
     password: string;
     gender: string;
     dateOfBirth: Date;
+    roleId: any;
   };
   Address: {
     line1: string;

@@ -32,10 +32,14 @@ export class LoginService {
     return this.http.post<Registration>(`http://localhost:57339/api/User/Register`, registerForm);
   }
 
+  getRoleId(): Observable<string> {
+    return this.http.get<string>('http://localhost:57339/api/Role/GetUserRoleId');
+  }
   handleError(error: HttpErrorResponse) {
     return throwError(error);
-
   }
+
+
 
   // getUsers(id: any): Observable<User[]>  {
   //   return this.http.get<User[]>(`http://localhost:57339/api/User/${id}`);

@@ -86,11 +86,5 @@ export class LoginPageComponent implements OnInit {
     );
   }
 
-  checkPasswords(): boolean {
-    if (this.passwordInputSingUp.value === this.passwordInputConfirm.value) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+
 }
