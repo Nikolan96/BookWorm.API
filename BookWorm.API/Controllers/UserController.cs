@@ -44,6 +44,50 @@ namespace BookWorm.API.Controllers
         }
 
         [HttpPost]
+        [Route("GetWithPagination")]
+
+        public ActionResult GetWithPagination(PaginationRequest request)
+        {
+            if (request.Page <= 0)
+            {
+                return BadRequest("Page cannot be 0 or less than 0!");
+            }
+
+            if (request.ItemsPerPage <= 0)
+            {
+                return BadRequest("Items per page cannot be 0 or less than 0!");
+            }
+
+            var list = _userService.AsQueryable()
+                   .Skip((request.Page - 1) * request.ItemsPerPage)
+                   .Take(request.ItemsPerPage)
+                   .ToList();
+
+            return Ok(list);
+        }
+
+        [HttpGet]
+        [Route("GetNumberOfPages/{itemsPerPage}")]
+        public ActionResult GetNumberOfPages(double itemsPerPage)
+        {
+            if (itemsPerPage <= 0)
+            {
+                return BadRequest("Items per page cannot be 0 or less than 0!");
+            }
+
+            double totalItems = _userService.AsQueryable().ToList().Count;
+
+            double res = totalItems / itemsPerPage;
+
+            if (!((res % 1) == 0))
+            {
+                res = Math.Ceiling(res);
+            }
+
+            return Ok(res);
+        }
+
+        [HttpPost]
         [Route("Login")]
         public ActionResult<IEnumerable<User>> Login([FromBody]LoginRequest request)
         {
@@ -63,6 +107,20 @@ namespace BookWorm.API.Controllers
             }
 
             return Ok(user);
+        }
+
+        [HttpGet]
+        [Route("CheckIfEmailExists/{email}")]
+        public ActionResult<bool> CheckIfEmailExists(string email)
+        {
+            var existingUser = _userService.AsQueryable().Where(x => x.Email == email).FirstOrDefault();
+
+            if (existingUser is null)
+            {
+                return Ok(false);
+            }
+
+            return Ok(true);
         }
 
         [HttpPost]

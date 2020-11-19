@@ -20,5 +20,6 @@ namespace BookWorm.Contracts.Wrapper
         IGenreRepository Genre { get; }
         IUserOpenedBookPageRepository UserOpenedBookPage { get; }
         IBooksReadRepository BooksRead { get; }
+        IRoleRepository Role { get; }
     }
 }

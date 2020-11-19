@@ -1,4 +1,5 @@
-﻿using BookWorm.Contracts.Services;
+﻿using BookWorm.API.Requests;
+using BookWorm.Contracts.Services;
 using BookWorm.Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -40,11 +41,65 @@ namespace BookWorm.API.Controllers
         }
 
         [HttpPost]
+        [Route("GetWithPagination")]
+
+        public ActionResult GetWithPagination(PaginationRequest request)
+        {
+            if (request.Page <= 0)
+            {
+                return BadRequest("Page cannot be 0 or less than 0!");
+            }
+
+            if (request.ItemsPerPage <= 0)
+            {
+                return BadRequest("Items per page cannot be 0 or less than 0!");
+            }
+
+            var list = _genreService.AsQueryable()
+                   .Skip((request.Page - 1) * request.ItemsPerPage)
+                   .Take(request.ItemsPerPage)
+                   .ToList();
+
+            return Ok(list);
+        }
+
+        [HttpGet]
+        [Route("GetNumberOfPages/{itemsPerPage}")]
+        public ActionResult GetNumberOfPages(double itemsPerPage)
+        {
+            if (itemsPerPage <= 0)
+            {
+                return BadRequest("Items per page cannot be 0 or less than 0!");
+            }
+
+            double totalItems = _genreService.AsQueryable().ToList().Count;
+
+            double res = totalItems / itemsPerPage;
+
+            if (!((res % 1) == 0))
+            {
+                res = Math.Ceiling(res);
+            }
+
+            return Ok(res);
+        }
+
+        [HttpPost]
         public ActionResult Post([FromBody] Genre newItem)
         {
             if (newItem is null)
             {
                 return BadRequest();
+            }
+
+            var existingGenres = _genreService.AsQueryable().ToList();
+
+            foreach (var existingGenre in existingGenres)
+            {
+                if (newItem.Name.ToLower() == existingGenre.Name.ToLower())
+                {
+                    return BadRequest($"Genre {newItem.Name} already exists!");
+                }
             }
 
             var item = _genreService.AddGenre(newItem);

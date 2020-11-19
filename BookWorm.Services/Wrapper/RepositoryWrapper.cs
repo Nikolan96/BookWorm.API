@@ -25,10 +25,25 @@ namespace BookWorm.Services.Wrapper
         private IGenreRepository _genreRepository;
         private IUserOpenedBookPageRepository _userOpenedBookPageRepository;
         private IBooksReadRepository _booksReadRepository;
+        private IRoleRepository _roleRepository;
 
         public RepositoryWrapper(DataContext dataContext)
         {
             _dataContext = dataContext;
+        }
+
+        public IRoleRepository Role
+        {
+            get
+            {
+
+                if (_roleRepository == null)
+                {
+                    _roleRepository = new RoleRepository(_dataContext);
+                }
+
+                return _roleRepository;
+            }
         }
 
         public IBooksReadRepository BooksRead
