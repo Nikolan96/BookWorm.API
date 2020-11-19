@@ -16,6 +16,9 @@ export class LoginService {
     return this.http.get<User[]>('http://localhost:57339/api/User');
   }
 
+  checkIfEmailExists(email: string): Observable<Boolean> {
+    return this.http.get<boolean>(`http://localhost:57339/api/User/CheckIfEmailExists/${email}`);
+  }
 
   login(loginForm: UserLogin): Observable<UserLogin> {
     return this.http.post<UserLogin>(`http://localhost:57339/api/User/Login`, loginForm);
@@ -31,7 +34,8 @@ export class LoginService {
 
   handleError(error: HttpErrorResponse) {
     return throwError(error);
-}
+
+  }
 
   // getUsers(id: any): Observable<User[]>  {
   //   return this.http.get<User[]>(`http://localhost:57339/api/User/${id}`);
