@@ -29,12 +29,14 @@ namespace BookWorm.API.Controllers
         private readonly IBookCaseService _bookCaseService;
         private readonly IReasonToReadService _reasonToReadService;
         private readonly IRoleService _roleService;
-
+        private readonly IPublisherService _publisherService;
+        private readonly IPickOfTheDayService _pickOfTheDayService;
         private Random _rnd = new Random();
         private List<Book> _generatedBooks = new List<Book>();
         private List<User> _generatedUsers = new List<User>();
         private List<string> _genresList = new List<string>();
         private List<string> _bookTitles = new List<string>();
+        private List<Publisher> _publishers = new List<Publisher>();
         private DateTime _start = new DateTime(1965, 1, 1);
         private int _range;
 
@@ -54,7 +56,9 @@ namespace BookWorm.API.Controllers
             ICaseService caseService,
             IBookCaseService bookCaseService,
             IReasonToReadService reasonToReadService,
-            IRoleService roleService
+            IRoleService roleService,
+            IPublisherService publisherService,
+            IPickOfTheDayService pickOfTheDayService
             )
         {
             _addressService = addressService;
@@ -74,9 +78,13 @@ namespace BookWorm.API.Controllers
             _bookCaseService = bookCaseService;
             _reasonToReadService = reasonToReadService;
             _roleService = roleService;
+            _publisherService = publisherService;
+            _pickOfTheDayService = pickOfTheDayService;
 
             PopulateGenresList(); 
             PopulateBookTitleList();
+            PopulatePublishers();
+
             _range = (new DateTime(2002, 1, 1) - _start).Days;
         }
 
@@ -88,8 +96,12 @@ namespace BookWorm.API.Controllers
 
             GenerateGenres();
 
+            GeneratePublishers();
+
             // add 10 authors
             GenerateBookAndAuthorRelatedData(10);
+
+            GeneratePickOfTheDay();
 
             // add 5 addresses and 5 users
             GenerateAddressesAndUsers(5);
@@ -113,6 +125,99 @@ namespace BookWorm.API.Controllers
             GenerateReasonsToRead(50);
 
             return Ok();
+        }
+
+        private void GeneratePublishers()
+        {
+            foreach (var publisher in _publishers)
+            {
+                _publisherService.AddPublisher(publisher);
+            }
+        }
+
+        private void GeneratePickOfTheDay()
+        {
+            List<Guid> newPicksOfTheDayIds = new List<Guid>();
+            List<PickOfTheDay> oldPicksOfTheDay = new List<PickOfTheDay>();
+            var rnd = new Random();
+
+            var picksOfTheDay = _pickOfTheDayService
+                .AsQueryable()
+                .ToList();
+           
+            // remove old picks of the day
+            foreach (var pick in picksOfTheDay)
+            {
+                oldPicksOfTheDay.Add(pick);
+                _pickOfTheDayService.RemovePickOfTheDay(pick);
+            }
+           
+            // choose new picks of the day
+            while (newPicksOfTheDayIds.Count < 10)
+            {
+                var books = _bookService.AsQueryable().ToList();
+                var randomBookid = books[rnd.Next(0, books.Count - 1)].Id;
+           
+                bool alreadyAdded = !newPicksOfTheDayIds.Any(x => x == randomBookid);
+                bool wasPickOfTheDay = !oldPicksOfTheDay.Any(y => y.BookId == randomBookid);
+           
+                if (alreadyAdded && wasPickOfTheDay)
+                {
+                    newPicksOfTheDayIds.Add(randomBookid);
+                }
+            }
+           
+            // add new picks of the day
+            foreach (var pickId in newPicksOfTheDayIds)
+            {
+                var newPickOfTheDay = new PickOfTheDay
+                {
+                    BookId = pickId
+                };
+           
+                _pickOfTheDayService.AddPickOfTheDay(newPickOfTheDay);
+            }
+            }
+
+        private void PopulatePublishers()
+        {
+            List<Publisher> publishers = new List<Publisher>
+            {
+                new Publisher
+                {
+                     Name = "Penguin Random House"
+                },
+                 new Publisher
+                {
+                     Name = "Hachette Livre"
+                },
+                  new Publisher
+                {
+                     Name = "HarperCollins"
+                },
+                   new Publisher
+                {
+                     Name = "Macmillan Publishers"
+                },
+                    new Publisher
+                {
+                     Name = "Simon & Schuster"
+                },
+                     new Publisher
+                {
+                     Name = "McGraw-Hill Education"
+                },
+                      new Publisher
+                {
+                     Name = "Houghton Mifflin Harcourt"
+                },
+                       new Publisher
+                {
+                     Name = "Pearson Education"
+                },
+            };
+
+            _publishers.AddRange(publishers);
         }
 
         private void UserReadBooks(int min, int max)
@@ -375,7 +480,8 @@ namespace BookWorm.API.Controllers
                 ISBN = GetRandomString(),
                 PublishDate = GetRandomDateTime(_start, _range),
                 GenreId = rndGenre.Id,
-                Title = GetRandomTitle()
+                Title = GetRandomTitle(),
+                PublisherId = GetRandomPublisherId()
             };
 
             var book = _bookService.AddBook(newBook);
@@ -643,6 +749,11 @@ namespace BookWorm.API.Controllers
         private string GeneratePassword(string name)
         {
             return "123" + name + "456!";
+        }
+
+        private Guid GetRandomPublisherId()
+        {
+            return _publishers[_rnd.Next(0, _publishers.Count - 1)].Id;
         }
 
         private void PopulateGenresList()

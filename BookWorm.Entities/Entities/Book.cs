@@ -18,6 +18,8 @@ namespace BookWorm.Entities.Entities
         public string Cover { get; set; }
         [Required]
         public Guid GenreId { get; set; }
+        [Required]
+        public Guid PublisherId { get; set; }
 
         // EF Core relations
         public virtual ICollection<BookAuthor> BookAuthors { get; set; }
@@ -32,6 +34,9 @@ namespace BookWorm.Entities.Entities
 
         [ForeignKey("GenreId")]
         public virtual Genre Genre { get; set; }
+
+        [ForeignKey("PublisherId")]
+        public virtual Publisher Publisher { get; set; }
 
         public override bool Equals(object obj)
         {

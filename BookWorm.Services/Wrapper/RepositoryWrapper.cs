@@ -26,10 +26,40 @@ namespace BookWorm.Services.Wrapper
         private IUserOpenedBookPageRepository _userOpenedBookPageRepository;
         private IBooksReadRepository _booksReadRepository;
         private IRoleRepository _roleRepository;
+        private IPublisherRepository _publisherRepository;
+        private IPickOfTheDayRepository _pickOfTheDayRepository;
 
         public RepositoryWrapper(DataContext dataContext)
         {
             _dataContext = dataContext;
+        }
+
+        public IPickOfTheDayRepository PickOfTheDay
+        {
+            get
+            {
+
+                if (_pickOfTheDayRepository == null)
+                {
+                    _pickOfTheDayRepository = new PickOfTheDayRepository(_dataContext);
+                }
+
+                return _pickOfTheDayRepository;
+            }
+        }
+
+        public IPublisherRepository Publisher
+        {
+            get
+            {
+
+                if (_publisherRepository == null)
+                {
+                    _publisherRepository = new PublisherRepository(_dataContext);
+                }
+
+                return _publisherRepository;
+            }
         }
 
         public IRoleRepository Role

@@ -21,5 +21,7 @@ namespace BookWorm.Contracts.Wrapper
         IUserOpenedBookPageRepository UserOpenedBookPage { get; }
         IBooksReadRepository BooksRead { get; }
         IRoleRepository Role { get; }
+        IPublisherRepository Publisher { get; }
+        IPickOfTheDayRepository PickOfTheDay { get; }
     }
 }

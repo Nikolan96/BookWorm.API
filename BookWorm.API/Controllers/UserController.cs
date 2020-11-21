@@ -103,7 +103,7 @@ namespace BookWorm.API.Controllers
 
             if (user is null)
             {
-                return BadRequest("Wrong username or password!");
+                return BadRequest("Wrong email or password!");
             }
 
             return Ok(user);
@@ -113,7 +113,10 @@ namespace BookWorm.API.Controllers
         [Route("CheckIfEmailExists/{email}")]
         public ActionResult<bool> CheckIfEmailExists(string email)
         {
-            var existingUser = _userService.AsQueryable().Where(x => x.Email == email).FirstOrDefault();
+            var existingUser = _userService
+                .AsQueryable()
+                .Where(x => x.Email == email)
+                .FirstOrDefault();
 
             if (existingUser is null)
             {

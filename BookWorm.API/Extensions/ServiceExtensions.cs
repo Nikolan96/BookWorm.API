@@ -1,4 +1,8 @@
-﻿using BookWorm.Contracts.Services;
+﻿using BookWorm.API.Quartz.Factory;
+using BookWorm.API.Quartz.Jobs;
+using BookWorm.API.Quartz.Scheduler;
+using BookWorm.API.Quartz.Services;
+using BookWorm.Contracts.Services;
 using BookWorm.Contracts.Wrapper;
 using BookWorm.Entities;
 using BookWorm.Services.Services;
@@ -6,6 +10,9 @@ using BookWorm.Services.Wrapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
 
 namespace BookWorm.API.Extensions
 {
@@ -47,7 +54,6 @@ namespace BookWorm.API.Extensions
         public static void ConfigureServices(this IServiceCollection services)
         {
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-
             services.AddScoped<IAuthorFactService, AuthorFactService>();
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IBookAuthorService, BookAuthorService>();
@@ -65,6 +71,20 @@ namespace BookWorm.API.Extensions
             services.AddScoped<IUserOpenedBookPageService, UserOpenedBookPageService>();
             services.AddScoped<IBooksReadService, BooksReadService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IPublisherService, PublisherService>();
+            services.AddScoped<IPickOfTheDayService, PickOfTheDayService>();
+
+            // Add Quartz services
+            services.AddSingleton<IJobFactory, SingletonJobFactory>();
+            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
+
+            // Add our job
+            services.AddSingleton<PickOfTheDayJob>();
+            services.AddSingleton(new JobSchedule(
+                jobType: typeof(PickOfTheDayJob),
+                cronExpression: "0 0/30 * 1/1 * ? *")); // run every 1 minute
+
+            services.AddHostedService<QuartzHostedService>();
         }
     }
 }
