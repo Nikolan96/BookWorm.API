@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
 import { UserLogin } from '../userLogin';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-login-page',
@@ -10,6 +11,8 @@ import { UserLogin } from '../userLogin';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
+  email: string;
+  check: boolean;
   public user: UserLogin = {
     email: '',
     password: '',
@@ -66,19 +69,16 @@ export class LoginPageComponent implements OnInit {
     );
   }
   singUp(): void {
-    this.loginService.getUsers().subscribe(
-      (users) => {
-        users.forEach((user) => {
-          if (user.email === this.emailInputSingup.value) {
-            console.log('User already exists');
-          } else {
-            if (this.checkPasswords) {
-              this.router.navigate(['registration-page']);
-            } else {
-              console.log('Passwords do not match!');
-            }
-          }
-        });
+    this.email = this.emailInputSingup.value;
+    console.log(this.email);
+    this.loginService.checkIfEmailExists(this.email).subscribe(
+      (response) => {
+        if (response === true) {
+          console.log('User already exists');
+        } else {
+          localStorage.setItem('email', this.emailInputSingup.value);
+          this.router.navigate(['registration-page']);
+        }
       },
       (error) => {
         console.log(error.error);
@@ -86,11 +86,5 @@ export class LoginPageComponent implements OnInit {
     );
   }
 
-  checkPasswords(): boolean {
-    if (this.passwordInputSingUp.value === this.passwordInputConfirm.value) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+
 }

@@ -132,16 +132,56 @@
         <h1>Chapter 1</h1>
         <mat-vertical-stepper [linear]="isLinear" #stepper>
           <mat-step [stepControl]="firstFormGroup">
-            <form [formGroup]="firstFormGroup">
+            <form class="forms" [formGroup]="firstFormGroup">
               <ng-template matStepLabel>Fill out your name</ng-template>
               <mat-form-field>
                 <mat-label>First Name</mat-label>
-                <input matInput placeholder="First name" formControlName="firstCtrl" required>
+                <input
+                  matInput
+                  placeholder="First name"
+                  formControlName="firstname"
+                  required
+                />
               </mat-form-field>
-              <br>
+              <br />
               <mat-form-field>
                 <mat-label>Last Name</mat-label>
-                <input matInput placeholder="Last name" formControlName="firstCtrl" required>
+                <input
+                  matInput
+                  placeholder="Last name"
+                  formControlName="lastname"
+                  required
+                />
+              </mat-form-field>
+              <mat-radio-group
+                aria-labelledby="example-radio-group-label"
+                class="example-radio-group"
+                formControlName="gender"
+                required
+              >
+                <mat-radio-button
+                  class="example-radio-button"
+                  *ngFor="let gender of gender"
+                  [value]="gender"
+                >
+                  {{ gender }}
+                </mat-radio-button>
+              </mat-radio-group>
+              <br />
+              <mat-form-field appearance="fill">
+                <mat-label>Input disabled</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="dp3"
+                  disabled
+                  formControlName="date"
+                  required
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="dp3"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #dp3 disabled="false"></mat-datepicker>
               </mat-form-field>
               <div>
                 <button mat-button matStepperNext>Next</button>
@@ -149,25 +189,84 @@
             </form>
           </mat-step>
           <mat-step [stepControl]="secondFormGroup">
-            <form [formGroup]="secondFormGroup">
+            <form class="forms" [formGroup]="secondFormGroup">
               <ng-template matStepLabel>Fill out your address</ng-template>
               <mat-form-field>
                 <mat-label>Address</mat-label>
-                <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St"
-                       required>
+                <input
+                  matInput
+                  formControlName="address"
+                  placeholder="Ex. 1 Main St"
+                  required
+                />
               </mat-form-field>
               <mat-form-field>
                 <mat-label>City</mat-label>
-                <input matInput formControlName="secondCtrl" placeholder="Ex. New York"
-                       required>
+                <input
+                  matInput
+                  formControlName="city"
+                  placeholder="Ex. New York"
+                  required
+                />
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label>Country</mat-label>
-                <mat-select>
-                  <mat-option *ngFor="let country of this.countries" [value]="country">
-                    {{country}}
+                <mat-select formControlName="country">
+                  <mat-option
+                    *ngFor="let country of this.countries"
+                    [value]="country"
+                  >
+                    {{ country }}
                   </mat-option>
                 </mat-select>
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="thirdFormGroup">
+            <form class="forms" [formGroup]="thirdFormGroup">
+              <ng-template matStepLabel>Fill out your password</ng-template>
+              <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="email"
+                  formControlName="email"
+                  required
+                />
+              </mat-form-field>
+              <mat-form-field class="field">
+                <input
+                  matInput
+                  placeholder="Password"
+                  [type]="hide ? 'password' : 'text'"
+                  formControlName="password"
+                  required
+                />
+                <mat-icon matSuffix (click)="hide = !hide">{{
+                  hide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+                <mat-hint *ngIf="!passwordInput.value"
+                  >Enter your password</mat-hint
+                >
+              </mat-form-field>
+              <mat-form-field class="field">
+                <input
+                  matInput
+                  placeholder="Password"
+                  [type]="hide ? 'password' : 'text'"
+                  formControlName="confirmPassword"
+                  required
+                />
+                <mat-icon matSuffix (click)="hide = !hide">{{
+                  hide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+                <mat-hint *ngIf="!passwordInputConfirm.value"
+                  >Confirm your password</mat-hint
+                >
               </mat-form-field>
               <div>
                 <button mat-button matStepperPrevious>Back</button>
@@ -181,6 +280,7 @@
             <div>
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button (click)="stepper.reset()">Reset</button>
+              <button mat-button (click)="finishRegistration()">Finish</button>
             </div>
           </mat-step>
         </mat-vertical-stepper>
