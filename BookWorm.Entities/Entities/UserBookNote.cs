@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace BookWorm.Entities.Entities
 {
@@ -21,8 +22,10 @@ namespace BookWorm.Entities.Entities
         // EF Core relations
 
         [ForeignKey("BookId")]
+        [JsonIgnore]
         public virtual Book Book { get; set; }
         [ForeignKey("UserId")]
+        [JsonIgnore]
         public virtual User User { get; set; }
     }
 }

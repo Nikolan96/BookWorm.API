@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace BookWorm.Entities.Entities
 {
@@ -12,6 +13,7 @@ namespace BookWorm.Entities.Entities
         public string Name { get; set; }
 
         // EF Core relations
+        [JsonIgnore]
         public virtual ICollection<User> Users { get; set; }
     }
 }

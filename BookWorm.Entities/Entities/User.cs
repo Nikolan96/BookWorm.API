@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace BookWorm.Entities.Entities
 {
@@ -28,14 +29,21 @@ namespace BookWorm.Entities.Entities
 
         // EF Core relations
         [ForeignKey("AddressId")]
+        [JsonIgnore]
         public Address Address { get; set; }
 
         [ForeignKey("RoleId")]
+        [JsonIgnore]
         public Role Role { get; set; }
+        [JsonIgnore]
         public virtual ICollection<UserReview> UserReviews { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Case> Cases { get; set; }
+        [JsonIgnore]
         public virtual ICollection<UserBookNote> UserBookNotes { get; set; }
+        [JsonIgnore]
         public virtual ICollection<UserOpenedBookPage> UserOpenedBookPages { get; set; }
+        [JsonIgnore]
         public virtual ICollection<BooksRead> BooksRead { get; set; }
     }
 }

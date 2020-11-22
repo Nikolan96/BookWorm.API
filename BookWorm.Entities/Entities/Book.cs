@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace BookWorm.Entities.Entities
 { 
@@ -22,20 +23,30 @@ namespace BookWorm.Entities.Entities
         public Guid PublisherId { get; set; }
 
         // EF Core relations
+        [JsonIgnore]
         public virtual ICollection<BookAuthor> BookAuthors { get; set; }
+        [JsonIgnore]
         public virtual ICollection<BookCase> BookCases { get; set; }
+        [JsonIgnore]
         public virtual ICollection<BookFact> BookFacts { get; set; }
+        [JsonIgnore]
         public virtual ICollection<CriticReview> CriticReviews { get; set; }
+        [JsonIgnore]
         public virtual ICollection<UserReview> UserReviews { get; set; }
+        [JsonIgnore]
         public virtual ICollection<UserBookNote> UserBookNotes { get; set; }
+        [JsonIgnore]
         public virtual ICollection<UserOpenedBookPage> UserOpenedBookPages { get; set; }
+        [JsonIgnore]
         public virtual ICollection<BooksRead> BooksRead { get; set; }
         
 
         [ForeignKey("GenreId")]
+        [JsonIgnore]
         public virtual Genre Genre { get; set; }
 
         [ForeignKey("PublisherId")]
+        [JsonIgnore]
         public virtual Publisher Publisher { get; set; }
 
         public override bool Equals(object obj)
