@@ -1,6 +1,7 @@
 ﻿using BookWorm.Contracts.Services;
 using BookWorm.Contracts.Wrapper;
 using BookWorm.Entities.Entities;
+using System;
 using System.Linq;
 
 namespace BookWorm.Services.Services
@@ -26,6 +27,14 @@ namespace BookWorm.Services.Services
             //_logger.WriteInfo($"Added user with id: {user.Id}.");
 
             return role;
+        }
+
+        public Guid GetUserRoleId()
+        {
+           return _repositoryWrapper.Role.
+                AsQueryable()
+                .Where(x => x.Name == "User")
+                .FirstOrDefault().Id;
         }
 
         public void RemoveRole(Role role)

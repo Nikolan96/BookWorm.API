@@ -14,12 +14,15 @@ namespace BookWorm.API.Controllers
     {
         private readonly IUserService _userService;
         private readonly IAddressService _addressService;
+        private readonly IRoleService _roleService;
 
         public UserController(IUserService reasonToReadService,
-            IAddressService addressService)
+            IAddressService addressService,
+            IRoleService roleService)
         {
             _userService = reasonToReadService;
             _addressService = addressService;
+            _roleService = roleService;
         }
 
         [HttpGet("{id}")]
@@ -131,6 +134,8 @@ namespace BookWorm.API.Controllers
         public ActionResult<IEnumerable<User>> Register([FromBody]RegisterRequest request)
         {
 
+            // automatski postavi na user role
+
             if (request is null || request.Address is null || request.UserRegistration is null)
             {
                 return BadRequest();
@@ -189,7 +194,7 @@ namespace BookWorm.API.Controllers
             return Ok();
         }
 
-        private static User MapUserRegistrationToUser(RegisterRequest request, Guid addressId)
+        private User MapUserRegistrationToUser(RegisterRequest request, Guid addressId)
         {
             return new User
             {
@@ -200,7 +205,7 @@ namespace BookWorm.API.Controllers
                 Password = request.UserRegistration.Password,
                 Gender = request.UserRegistration.Gender,
                 AddressId = addressId,
-                RoleId = request.UserRegistration.RoleId
+                RoleId = _roleService.GetUserRoleId()
             };
         }
     }

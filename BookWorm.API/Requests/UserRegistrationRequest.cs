@@ -17,8 +17,5 @@ namespace BookWorm.API.Requests
         public string Gender { get; set; }
         [Required]
         public DateTime DateOfBirth { get; set; }
-        [Required]
-        public Guid RoleId { get; set; }
-
     }
 }

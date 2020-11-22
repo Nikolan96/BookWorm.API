@@ -1,4 +1,5 @@
 ﻿using BookWorm.Entities.Entities;
+using System;
 using System.Linq;
 
 namespace BookWorm.Contracts.Services
@@ -9,5 +10,6 @@ namespace BookWorm.Contracts.Services
         void RemoveRole(Role role);
         Role UpdateRole(Role existing, Role role);
         IQueryable<Role> AsQueryable();
+        Guid GetUserRoleId();
     }
 }
