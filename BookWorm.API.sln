@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookWorm.API", "BookWorm.API\BookWorm.API.csproj", "{60F34793-6F2F-4082-9A4D-CF2F89154C46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookWorm.API", "BookWorm.API\BookWorm.API.csproj", "{60F34793-6F2F-4082-9A4D-CF2F89154C46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookWorm.Contracts", "BookWorm.Contracts\BookWorm.Contracts.csproj", "{5C709B5E-ABB8-4376-BCE0-4F46333111FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookWorm.Contracts", "BookWorm.Contracts\BookWorm.Contracts.csproj", "{5C709B5E-ABB8-4376-BCE0-4F46333111FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookWorm.Entities", "BookWorm.Entities\BookWorm.Entities.csproj", "{56438BB9-9A65-4E7B-8DAF-75CBCF84E5CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookWorm.Entities", "BookWorm.Entities\BookWorm.Entities.csproj", "{56438BB9-9A65-4E7B-8DAF-75CBCF84E5CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookWorm.Repository", "BookWorm.Repository\BookWorm.Repository.csproj", "{7F749056-E81C-4B2D-A8A8-B1C9806D014C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookWorm.Repository", "BookWorm.Repository\BookWorm.Repository.csproj", "{7F749056-E81C-4B2D-A8A8-B1C9806D014C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookWorm.Services", "BookWorm.Services\BookWorm.Services.csproj", "{38892B25-F9F2-4197-976A-E16716156C15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookWorm.Services", "BookWorm.Services\BookWorm.Services.csproj", "{38892B25-F9F2-4197-976A-E16716156C15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookWorm.Quartz", "BookWorm.Quartz\BookWorm.Quartz.csproj", "{5B57EA2E-E952-434A-A68D-39FC37DBAF74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{38892B25-F9F2-4197-976A-E16716156C15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38892B25-F9F2-4197-976A-E16716156C15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38892B25-F9F2-4197-976A-E16716156C15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B57EA2E-E952-434A-A68D-39FC37DBAF74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B57EA2E-E952-434A-A68D-39FC37DBAF74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B57EA2E-E952-434A-A68D-39FC37DBAF74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B57EA2E-E952-434A-A68D-39FC37DBAF74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

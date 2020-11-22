@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BookWorm.Contracts\BookWorm.Contracts.csproj" />
     <ProjectReference Include="..\BookWorm.Entities\BookWorm.Entities.csproj" />
+    <ProjectReference Include="..\BookWorm.Quartz\BookWorm.Quartz.csproj" />
     <ProjectReference Include="..\BookWorm.Services\BookWorm.Services.csproj" />
   </ItemGroup>
 

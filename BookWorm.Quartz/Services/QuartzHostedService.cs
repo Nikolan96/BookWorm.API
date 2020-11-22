@@ -1,4 +1,4 @@
-﻿using BookWorm.API.Quartz.Scheduler;
+﻿using BookWorm.Quartz.Scheduler;
 using Microsoft.Extensions.Hosting;
 using Quartz;
 using Quartz.Spi;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BookWorm.API.Quartz.Services
+namespace BookWorm.Quartz.Services
 {
     public class QuartzHostedService : IHostedService
     {

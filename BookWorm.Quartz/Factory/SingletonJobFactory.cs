@@ -3,7 +3,7 @@ using Quartz;
 using Quartz.Spi;
 using System;
 
-namespace BookWorm.API.Quartz.Factory
+namespace BookWorm.Quartz.Factory
 {
     public class SingletonJobFactory : IJobFactory
     {

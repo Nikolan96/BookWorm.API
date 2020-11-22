@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BookWorm.API.Quartz.Scheduler
+namespace BookWorm.Quartz.Scheduler
 {
     public class JobSchedule
     {

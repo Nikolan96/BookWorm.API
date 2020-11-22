@@ -1,10 +1,10 @@
-﻿using BookWorm.API.Quartz.Factory;
-using BookWorm.API.Quartz.Jobs;
-using BookWorm.API.Quartz.Scheduler;
-using BookWorm.API.Quartz.Services;
-using BookWorm.Contracts.Services;
+﻿using BookWorm.Contracts.Services;
 using BookWorm.Contracts.Wrapper;
 using BookWorm.Entities;
+using BookWorm.Quartz.Factory;
+using BookWorm.Quartz.Jobs;
+using BookWorm.Quartz.Scheduler;
+using BookWorm.Quartz.Services;
 using BookWorm.Services.Services;
 using BookWorm.Services.Wrapper;
 using Microsoft.EntityFrameworkCore;
@@ -82,7 +82,7 @@ namespace BookWorm.API.Extensions
             services.AddSingleton<PickOfTheDayJob>();
             services.AddSingleton(new JobSchedule(
                 jobType: typeof(PickOfTheDayJob),
-                cronExpression: "0 0/30 * 1/1 * ? *")); // run every 1 minute
+                cronExpression: "0 0/1 * 1/1 * ? *")); // run every 1 minute
 
             services.AddHostedService<QuartzHostedService>();
         }
