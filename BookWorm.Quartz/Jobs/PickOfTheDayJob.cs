@@ -1,6 +1,5 @@
 ﻿using BookWorm.Contracts.Services;
 using BookWorm.Entities.Entities;
-using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 using System;
 using System.Collections.Generic;
@@ -9,15 +8,16 @@ using System.Threading.Tasks;
 
 namespace BookWorm.Quartz.Jobs
 {
-    [DisallowConcurrentExecution]
     public class PickOfTheDayJob : IJob
     {
         private const int NumberOfBooks = 10;
-        private readonly IServiceProvider _provider;
+        private readonly IPickOfTheDayService _pickOfTheDayService;
+        private readonly IBookService _bookService;
         private Random _rnd = new Random();
-        public PickOfTheDayJob(IServiceProvider provider)
+        public PickOfTheDayJob()
         {
-            _provider = provider;
+            //_pickOfTheDayService = pickOfTheDayService;
+            //_bookService = bookService;
         }
 
         public Task Execute(IJobExecutionContext context)
@@ -25,15 +25,13 @@ namespace BookWorm.Quartz.Jobs
             List<Guid> newPicksOfTheDayIds = new List<Guid>();
             List<PickOfTheDay> oldPicksOfTheDay = new List<PickOfTheDay>();
 
-            using (var scope = _provider.CreateScope())
-            {
-                var pickOfTheDayService = scope.ServiceProvider.GetService<IPickOfTheDayService>();
-                var bookService = scope.ServiceProvider.GetService<IBookService>();
+            var pickOfTheDayService = context.JobDetail.JobDataMap.Get("PickOfTheDayService") as IPickOfTheDayService;
+            var bookService = context.JobDetail.JobDataMap.Get("BookService") as IBookService;
 
-                RemoveOldPicksOfTheDay(oldPicksOfTheDay, pickOfTheDayService);
-                ChooseNewPicksOfTheDay(newPicksOfTheDayIds, oldPicksOfTheDay, bookService);
-                AddNewPicksOfTheDay(newPicksOfTheDayIds, pickOfTheDayService);
-            }
+            RemoveOldPicksOfTheDay(oldPicksOfTheDay, pickOfTheDayService);
+            ChooseNewPicksOfTheDay(newPicksOfTheDayIds, oldPicksOfTheDay, bookService);
+            AddNewPicksOfTheDay(newPicksOfTheDayIds, pickOfTheDayService);
+
             return Task.CompletedTask;
         }
 

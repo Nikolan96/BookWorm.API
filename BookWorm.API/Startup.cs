@@ -1,4 +1,5 @@
 using BookWorm.API.Extensions;
+using BookWorm.Quartz.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -40,6 +41,8 @@ namespace BookWorm.API
 
             services.AddCorsPolicy();
             services.ConfigureSqlContext(Configuration);
+
+            services.AddHostedService<QuartzHostedService>();
             // services.AddIdentityServerConfig(Configuration);
             services.ConfigureServices();
         }

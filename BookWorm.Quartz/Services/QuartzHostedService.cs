@@ -1,7 +1,10 @@
-﻿using BookWorm.Quartz.Scheduler;
+﻿using BookWorm.Contracts.Services;
+using BookWorm.Quartz.Interfaces;
+using BookWorm.Quartz.Jobs;
 using Microsoft.Extensions.Hosting;
 using Quartz;
 using Quartz.Spi;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,60 +13,54 @@ namespace BookWorm.Quartz.Services
 {
     public class QuartzHostedService : IHostedService
     {
+        private const int Interval = 10;
+
+        private IScheduler _scheduler;
         private readonly ISchedulerFactory _schedulerFactory;
         private readonly IJobFactory _jobFactory;
-        private readonly IEnumerable<JobSchedule> _jobSchedules;
+        private readonly IQuartzTriggerFactory _triggerFactory;
+        private readonly IBookService _bookService;
+        private readonly IPickOfTheDayService _pickOfTheDayService;
 
-        public QuartzHostedService(
-            ISchedulerFactory schedulerFactory,
+        public QuartzHostedService(ISchedulerFactory schedulerFactory,
             IJobFactory jobFactory,
-            IEnumerable<JobSchedule> jobSchedules)
+            IQuartzTriggerFactory quartzTriggerFactory,
+            IBookService bookService,
+            IPickOfTheDayService pickOfTheDayService)
         {
             _schedulerFactory = schedulerFactory;
-            _jobSchedules = jobSchedules;
             _jobFactory = jobFactory;
+            _triggerFactory = quartzTriggerFactory;
+            _bookService = bookService;
+            _pickOfTheDayService = pickOfTheDayService;
         }
-        public IScheduler Scheduler { get; set; }
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            Scheduler = await _schedulerFactory.GetScheduler(cancellationToken);
-            Scheduler.JobFactory = _jobFactory;
+            _scheduler = await _schedulerFactory.GetScheduler(cancellationToken);
+            _scheduler.JobFactory = _jobFactory;
 
-            foreach (var jobSchedule in _jobSchedules)
-            {
-                var job = CreateJob(jobSchedule);
-                var trigger = CreateTrigger(jobSchedule);
+            await SchedulePickOfTheDayJob(cancellationToken);
 
-                await Scheduler.ScheduleJob(job, trigger, cancellationToken);
-            }
+            await _scheduler.Start(cancellationToken);
+        }
 
-            await Scheduler.Start(cancellationToken);
+        private async Task SchedulePickOfTheDayJob(CancellationToken cancellationToken)
+        {
+            IJobDetail jobDetail = JobBuilder.Create<PickOfTheDayJob>()
+                            .WithIdentity(new JobKey(Guid.NewGuid().ToString()))
+                            .Build();
+
+            jobDetail.JobDataMap.Add("PickOfTheDayService", _pickOfTheDayService);
+            jobDetail.JobDataMap.Add("BookService", _bookService);
+
+            var triggers = new HashSet<ITrigger>(_triggerFactory.GetOccuringInMinutes(Interval));
+            await _scheduler.ScheduleJob(jobDetail, triggers, true, cancellationToken);
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            await Scheduler?.Shutdown(cancellationToken);
-        }
-
-        private static IJobDetail CreateJob(JobSchedule schedule)
-        {
-            var jobType = schedule.JobType;
-            return JobBuilder
-                .Create(jobType)
-                .WithIdentity(jobType.FullName)
-                .WithDescription(jobType.Name)
-                .Build();
-        }
-
-        private static ITrigger CreateTrigger(JobSchedule schedule)
-        {
-            return TriggerBuilder
-                .Create()
-                .WithIdentity($"{schedule.JobType.FullName}.trigger")
-                .WithCronSchedule(schedule.CronExpression)
-                .WithDescription(schedule.CronExpression)
-                .Build();
+            await _scheduler?.Shutdown(cancellationToken);
         }
     }
 }
