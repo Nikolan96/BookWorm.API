@@ -102,6 +102,19 @@ CREATE TABLE [dbo].[PickOfTheDay](
 ) ON [PRIMARY]
 GO
 
+CREATE TABLE [dbo].[PickOfTheWeek](
+	[Id] [uniqueidentifier] NOT NULL,
+	[BookId] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_PicksOfTheWeek] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[PickOfTheWeek] CHECK CONSTRAINT [FK_PicksOfTheWeek_Book]
+GO
+
 CREATE TABLE [dbo].[Book](
 	[Id] [uniqueidentifier] NOT NULL,
 	[ISBN] [nvarchar](200) NOT NULL,
