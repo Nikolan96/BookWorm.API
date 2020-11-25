@@ -1,5 +1,4 @@
 ﻿using BookWorm.Entities;
-using BookWorm.Quartz.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,38 +44,7 @@ namespace BookWorm.API.Extensions
 
         public static void ConfigureServices(this IServiceCollection services)
         {
-            //services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-            //services.AddScoped<IAuthorFactService, AuthorFactService>();
-            //services.AddScoped<IAuthorService, AuthorService>();
-            //services.AddScoped<IBookAuthorService, BookAuthorService>();
-            //services.AddScoped<IBookCaseService, BookCaseService>();
-            //services.AddScoped<IBookFactService, BookFactService>();
-            //services.AddScoped<IBookService, BookService>();
-            //services.AddScoped<ICaseService, CaseService>();
-            //services.AddScoped<ICriticReviewService, CriticReviewService>();
-            //services.AddScoped<IReasonToReadService, ReasonToReadService>();
-            //services.AddScoped<IUserReviewService, UserReviewService>();
-            //services.AddScoped<IUserService, UserService>();
-            //services.AddScoped<IAddressService, AddressService>();
-            //services.AddScoped<IUserBookNoteService, UserBookNoteService>();
-            //services.AddScoped<IGenreService, GenreService>();
-            //services.AddScoped<IUserOpenedBookPageService, UserOpenedBookPageService>();
-            //services.AddScoped<IBooksReadService, BooksReadService>();
-            //services.AddScoped<IRoleService, RoleService>();
-            //services.AddScoped<IPublisherService, PublisherService>();
-            //services.AddScoped<IPickOfTheDayService, PickOfTheDayService>();
 
-            //// Add Quartz services
-            //var schedulerFactory = new StdSchedulerFactory();
-            //services.AddSingleton<ISchedulerFactory>(schedulerFactory);
-
-            //var jobFactory = new SimpleJobFactory();
-            //services.AddSingleton<IJobFactory>(jobFactory);
-
-            //var triggerFactory = new QuartzTriggerFactory();
-            //services.AddSingleton<IQuartzTriggerFactory>(triggerFactory);
-
-            //services.AddHostedService<QuartzHostedService>();
         }
     }
 }

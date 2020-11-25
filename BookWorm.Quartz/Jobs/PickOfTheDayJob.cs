@@ -14,11 +14,6 @@ namespace BookWorm.Quartz.Jobs
         private readonly IPickOfTheDayService _pickOfTheDayService;
         private readonly IBookService _bookService;
         private Random _rnd = new Random();
-        public PickOfTheDayJob()
-        {
-            //_pickOfTheDayService = pickOfTheDayService;
-            //_bookService = bookService;
-        }
 
         public Task Execute(IJobExecutionContext context)
         {

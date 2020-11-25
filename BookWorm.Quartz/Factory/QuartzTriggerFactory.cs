@@ -25,7 +25,7 @@ namespace BookWorm.Quartz.Factory
         {
             var triggerBuilder = DailyTimeIntervalScheduleBuilder.Create();
             var builder = TriggerBuilder.Create()
-                .StartAt(DateTime.Now)
+                .StartAt(DateTime.Now.AddSeconds(30))
                 .WithSchedule(triggerBuilder)
                 .EndAt(trigger.IsEndDateEnabled ? trigger.EndDate.EndOfTheDay() : (DateTimeOffset?)null);
 
