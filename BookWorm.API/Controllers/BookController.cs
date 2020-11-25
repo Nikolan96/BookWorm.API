@@ -137,6 +137,13 @@ namespace BookWorm.API.Controllers
                 return BadRequest();
             }
 
+            var exists = _bookService.AsQueryable().Any(x => x.ISBN == newItem.ISBN);
+
+            if (exists)
+            {
+                return BadRequest($"Book with ISBN : {newItem.ISBN} already exists!");
+            }
+
             var item = _bookService.AddBook(newItem);
 
             return Ok(item);
