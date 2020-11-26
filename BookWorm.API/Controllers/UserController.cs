@@ -134,11 +134,16 @@ namespace BookWorm.API.Controllers
         public ActionResult<IEnumerable<User>> Register([FromBody]RegisterRequest request)
         {
 
-            // automatski postavi na user role
-
             if (request is null || request.Address is null || request.UserRegistration is null)
             {
                 return BadRequest();
+            }
+
+            var existing = _userService.AsQueryable().Any(x => x.Email == request.UserRegistration.Email);
+
+            if (existing)
+            {
+                return BadRequest($"User with email : {request.UserRegistration.Email} already exists!");
             }
 
             var newAddress = _addressService.AddAddress(request.Address);

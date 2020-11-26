@@ -16,3 +16,5 @@ DELETE FROM [Book];
 DELETE FROM ReasonsToRead;
 DELETE FROM Genre;
 DELETE FROM Publisher;
+DELETE FROM PickOfTheWeek;
+DELETE FROM PickOfTheDay;

@@ -14,12 +14,15 @@ namespace BookWorm.API.Controllers
     {
         private readonly IBookService _bookService;
         private readonly IPickOfTheDayService _pickOfTheDayService;
+        private readonly IPickOfTheWeekService _pickOfTheWeekService;
 
         public BookController(IBookService bookService,
-            IPickOfTheDayService pickOfTheDayService)
+            IPickOfTheDayService pickOfTheDayService,
+            IPickOfTheWeekService pickOfTheWeekService)
         {
             _bookService = bookService;
             _pickOfTheDayService = pickOfTheDayService;
+            _pickOfTheWeekService = pickOfTheWeekService;
         }
 
         [HttpGet("{id}")]
@@ -56,6 +59,26 @@ namespace BookWorm.API.Controllers
                     .AsQueryable()
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
+
+                picksOfTheDay.Add(book);
+            }
+
+            return picksOfTheDay;
+        }
+
+        [HttpGet]
+        [Route("GetPicksOfTheWeek")]
+        public ActionResult<IEnumerable<Book>> GetPicksOfTheWeek()
+        {
+            List<Book> picksOfTheDay = new List<Book>();
+            var bookIds = _pickOfTheWeekService.AsQueryable().Select(x => x.BookId).ToList();
+
+            foreach (var id in bookIds)
+            {
+                var book = _bookService
+                     .AsQueryable()
+                     .Where(x => x.Id == id)
+                     .FirstOrDefault();
 
                 picksOfTheDay.Add(book);
             }
@@ -112,6 +135,13 @@ namespace BookWorm.API.Controllers
             if (newItem is null)
             {
                 return BadRequest();
+            }
+
+            var exists = _bookService.AsQueryable().Any(x => x.ISBN == newItem.ISBN);
+
+            if (exists)
+            {
+                return BadRequest($"Book with ISBN : {newItem.ISBN} already exists!");
             }
 
             var item = _bookService.AddBook(newItem);

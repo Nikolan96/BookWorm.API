@@ -23,5 +23,6 @@ namespace BookWorm.Contracts.Wrapper
         IRoleRepository Role { get; }
         IPublisherRepository Publisher { get; }
         IPickOfTheDayRepository PickOfTheDay { get; }
+        IPickOfTheWeekRepository PickOfTheWeek { get; }
     }
 }

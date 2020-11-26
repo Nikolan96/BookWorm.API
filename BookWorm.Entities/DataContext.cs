@@ -29,7 +29,8 @@ namespace BookWorm.Entities
         public DbSet<Role> Roles { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<PickOfTheDay> PickOfTheDay { get; set; }
-        
+        public DbSet<PickOfTheWeek> PickOfTheWeek { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -92,6 +93,9 @@ namespace BookWorm.Entities
              .HasKey(x => x.Id);
 
             modelBuilder.Entity<PickOfTheDay>()
+             .HasKey(x => x.Id);
+
+            modelBuilder.Entity<PickOfTheWeek>()
              .HasKey(x => x.Id);
 
             #endregion

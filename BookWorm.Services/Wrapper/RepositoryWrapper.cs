@@ -28,10 +28,25 @@ namespace BookWorm.Services.Wrapper
         private IRoleRepository _roleRepository;
         private IPublisherRepository _publisherRepository;
         private IPickOfTheDayRepository _pickOfTheDayRepository;
+        private IPickOfTheWeekRepository _pickOfTheWeekRepository;
 
         public RepositoryWrapper(DataContext dataContext)
         {
             _dataContext = dataContext;
+        }
+
+        public IPickOfTheWeekRepository PickOfTheWeek
+        {
+            get
+            {
+
+                if (_pickOfTheWeekRepository == null)
+                {
+                    _pickOfTheWeekRepository = new PickOfTheWeekRepository(_dataContext);
+                }
+
+                return _pickOfTheWeekRepository;
+            }
         }
 
         public IPickOfTheDayRepository PickOfTheDay
