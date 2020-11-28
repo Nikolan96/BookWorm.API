@@ -12,7 +12,7 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.generatePicksOfTheWeek();
+    //this.generatePicksOfTheWeek();
     this.generatePicksOfTheDay();
   }
 
@@ -43,14 +43,12 @@ export class HomePageComponent implements OnInit {
         const container = document.getElementById('picks-of-the-day');
         const bookDiv = document.getElementById('picks-of-the-day').getElementsByTagName('div')[0];
         books.forEach(book => {
-          let bookCopy = bookDiv.cloneNode(true);
           bookDiv.getElementsByTagName('div')[0].innerHTML = '';
           bookDiv.getElementsByTagName('h2')[0].innerHTML = book.title;
           bookDiv.getElementsByTagName('span')[0].innerHTML = book.isbn;
+          let bookCopy = bookDiv.cloneNode(true);
           container?.appendChild(bookCopy);
-          bookCopy = null;
         });
-
       },
       (error) => {
         console.log(error.error);

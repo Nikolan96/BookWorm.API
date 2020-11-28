@@ -184,7 +184,7 @@ header {
   color: #01579b;
 }
 
-#picks-of-the-week {
+#picks-of-the-week, #picks-of-the-day {
   display: -webkit-box !important;
   display: -ms-flexbox !important;
   display: flex !important;
