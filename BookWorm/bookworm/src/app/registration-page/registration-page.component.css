@@ -1,0 +1,194 @@
+body {
+  width: 100%;
+}
+
+header {
+  height: 12%;
+  width: 100%;
+  background-color: #0091ea;
+  z-index: -10;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+#blueDivsWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+#logoWrapper {
+  position: absolute;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-image: url(../../assets/bookwormlogo.png);
+  background-repeat: no-repeat;
+  padding: 10px;
+  background-size: contain;
+  width: 7%;
+  height: 12%;
+  top: 0;
+  right: 3%;
+  z-index: 50 !important;
+  background-color: #01579b;
+}
+
+#lightBlueDiv {
+  height: 50%;
+  width: 100%;
+  z-index: 1;
+  background-color: #40c4ff;
+}
+
+#shortRectangle {
+  position: absolute;
+  width: 30%;
+  height: 3%;
+  left: 40%;
+  top: 2%;
+  z-index: 50 !important;
+  background: #01579b;
+}
+
+#longRectangle {
+  position: absolute;
+  width: 50%;
+  height: 3%;
+  left: 20%;
+  top: 7%;
+  background: #01579b;
+}
+
+#content {
+  font-family: 'ubuntu';
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 85%;
+}
+
+#leftPage, #rightPage {
+  background-image: url(../../assets/husk.png);
+  height: 100%;
+  width: 100%;
+}
+
+.mat-stepper-vertical {
+  margin-top: 8px;
+  background-color: #E0E0E0;
+}
+
+.forms {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+mat-form-field {
+  width: 50%;
+}
+
+mat-radio-button {
+  margin: 20px 0 0 10px;
+}
+
+#leftPage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+#leftPage h1, #rightPage h1 {
+  color: #01579b;
+  text-align: center;
+  font-weight: 900 !important;
+  font-size: 40px;
+  line-height: 1.5em;
+  height: 3em;
+  overflow: hidden;
+  text-align: left;
+}
+
+#regIllustration {
+  width: 65%;
+  height: auto;
+}
+
+#pageDivider {
+  width: 200px !important;
+  z-index: 100;
+  background: -webkit-gradient(linear, left top, right top, color-stop(5.41%, #E0E0E0), color-stop(50%, #cccccc), color-stop(92.13%, #E0E0E0));
+  background: linear-gradient(90deg, #E0E0E0 5.41%, #cccccc 50%, #E0E0E0 92.13%);
+}
+
+footer {
+  margin: 0;
+  height: 4%;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: #01579b;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: whitesmoke;
+  font-family: "Ubuntu", sans-serif;
+  z-index: 200;
+}
+
+footer div {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -ms-flex-negative: 1;
+      flex-shrink: 1;
+  padding: 5px;
+}
+
+footer h4 {
+  font-size: 14px;
+  margin: 0 !important;
+  padding-top: 5px;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+#footerImg img {
+  width: 50px;
+  height: 30px;
+}
+
+#footerImg {
+  -webkit-box-align: left;
+      -ms-flex-align: left;
+          align-items: left;
+  -ms-flex-negative: 2;
+      flex-shrink: 2;
+}
+/*# sourceMappingURL=registration-page.component.css.map */
