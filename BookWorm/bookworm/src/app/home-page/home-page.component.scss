@@ -41,6 +41,20 @@ header {
   cursor: pointer;
   height: calc(15%) !important;
   transition-timing-function: linear;
+
+
+}
+
+#profile:hover {
+  height: calc(19%) !important;
+  #expand {
+    display: none;
+  }
+
+  #links {
+    display: flex;
+    margin-bottom: 10px;
+  }
 }
 .tabs p {
   width: 100%;
@@ -48,38 +62,71 @@ header {
   font-weight: 500;
   letter-spacing: 1px;
 }
+#profile {
+  height: 12%;
+  right: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+#expand {
+  text-align: center;
+  color: white;
+}
+#avatar-and-name {
+  width: 60px;
+  height: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+#links {
+  display: none;
+  flex-direction: column;
+
+}
+
+
+#links a {
+  color:whitesmoke !important;
+  text-decoration: none !important;
+}
+#avatar-and-name p {
+  margin: 0;
+}
 #logo {
   height: 15%;
-  right: 2%;
+  left: 2%;
 }
 
 #home {
   height: 6%;
-  left: 2%;
+  left: 16%;
   top: 10%;
 }
 
 #myBooks {
   height: 8%;
-  left: 16%;
+  left: 30%;
   top: 6%;
 }
 
 #library {
   height: 10%;
-  left: 30%;
+  left: 44%;
   top: 7%;
 }
 
 #activity {
   height: 12%;
-  left: 44%;
+  left: 58%;
   top: 3%;
 }
 
 #fun-facts {
   height: 13%;
-  left: 58%;
+  left: 72%;
   top: 5%;
 }
 

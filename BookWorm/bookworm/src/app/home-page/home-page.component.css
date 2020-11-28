@@ -57,6 +57,21 @@ header {
           transition-timing-function: linear;
 }
 
+#profile:hover {
+  height: calc(19%) !important;
+}
+
+#profile:hover #expand {
+  display: none;
+}
+
+#profile:hover #links {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 10px;
+}
+
 .tabs p {
   width: 100%;
   text-align: center;
@@ -64,38 +79,88 @@ header {
   letter-spacing: 1px;
 }
 
+#profile {
+  height: 12%;
+  right: 2%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#expand {
+  text-align: center;
+  color: white;
+}
+
+#avatar-and-name {
+  width: 60px;
+  height: 100%;
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#links {
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#links a {
+  color: whitesmoke !important;
+  text-decoration: none !important;
+}
+
+#avatar-and-name p {
+  margin: 0;
+}
+
 #logo {
   height: 15%;
-  right: 2%;
+  left: 2%;
 }
 
 #home {
   height: 6%;
-  left: 2%;
+  left: 16%;
   top: 10%;
 }
 
 #myBooks {
   height: 8%;
-  left: 16%;
+  left: 30%;
   top: 6%;
 }
 
 #library {
   height: 10%;
-  left: 30%;
+  left: 44%;
   top: 7%;
 }
 
 #activity {
   height: 12%;
-  left: 44%;
+  left: 58%;
   top: 3%;
 }
 
 #fun-facts {
   height: 13%;
-  left: 58%;
+  left: 72%;
   top: 5%;
 }
 
