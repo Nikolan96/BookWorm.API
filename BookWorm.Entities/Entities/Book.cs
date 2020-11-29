@@ -17,6 +17,10 @@ namespace BookWorm.Entities.Entities
         [Required]
         public string Title { get; set; }
         public string Cover { get; set; }
+
+        [Required]
+        public int NumberOfPages { get; set; }
+      
         [Required]
         public Guid GenreId { get; set; }
         [Required]

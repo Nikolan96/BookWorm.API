@@ -24,5 +24,7 @@ namespace BookWorm.Contracts.Wrapper
         IPublisherRepository Publisher { get; }
         IPickOfTheDayRepository PickOfTheDay { get; }
         IPickOfTheWeekRepository PickOfTheWeek { get; }
+        IAchievementRepository Achievement { get; }
+        IUserAchievementRepository UserAchievement { get; }
     }
 }

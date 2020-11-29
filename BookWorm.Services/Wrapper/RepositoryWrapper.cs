@@ -29,10 +29,40 @@ namespace BookWorm.Services.Wrapper
         private IPublisherRepository _publisherRepository;
         private IPickOfTheDayRepository _pickOfTheDayRepository;
         private IPickOfTheWeekRepository _pickOfTheWeekRepository;
+        private IAchievementRepository _achievementRepository;
+        private IUserAchievementRepository _userAchievementRepository;
 
         public RepositoryWrapper(DataContext dataContext)
         {
             _dataContext = dataContext;
+        }
+
+        public IUserAchievementRepository UserAchievement
+        {
+            get
+            {
+
+                if (_userAchievementRepository == null)
+                {
+                    _userAchievementRepository = new UserAchievementRepostiory(_dataContext);
+                }
+
+                return _userAchievementRepository;
+            }
+        }
+
+        public IAchievementRepository Achievement
+        {
+            get
+            {
+
+                if (_achievementRepository == null)
+                {
+                    _achievementRepository = new AchievementRepository(_dataContext);
+                }
+
+                return _achievementRepository;
+            }
         }
 
         public IPickOfTheWeekRepository PickOfTheWeek

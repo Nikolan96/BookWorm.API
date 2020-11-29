@@ -27,6 +27,6 @@ namespace BookWorm.Quartz.Triggers
         public bool OnThursday { get; set; } = true;
         public bool OnFriday { get; set; } = true;
         public bool OnSaturday { get; set; } = true;
-        public bool OnSunday { get; set; } = false;
+        public bool OnSunday { get; set; } = true;
     }
 }
