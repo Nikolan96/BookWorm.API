@@ -31,6 +31,8 @@ namespace BookWorm.API.Controllers
         private readonly IRoleService _roleService;
         private readonly IPublisherService _publisherService;
         private readonly IPickOfTheDayService _pickOfTheDayService;
+        private readonly IAchievementService _achievementService;
+        private readonly IPickOfTheWeekService _pickOfTheWeekService;
         private Random _rnd = new Random();
         private List<Book> _generatedBooks = new List<Book>();
         private List<User> _generatedUsers = new List<User>();
@@ -58,7 +60,9 @@ namespace BookWorm.API.Controllers
             IReasonToReadService reasonToReadService,
             IRoleService roleService,
             IPublisherService publisherService,
-            IPickOfTheDayService pickOfTheDayService
+            IPickOfTheDayService pickOfTheDayService,
+            IAchievementService achievementService,
+            IPickOfTheWeekService pickOfTheWeekService
             )
         {
             _addressService = addressService;
@@ -80,6 +84,8 @@ namespace BookWorm.API.Controllers
             _roleService = roleService;
             _publisherService = publisherService;
             _pickOfTheDayService = pickOfTheDayService;
+            _achievementService = achievementService;
+            _pickOfTheWeekService = pickOfTheWeekService;
 
             PopulateGenresList(); 
             PopulateBookTitleList();
@@ -92,6 +98,8 @@ namespace BookWorm.API.Controllers
         [Route("GenerateData")]
         public ActionResult GenerateData()
         {
+            GenerateAchievements();
+
             GenerateRoles();
 
             GenerateGenres();
@@ -102,6 +110,7 @@ namespace BookWorm.API.Controllers
             GenerateBookAndAuthorRelatedData(10);
 
             GeneratePickOfTheDay();
+            GeneratePickOfTheWeek();
 
             // add 5 addresses and 5 users
             GenerateAddressesAndUsers(5);
@@ -125,6 +134,67 @@ namespace BookWorm.API.Controllers
             GenerateReasonsToRead(50);
 
             return Ok();
+        }
+
+        private void GenerateAchievements()
+        {
+            var achievements = new List<Achievement>
+            {
+                new Achievement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "Read one book",
+                    Description = "Read one book"
+                },
+                new Achievement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "Read three books",
+                    Description = "Read three book"
+                },
+                    new Achievement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "Read five books",
+                    Description = "Read five book"
+                },
+                new Achievement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "Read ten books",
+                    Description = "Read ten book"
+                },
+
+                new Achievement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "Added one note",
+                    Description = "Added one note"
+                },
+                new Achievement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "Added three notes",
+                    Description = "Added three notes"
+                },
+                new Achievement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "Added five notes",
+                    Description = "Added five notes"
+                },
+                      new Achievement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "Added ten notes",
+                    Description = "Added ten notes"
+                },
+            };
+
+            foreach (var achie in achievements)
+            {
+                _achievementService.AddAchievement(achie);
+            }
         }
 
         private void GeneratePublishers()
@@ -177,7 +247,53 @@ namespace BookWorm.API.Controllers
            
                 _pickOfTheDayService.AddPickOfTheDay(newPickOfTheDay);
             }
+        }
+
+        private void GeneratePickOfTheWeek()
+        {
+            List<Guid> newPicksOfTheWeekIds = new List<Guid>();
+            List<PickOfTheWeek> oldPicksOfTheWeek = new List<PickOfTheWeek>();
+            var rnd = new Random();
+
+            var picksOfTheWeek = _pickOfTheWeekService
+                .AsQueryable()
+                .ToList();
+
+            // remove old picks of the day
+            foreach (var pick in picksOfTheWeek)
+            {
+                oldPicksOfTheWeek.Add(pick);
+                _pickOfTheWeekService.RemovePickOfTheWeek(pick);
             }
+
+            // choose new picks of the day
+            while (newPicksOfTheWeekIds.Count < 10)
+            {
+                var books = _bookService.AsQueryable().ToList();
+                var randomBookid = books[rnd.Next(0, books.Count - 1)].Id;
+
+                bool alreadyAdded = !newPicksOfTheWeekIds.Any(x => x == randomBookid);
+                bool wasPickOfTheWeek = !oldPicksOfTheWeek.Any(y => y.BookId == randomBookid);
+
+                if (alreadyAdded && wasPickOfTheWeek)
+                {
+                    newPicksOfTheWeekIds.Add(randomBookid);
+                }
+            }
+
+            // add new picks of the day
+            foreach (var pickId in newPicksOfTheWeekIds)
+            {
+                var newPickOfTheWeek = new PickOfTheWeek
+                {
+                    BookId = pickId
+                };
+
+                _pickOfTheWeekService.AddPickOfTheWeek(newPickOfTheWeek);
+            }
+        }
+
+
 
         private void PopulatePublishers()
         {
@@ -481,7 +597,8 @@ namespace BookWorm.API.Controllers
                 PublishDate = GetRandomDateTime(_start, _range),
                 GenreId = rndGenre.Id,
                 Title = GetRandomTitle(),
-                PublisherId = GetRandomPublisherId()
+                PublisherId = GetRandomPublisherId(),
+                NumberOfPages = GetRandomNumberOfPages()
             };
 
             var book = _bookService.AddBook(newBook);
@@ -732,6 +849,11 @@ namespace BookWorm.API.Controllers
         private int GetRandomInt()
         {
             return _rnd.Next(0,5);
+        }
+
+        private int GetRandomNumberOfPages()
+        {
+            return _rnd.Next(100, 1200);
         }
 
         private string GenerateEmail(string name)

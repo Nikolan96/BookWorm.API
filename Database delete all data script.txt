@@ -18,3 +18,5 @@ DELETE FROM Genre;
 DELETE FROM Publisher;
 DELETE FROM PickOfTheWeek;
 DELETE FROM PickOfTheDay;
+DELETE FROM Achievement;
+DELETE FROM UserAchievement;

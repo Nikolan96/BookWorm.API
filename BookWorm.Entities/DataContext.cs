@@ -30,6 +30,9 @@ namespace BookWorm.Entities
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<PickOfTheDay> PickOfTheDay { get; set; }
         public DbSet<PickOfTheWeek> PickOfTheWeek { get; set; }
+        public DbSet<Achievement> Achievements { get; set; }
+        public DbSet<UserAchievement> UserAchievement { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -96,6 +99,12 @@ namespace BookWorm.Entities
              .HasKey(x => x.Id);
 
             modelBuilder.Entity<PickOfTheWeek>()
+             .HasKey(x => x.Id);
+
+            modelBuilder.Entity<Achievement>()
+             .HasKey(x => x.Id);
+
+            modelBuilder.Entity<UserAchievement>()
              .HasKey(x => x.Id);
 
             #endregion
@@ -186,6 +195,15 @@ namespace BookWorm.Entities
             modelBuilder.Entity<Publisher>()
                 .HasMany(c => c.Books)
                 .WithOne(e => e.Publisher);
+
+            modelBuilder.Entity<UserAchievement>()
+               .HasOne(bc => bc.User)
+               .WithMany(b => b.UserAchievements)
+               .HasForeignKey(bc => bc.UserId);
+            modelBuilder.Entity<UserAchievement>()
+                .HasOne(bc => bc.Achievement)
+                .WithMany(c => c.UserAchievements)
+                .HasForeignKey(bc => bc.AchievementId);
 
             #region Uniques
 
