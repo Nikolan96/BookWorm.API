@@ -13,10 +13,13 @@ namespace BookWorm.API.Controllers
     public class BooksReadController : ControllerBase
     {
         private readonly IBooksReadService _booksReadService;
+        private readonly IAwardAchievementService _awardAchievementService;
 
-        public BooksReadController(IBooksReadService booksReadService)
+        public BooksReadController(IBooksReadService booksReadService,
+            IAwardAchievementService awardAchievementService)
         {
             _booksReadService = booksReadService;
+            _awardAchievementService = awardAchievementService;
         }
 
         [HttpGet("{id}")]
@@ -99,10 +102,15 @@ namespace BookWorm.API.Controllers
 
             if (exists != null)
             {
-                return BadRequest("You already read that book!");
+                return BadRequest("User already read that book!");
             }
 
             var item = _booksReadService.AddBooksRead(newItem);
+
+            // check if user is eligable for achievement
+            var achie = _awardAchievementService.AwardAchievement("Read one book", newItem.UserId);
+
+            // return response with achievement , if it is not null , user got that achievement 
 
             return Ok(item);
         }

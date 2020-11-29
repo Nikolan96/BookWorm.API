@@ -1,7 +1,9 @@
-﻿using BookWorm.API.Requests;
+﻿using BookWorm.API.Dto;
+using BookWorm.API.Requests;
 using BookWorm.Contracts.Services;
 using BookWorm.Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +17,20 @@ namespace BookWorm.API.Controllers
         private readonly IBookService _bookService;
         private readonly IPickOfTheDayService _pickOfTheDayService;
         private readonly IPickOfTheWeekService _pickOfTheWeekService;
+        private readonly IAuthorService _authorService;
+        private readonly IBookAuthorService _bookAuthorService;
 
         public BookController(IBookService bookService,
             IPickOfTheDayService pickOfTheDayService,
-            IPickOfTheWeekService pickOfTheWeekService)
+            IPickOfTheWeekService pickOfTheWeekService,
+            IAuthorService authorService,
+            IBookAuthorService bookAuthorService)
         {
             _bookService = bookService;
             _pickOfTheDayService = pickOfTheDayService;
             _pickOfTheWeekService = pickOfTheWeekService;
+            _authorService = authorService;
+            _bookAuthorService = bookAuthorService;
         }
 
         [HttpGet("{id}")]
@@ -48,19 +56,21 @@ namespace BookWorm.API.Controllers
 
         [HttpGet]
         [Route("GetPicksOfTheDay")]
-        public ActionResult<IEnumerable<Book>> GetPicksOfTheDay()
+        public ActionResult<IEnumerable<BookDto>> GetPicksOfTheDay()
         {
-            List<Book> picksOfTheDay = new List<Book>();
+            List<BookDto> picksOfTheDay = new List<BookDto>();
             var bookIds = _pickOfTheDayService.AsQueryable().Select(x => x.BookId).ToList();
 
-            foreach (var id in bookIds) 
+            foreach (var id in bookIds)
             {
-               var book = _bookService
-                    .AsQueryable()
-                    .Where(x => x.Id == id)
-                    .FirstOrDefault();
+                var book = _bookService
+                     .AsQueryable()
+                     .Include(x => x.Genre)
+                     .Include(x => x.Publisher)
+                     .Where(x => x.Id == id)
+                     .FirstOrDefault();
 
-                picksOfTheDay.Add(book);
+                picksOfTheDay.Add(MapToBookDto(book));
             }
 
             return picksOfTheDay;
@@ -68,19 +78,21 @@ namespace BookWorm.API.Controllers
 
         [HttpGet]
         [Route("GetPicksOfTheWeek")]
-        public ActionResult<IEnumerable<Book>> GetPicksOfTheWeek()
+        public ActionResult<IEnumerable<BookDto>> GetPicksOfTheWeek()
         {
-            List<Book> picksOfTheDay = new List<Book>();
+            List<BookDto> picksOfTheDay = new List<BookDto>();
             var bookIds = _pickOfTheWeekService.AsQueryable().Select(x => x.BookId).ToList();
 
             foreach (var id in bookIds)
             {
                 var book = _bookService
                      .AsQueryable()
+                     .Include(x => x.Genre)
+                     .Include(x => x.Publisher)
                      .Where(x => x.Id == id)
                      .FirstOrDefault();
 
-                picksOfTheDay.Add(book);
+                picksOfTheDay.Add(MapToBookDto(book));
             }
 
             return picksOfTheDay;
@@ -180,6 +192,37 @@ namespace BookWorm.API.Controllers
             _bookService.RemoveBook(item);
 
             return Ok();
+        }
+
+
+        private BookDto MapToBookDto(Book book)
+        {
+            var x = book.Id.ToString().ToUpper();
+            Guid id = new Guid(book.Id.ToString().ToUpper());
+
+            var bookAuthor = _bookAuthorService
+                                .AsQueryable()
+                                .Where(x => x.BookId == id)
+                                .FirstOrDefault();
+
+            var author = _authorService
+                .AsQueryable()
+                .Where(x => x.Id == bookAuthor.AuthorId)
+                .FirstOrDefault();
+
+            var bookDto = new BookDto
+            {
+                Id = book.Id,
+                ISBN = book.ISBN,
+                Author = $"{author.FirstName} {author.LastName}",
+                Cover = book.Cover,
+                Genre = book.Genre.Name,
+                NumberOfPages = book.NumberOfPages,
+                PublishDate = book.PublishDate,
+                Publisher = book.Publisher.Name,
+                Title = book.Title
+            };
+            return bookDto;
         }
     }
 }
