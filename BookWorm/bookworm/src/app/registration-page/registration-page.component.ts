@@ -18,8 +18,7 @@ export class RegistrationPageComponent implements OnInit {
       email: '',
       password: '',
       gender: '',
-      dateOfBirth: null,
-      roleId: null
+      dateOfBirth: null
     },
     Address: {
       line1: '',
@@ -98,7 +97,6 @@ export class RegistrationPageComponent implements OnInit {
     this.registration.Address.country = this.secondFormGroup.value.country;
     this.registration.UserRegistration.email = this.thirdFormGroup.value.email;
     this.registration.UserRegistration.password = this.thirdFormGroup.value.password;
-    this.registration.UserRegistration.roleId = this.role;
   }
 
   getRole(): void {
