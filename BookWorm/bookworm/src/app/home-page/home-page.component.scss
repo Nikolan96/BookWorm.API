@@ -1,3 +1,4 @@
+
 header {
   background-color: whitesmoke;
   height: 12%;
@@ -157,6 +158,7 @@ header {
 }
 
 #content-wrapper {
+
   width: 100%;
   height: fit-content;
   background-color: #e1f5fe;
@@ -164,15 +166,15 @@ header {
 
 #content {
   height: 100%;
-  width: 70%;
+  width: 75%;
   color: #01579b;
+  overflow-x: hidden;
 }
 
 .cover {
   width: 120px !important;
   height: 170px !important;
   background-color: whitesmoke;
-  z-index: 5;
 }
 
 .title-and-author {
@@ -201,34 +203,75 @@ header {
   box-shadow: none;
 }
 
+
 .fun-facts-side-div {
-  width: 100%;
+  width: inherit;
   position: -webkit-sticky;
-  position: sticky;
-  top: 50%;
+  position: sticky !important;
+  top: 40%;
   right: 20px !important;
-  display: flex;
-  align-content: flex-end;
-  flex-direction: row;
-  transition: 2s width;
+  transition: width 2s;
 }
 
-.fun-facts-side-div div {
-  height: 300px;
-  background-color: #01579b;
-}
 
-.fun-facts-side-div span {
-  transform-origin: 0 0;
-  color: white;
+.fun-facts-side-div button {
+  overflow-x: hidden;
+  color: whitesmoke;
+  background-color: #0091ea;
+  font-size: 20px;
   width: 50px;
-  height: 100px;
-  transform: rotate(90deg);
+  height: 400px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+.fun-facts-side-div span{
+  display:inline-flex;
+  transform: rotate(-90deg);
 }
 
-.fun-facts-side-div div:hover {
-  width: 100%;
+.fun-facts-after {
   cursor: pointer;
   z-index: 100 !important;
+  width: 100% !important;
+  transition-timing-function: linear !important;
+  background: linear-gradient(90deg, #01579B -1.39%, #40C4FF 100.66%);
+  .mat-card-wrapper  {
+    z-index: -2;
+  }
+  .mat-card-book {
+    z-index: -2;
+  }
+
+  .fact-card {
+    display: flex;
+    flex-direction: row;
+    order: -1;
+  }
+}
+
+/*FACT CARD*/
+.fact-card {
+  max-width: 600px;
+  max-height: 250px;
+  display: none;
+  margin: auto;
+  background: none;
+  color: whitesmoke;
+  box-shadow: none;
+
+}
+.fact-card img{
+  width: 150px;
+  height: 180px;
+  margin-top: 20px;
+}
+
+.fact-card-content {
+  margin-left: 30px;
+}
+
+.fact-card-image {
+  height: 300px;
+
 
 }

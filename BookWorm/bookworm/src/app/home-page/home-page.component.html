@@ -38,8 +38,22 @@
     </header>
 
     <div id="content-wrapper" fxLayout="column" fxLayoutAlign="start center" >
-      <div class="fun-facts-side-div"><div><span> Fun facts</span>
-       </div></div>
+      <div id="facts-div" class="fun-facts-side-div" fxLayout="row" fxLayoutAlign="end ">
+        <button id="factbutton" #factbutton fxLayout="row" fxLayoutAlign="center center" mat-button (click)="openFact() "><span> Fun fact</span>
+        </button>
+        <mat-card class="fact-card" >
+          <div class="fact-card-image" fxLayout="column" fxLayoutAlign="center">
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+          </div>
+
+          <mat-card-content class="fact-card-content" fxLayout="column" fxLayoutAlign="center center">
+            <h2>Fact title</h2>
+            <p>
+             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, eveniet repellat? Reiciendis in, voluptates qui dolore at ab. Optio eum voluptate quibusdam animi pariatur, repellendus sed amet itaque! Expedita blanditiis consequuntur laborum laudantium est facilis vel eveniet esse quas ducimus culpa rerum, accusamus magni facere perspiciatis inventore deleniti odit corporis sapiente soluta cupiditate! Obcaecati sunt maiores, officia aliquam reprehenderit soluta nostrum blanditiis tempore quibusdam placeat porro labore minus? Sunt facere labore omnis officiis nesciunt. Ex voluptas nisi sequi dolorum beatae?
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
 
       <div id="content" fxLayout="column">
         <h1>Picks of the week</h1>
