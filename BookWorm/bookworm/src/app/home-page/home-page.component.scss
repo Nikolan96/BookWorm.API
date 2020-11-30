@@ -6,19 +6,12 @@ header {
 #cover-book-line-wrapper {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-content: space-between;
 }
 .cover-book-line {
   background-color: #0091ea;
   height: 10%;
   width: 100%;
 }
-
-// .coverBookLine:nth-child(2) {
-//   margin-top: auto;
-// }
 
 #bottom-cover-book-line {
   margin-top: auto;
@@ -28,9 +21,6 @@ header {
   background-color: #01579b;
   width: 100px;
   overflow: visible;
-  display: flex;
-  align-items: flex-end;
-  flex-direction: row;
   color: whitesmoke;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
     inset 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -41,8 +31,6 @@ header {
   cursor: pointer;
   height: calc(15%) !important;
   transition-timing-function: linear;
-
-
 }
 .active {
   background-color: #0091ea;
@@ -67,10 +55,6 @@ header {
 #profile {
   height: 12%;
   right: 2%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
 }
 #expand {
   text-align: center;
@@ -80,8 +64,6 @@ header {
   width: 60px;
   height: 100%;
   margin-top: 20px;
-  display: flex;
-  flex-direction: column;
 }
 #links {
   display: none;
@@ -137,8 +119,6 @@ header {
   width: 100%;
   position: absolute;
   overflow: visible;
-  display: flex;
-  flex-direction: column;
 }
 .book-lines div {
   background-color: #0091ea;
@@ -178,38 +158,21 @@ header {
 
 #content-wrapper {
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  align-items: center;
+  height: fit-content;
   background-color: #e1f5fe;
 }
 
 #content {
   height: 100%;
-  width: 90%;
-  margin-top: 10%;
-  display: flex;
-  flex-direction: column;
+  width: 70%;
   color: #01579b;
 }
-#picks-of-the-week, #picks-of-the-day {
-  display: flex !important;
-  width: 100%;
-  height: 300px;
-}
 
-.books {
-  display: flex;
-  flex-direction: column;
-  width: 150px;
-  height: fit-content;
-}
 .cover {
   width: 120px !important;
   height: 170px !important;
   background-color: whitesmoke;
+  z-index: 5;
 }
 
 .title-and-author {
@@ -227,15 +190,45 @@ header {
   font-size: 13px;
 }
 
-.card-content {
-  width: 250px;
+.mat-card-wrapper {
+  z-index: 5;
 }
-
 .mat-card-book{
   padding: 0 !important;
   width: 150px !important;
-  margin: 10px;
   background: none;
   color: #01579b;
   box-shadow: none;
+}
+
+.fun-facts-side-div {
+  width: 100%;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 50%;
+  right: 20px !important;
+  display: flex;
+  align-content: flex-end;
+  flex-direction: row;
+  transition: 2s width;
+}
+
+.fun-facts-side-div div {
+  height: 300px;
+  background-color: #01579b;
+}
+
+.fun-facts-side-div span {
+  transform-origin: 0 0;
+  color: white;
+  width: 50px;
+  height: 100px;
+  transform: rotate(90deg);
+}
+
+.fun-facts-side-div div:hover {
+  width: 100%;
+  cursor: pointer;
+  z-index: 100 !important;
+
 }
