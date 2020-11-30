@@ -7,7 +7,7 @@ import { BookService } from '../book.service';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  private books: Array<BookPreview> = [];
+  books: Array<BookPreview> = [];
   constructor(private bookService: BookService) {}
 
   ngOnInit(): void {
@@ -19,17 +19,7 @@ export class HomePageComponent implements OnInit {
   generatePicksOfTheWeek(): void {
     this.bookService.getBooksOfTheWeek().subscribe(
       (books) => {
-        const container = document.getElementById('picks-of-the-week');
-        const bookDiv = document.getElementById('picks-of-the-week').getElementsByTagName('div')[0];
-        books.forEach(book => {
-          bookDiv.getElementsByTagName('div')[0].innerHTML = '<img src="' + book.cover + '">';
-          bookDiv.getElementsByTagName('h2')[0].innerHTML = book.title;
-          bookDiv.getElementsByTagName('span')[0].innerHTML = book.isbn;
-          let bookCopy = bookDiv.cloneNode(true);
-          container?.appendChild(bookCopy);
-
-        });
-
+        this.books = books;
       },
       (error) => {
         console.log(error.error);
@@ -40,17 +30,7 @@ export class HomePageComponent implements OnInit {
   generatePicksOfTheDay(): void {
     this.bookService.getBooksOfTheDay().subscribe(
       (books) => {
-        const container = document.getElementById('picks-of-the-day');
-        const bookDiv = document.getElementById('picks-of-the-day').getElementsByTagName('div')[0];
-        books.forEach(book => {
-          bookDiv.getElementsByTagName('div')[0].innerHTML = '<img src="' + book.cover + '">';
-          bookDiv.getElementsByTagName('h2')[0].innerHTML = book.title;
-          bookDiv.getElementsByTagName('span')[0].innerHTML = book.isbn;
-          let bookCopy = bookDiv.cloneNode(true);
-          container?.appendChild(bookCopy);
-          console.log(books);
-          console.log('cao');
-        });
+        this.books = books;
       },
       (error) => {
         console.log(error.error);

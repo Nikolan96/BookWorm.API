@@ -30,7 +30,7 @@
             "styles": [
               {
                 "input": "src/theme.scss"
-            },
+              },
               "src/styles.scss"
             ],
             "scripts": []
@@ -132,5 +132,10 @@
   "defaultProject": "bookworm",
   "cli": {
     "analytics": "cc08fe75-65eb-4ad8-bbc7-cef2399d837c"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
   }
 }

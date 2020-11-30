@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
+
   <body>
     <header>
       <div id="cover-book-line-wrapper">
@@ -20,13 +14,11 @@
         <div class="tabs" id="logo">
           <img src="../../assets/logo.svg" alt="" />
         </div>
-        <a href="http://localhost:4200/home-page"
-          ><div class="tabs" id="home"><p>Home</p></div></a
-        >
-        <div class="tabs" id="myBooks"><p>My books</p></div>
-        <div class="tabs" id="library"><p>Library</p></div>
-        <div class="tabs" id="activity"><p>Acitvity</p></div>
-        <div class="tabs" id="fun-facts"><p>Fun facts</p></div>
+        <a href="http://localhost:4200/home-page"><div  class="tabs active" id="home"><p>Home</p></div></a>
+        <a href="http://" target="_blank" rel="noopener noreferrer"><div class="tabs" id="myBooks"><p>My books</p></div></a>
+        <a href="http://" target="_blank" rel="noopener noreferrer"><div class="tabs" id="library"><p>Library</p></div></a>
+        <a href="http://" target="_blank" rel="noopener noreferrer"><div class="tabs" id="activity"><p>Acitvity</p></div></a>
+        <a href="http://" target="_blank" rel="noopener noreferrer"><div class="tabs" id="fun-facts"><p>Fun facts</p></div></a>
         <div class="tabs" id="profile">
           <div id="avatar-and-name">
             <img src="../../assets/undraw_female_avatar_w3jk.svg" alt="">
@@ -44,31 +36,48 @@
         <div id="bottom-cover-book-line" class="cover-book-line"></div>
       </div>
     </header>
+
     <div id="content-wrapper">
       <div id="content">
         <h1>Picks of the week</h1>
-        <div id="picks-of-the-week">
-          <div class="books" id="book">
-            <div class="cover" ></div>
-            <div class="title-and-author">
-              <h2 class="title"></h2>
-              <span class="author"></span>
-            </div>
-          </div>
+        <div class="mat-card-wrapper" fxLayout="row">
+          <mat-card class="mat-card-book" *ngFor="let book of this.books">
+            <mat-card-content class="card-content">
+              <div id="picks-of-the-week" >
+                <div class="books" id="book">
+                  <div class="cover" ><img src="{{book.cover}}" alt="">
+                  </div>
+                  <div class="title-and-author">
+                    <h2 class="title">{{book.title}}</h2>
+                    <span class="author">{{book.isbn}}</span>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
         </div>
+
         <h1>Picks of the day</h1>
-        <div id="picks-of-the-day">
-          <div class="books" id="book">
-            <div class="cover"></div>
-            <div class="title-and-author">
-              <h2 class="title"></h2>
-              <span class="author"></span>
-            </div>
-          </div>
+        <div class="mat-card-wrapper" fxLayout="row">
+          <mat-card class="mat-card-book" *ngFor="let book of this.books">
+            <mat-card-content class="card-content">
+              <div id="picks-of-the-day" >
+                <div class="books" id="book">
+                  <div class="cover" ><img src="{{book.cover}}" alt="">
+                  </div>
+                  <div class="title-and-author">
+                    <h2 class="title">{{book.title}}</h2>
+                    <span class="author">{{book.isbn}}</span>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
         </div>
+
       </div>
     </div>
 
     <footer></footer>
   </body>
-</html>
+

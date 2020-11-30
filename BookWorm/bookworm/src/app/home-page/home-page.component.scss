@@ -44,7 +44,9 @@ header {
 
 
 }
-
+.active {
+  background-color: #0091ea;
+}
 #profile:hover {
   height: calc(19%) !important;
   #expand {
@@ -223,4 +225,17 @@ header {
 
 .author {
   font-size: 13px;
+}
+
+.card-content {
+  width: 250px;
+}
+
+.mat-card-book{
+  padding: 0 !important;
+  width: 150px !important;
+  margin: 10px;
+  background: none;
+  color: #01579b;
+  box-shadow: none;
 }
