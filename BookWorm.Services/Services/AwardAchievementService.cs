@@ -1,4 +1,5 @@
 ﻿using BookWorm.Contracts.Services;
+using BookWorm.Entities.Constants;
 using BookWorm.Entities.Entities;
 using System;
 using System.Linq;
@@ -60,27 +61,32 @@ namespace BookWorm.Services.Services
         {
             switch (achieTitle)
             {
-                case "Read one book":
-                    return ReadOneBook(userId);
+                case Achievements.TheJurneyBegins:
+                    return ReadXAmountOfBooks(userId, 1);
+                case Achievements.ApprenticeLibrarian:
+                    return ReadXAmountOfBooks(userId, 3);
+                case Achievements.Bibliophile:
+                    return ReadXAmountOfBooks(userId, 5);
+                case Achievements.Bookworm:
+                    return ReadXAmountOfBooks(userId, 10);
                 default:
                     return false;
             }
         }
 
-        private bool ReadOneBook(Guid userId)
+        private bool ReadXAmountOfBooks(Guid userId, int amount)
         {
             var count = _booksReadService
                 .AsQueryable()
                 .Where(x => x.UserId == userId)
                 .Count();
 
-            if (count >= 1)
+            if (count >= amount)
             {
                 return true;
             }
 
             return false;
         }
-
     }
 }

@@ -1,5 +1,7 @@
-﻿using BookWorm.API.Requests;
+﻿using BookWorm.API.Dto;
+using BookWorm.API.Requests;
 using BookWorm.Contracts.Services;
+using BookWorm.Entities.Constants;
 using BookWorm.Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -88,31 +90,53 @@ namespace BookWorm.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] BooksRead newItem)
+        public ActionResult Post([FromBody] BooksReadRequest request)
         {
-            if (newItem is null)
+            var response = new BooksReadResponse();
+
+            if (request is null)
             {
                 return BadRequest();
             }
 
-            var exists = _booksReadService
-                .AsQueryable()
-                .Where(x => x.BookId == newItem.BookId && x.UserId == newItem.UserId)
-                .FirstOrDefault();
-
-            if (exists != null)
+            if (request.UserId is null || request.BookIds is null)
             {
-                return BadRequest("User already read that book!");
+                return BadRequest();
             }
 
-            var item = _booksReadService.AddBooksRead(newItem);
+            foreach (var bookId in request.BookIds)
+            {
+                var exists = _booksReadService
+                .AsQueryable()
+                .Any(x => x.BookId == bookId && x.UserId == request.UserId);
 
-            // check if user is eligable for achievement
-            var achie = _awardAchievementService.AwardAchievement("Read one book", newItem.UserId);
+                if (exists)
+                {
+                    return BadRequest("User already read that book!");
+                }
 
-            // return response with achievement , if it is not null , user got that achievement 
+                var newBookRead = new BooksRead
+                {
+                    BookId = bookId,
+                    UserId = (Guid)request.UserId
+                };
 
-            return Ok(item);
+                var item = _booksReadService.AddBooksRead(newBookRead);
+
+                response.BooksRead.Add(item);
+            }
+
+            AwardAchievements((Guid)request.UserId, response.Achievements);
+
+            return Ok(response);
+        }
+
+        private void AwardAchievements(Guid userId, List<Achievement> achievements)
+        {
+            achievements.Add(_awardAchievementService.AwardAchievement(Achievements.TheJurneyBegins, userId));
+            achievements.Add(_awardAchievementService.AwardAchievement(Achievements.ApprenticeLibrarian, userId));
+            achievements.Add(_awardAchievementService.AwardAchievement(Achievements.Bibliophile, userId));
+            achievements.Add(_awardAchievementService.AwardAchievement(Achievements.Bookworm, userId));
         }
 
         [HttpPut]

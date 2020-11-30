@@ -1,4 +1,5 @@
 ﻿using BookWorm.Contracts.Services;
+using BookWorm.Entities.Constants;
 using BookWorm.Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -143,51 +144,26 @@ namespace BookWorm.API.Controllers
                 new Achievement
                 {
                     Id = Guid.NewGuid(),
-                    Title = "Read one book",
+                    Title = Achievements.TheJurneyBegins,
                     Description = "Read one book"
                 },
                 new Achievement
                 {
                     Id = Guid.NewGuid(),
-                    Title = "Read three books",
-                    Description = "Read three book"
+                    Title = Achievements.ApprenticeLibrarian,
+                    Description = "Read three books"
                 },
                     new Achievement
                 {
                     Id = Guid.NewGuid(),
-                    Title = "Read five books",
-                    Description = "Read five book"
+                    Title = Achievements.Bibliophile,
+                    Description = "Read five books"
                 },
                 new Achievement
                 {
                     Id = Guid.NewGuid(),
-                    Title = "Read ten books",
-                    Description = "Read ten book"
-                },
-
-                new Achievement
-                {
-                    Id = Guid.NewGuid(),
-                    Title = "Added one note",
-                    Description = "Added one note"
-                },
-                new Achievement
-                {
-                    Id = Guid.NewGuid(),
-                    Title = "Added three notes",
-                    Description = "Added three notes"
-                },
-                new Achievement
-                {
-                    Id = Guid.NewGuid(),
-                    Title = "Added five notes",
-                    Description = "Added five notes"
-                },
-                      new Achievement
-                {
-                    Id = Guid.NewGuid(),
-                    Title = "Added ten notes",
-                    Description = "Added ten notes"
+                    Title = Achievements.Bookworm,
+                    Description = "Read ten books"
                 },
             };
 

@@ -13,8 +13,8 @@ namespace BookWorm.Quartz.Services
 {
     public class QuartzHostedService : IHostedService
     {
-        private const int PickOfTheDayInterval = 1;
-        private const int PickOfTheWeekinterval = 2;
+        private const int PickOfTheDayInterval = 5;
+        private const int PickOfTheWeekinterval = 10;
 
         private IScheduler _scheduler;
         private readonly ISchedulerFactory _schedulerFactory;
