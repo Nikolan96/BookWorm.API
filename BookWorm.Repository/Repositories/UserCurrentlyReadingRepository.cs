@@ -2,9 +2,6 @@
 using BookWorm.Entities;
 using BookWorm.Entities.Entities;
 using BookWorm.Repository.Base;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BookWorm.Repository.Repositories
 {
