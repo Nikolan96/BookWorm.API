@@ -31,6 +31,7 @@ namespace BookWorm.Services.Wrapper
         private IPickOfTheWeekRepository _pickOfTheWeekRepository;
         private IAchievementRepository _achievementRepository;
         private IUserAchievementRepository _userAchievementRepository;
+        private IUserCurrentlyReadingRepository _userCurrentlyReadingRepository;
 
         public RepositoryWrapper(DataContext dataContext)
         {
@@ -342,6 +343,20 @@ namespace BookWorm.Services.Wrapper
                 }
 
                 return _userReviewRepository;
+            }
+        }
+
+        public IUserCurrentlyReadingRepository UserCurrentlyReading
+        {
+            get
+            {
+
+                if (_userCurrentlyReadingRepository == null)
+                {
+                    _userCurrentlyReadingRepository = new UserCurrentlyReadingRepository(_dataContext);
+                }
+
+                return _userCurrentlyReadingRepository;
             }
         }
 

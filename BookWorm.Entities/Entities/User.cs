@@ -47,5 +47,7 @@ namespace BookWorm.Entities.Entities
         public virtual ICollection<BooksRead> BooksRead { get; set; }
         [JsonIgnore]
         public virtual ICollection<UserAchievement> UserAchievements { get; set; }
+
+        public virtual ICollection<UserCurrentlyReading> BooksUserIsCurrentlyReading { get; set; }
     }
 }
