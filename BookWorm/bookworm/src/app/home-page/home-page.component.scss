@@ -1,4 +1,3 @@
-
 header {
   background-color: whitesmoke;
   height: 12%;
@@ -69,12 +68,10 @@ header {
 #links {
   display: none;
   flex-direction: column;
-
 }
 
-
 #links a {
-  color:whitesmoke !important;
+  color: whitesmoke !important;
   text-decoration: none !important;
 }
 #avatar-and-name p {
@@ -158,7 +155,6 @@ header {
 }
 
 #content-wrapper {
-
   width: 100%;
   height: fit-content;
   background-color: #e1f5fe;
@@ -166,7 +162,7 @@ header {
 
 #content {
   height: 100%;
-  width: 75%;
+  width: 70%;
   color: #01579b;
   overflow-x: hidden;
 }
@@ -195,14 +191,15 @@ header {
 .mat-card-wrapper {
   z-index: 5;
 }
-.mat-card-book{
+.mat-card-book,
+.mat-card-genres {
+  flex-wrap: wrap;
   padding: 0 !important;
   width: 150px !important;
   background: none;
   color: #01579b;
   box-shadow: none;
 }
-
 
 .fun-facts-side-div {
   width: inherit;
@@ -212,7 +209,6 @@ header {
   right: 20px !important;
   transition: width 2s;
 }
-
 
 .fun-facts-side-div button {
   overflow-x: hidden;
@@ -224,8 +220,8 @@ header {
   text-transform: uppercase;
   letter-spacing: 3px;
 }
-.fun-facts-side-div span{
-  display:inline-flex;
+.fun-facts-side-div span {
+  display: inline-flex;
   transform: rotate(-90deg);
 }
 
@@ -234,8 +230,8 @@ header {
   z-index: 100 !important;
   width: 100% !important;
   transition-timing-function: linear !important;
-  background: linear-gradient(90deg, #01579B -1.39%, #40C4FF 100.66%);
-  .mat-card-wrapper  {
+  background: linear-gradient(90deg, #01579b -1.39%, #40c4ff 100.66%);
+  .mat-card-wrapper {
     z-index: -2;
   }
   .mat-card-book {
@@ -258,9 +254,8 @@ header {
   background: none;
   color: whitesmoke;
   box-shadow: none;
-
 }
-.fact-card img{
+.fact-card img {
   width: 150px;
   height: 180px;
   margin-top: 20px;
@@ -272,6 +267,61 @@ header {
 
 .fact-card-image {
   height: 300px;
+}
 
+/*GENRES CARDS*/
+.mat-card-wrapper-genres {
+  width: 100%;
+  flex-wrap: wrap;
+}
 
+.mat-card-genres {
+  margin: 10px;
+  height: 300px;
+  width: 400px !important;
+}
+
+#genres {
+  width: 400px;
+  height: 280px;
+  background-color: #0091ea;
+}
+
+#glass-over-genres-div {
+  position: absolute;
+  width: 100%;
+  height: 60px;
+  background: rgba(255, 255, 251, 0.2);
+  backdrop-filter: blur(6px);
+
+}
+
+#glass-over-genres-div h2{
+  letter-spacing: 2px;
+  font-size: 20px;
+  text-shadow: -1px -1px 0px rgba(255,255,255,0.3), 1px 1px 0px rgba(0,0,0,0.8);
+	color: rgb(175, 175, 175);
+	opacity: 0.4;
+	font: 700 'Bitter';
+}
+#genres-cover figure img {
+  width: 100%;
+  height: 300px;
+	-webkit-filter: blur(0);
+	filter: blur(0);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+#genres-cover figure:hover img{
+  cursor: pointer;
+  -webkit-filter: blur(3px);
+	filter: blur(3px);
+}
+
+#glass-over-genres-div h2 {
+  color: white;
+}
+
+#glass-over-genres-div:hover{
+  cursor: pointer;
 }

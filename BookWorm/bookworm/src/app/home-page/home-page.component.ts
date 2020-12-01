@@ -1,6 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { BookPreview } from '../book';
 import { BookService } from '../book.service';
+import { Fact } from '../fact';
+import { Genre } from '../genre';
 
 @Component({
   selector: 'app-home-page',
@@ -10,11 +13,17 @@ import { BookService } from '../book.service';
 export class HomePageComponent implements OnInit {
 
   books: Array<BookPreview> = [];
+  bookFacts: Array<Fact> = [];
+  authorFacts: Array<Fact> = [];
+  genres: Array<Genre> = [];
   constructor(private bookService: BookService) {}
 
   ngOnInit(): void {
     this.generatePicksOfTheWeek();
     this.generatePicksOfTheDay();
+    this.getBookFacts();
+    this.getAuthorFacts();
+    this.getGenres();
   }
 
   generatePicksOfTheWeek(): void {
@@ -46,5 +55,45 @@ export class HomePageComponent implements OnInit {
     } else {
       button.classList.remove('fun-facts-after');
     }
+  }
+
+  getBookFacts(): void {
+    this.bookService.getBookFacts().subscribe(
+      (facts) => {
+        this.bookFacts = facts;
+        let randomFact = this.bookFacts[Math.floor(Math.random() * this.bookFacts.length)];
+        this.bookFacts = [];
+        this.bookFacts.push(randomFact);
+      },
+      (error) => {
+        console.log(error.error);
+      }
+    );
+  }
+
+  getAuthorFacts(): void {
+    this.bookService.getBookFacts().subscribe(
+      (facts) => {
+        this.authorFacts = facts;
+        let randomFact = this.bookFacts[Math.floor(Math.random() * this.bookFacts.length)];
+        this.authorFacts = [];
+        this.authorFacts.push(randomFact);
+      },
+      (error) => {
+        console.log(error.error);
+      }
+    );
+  }
+
+  getGenres(): void {
+    this.bookService.getGenres().subscribe(
+      (genres) => {
+        this.genres = genres;
+        console.log(this.genres);
+      },
+      (error) => {
+        console.log(error.error);
+      }
+    );
   }
 }
