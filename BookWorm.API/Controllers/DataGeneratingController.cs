@@ -545,7 +545,9 @@ namespace BookWorm.API.Controllers
                 var newBookFact = new BookFact
                 {
                     BookId = book.Id,
-                    Text = GetRandomString()
+                    Text = GetRandomString(),
+                    Title = GetRandomString(), // TODO : add actual fact titles 
+                    Cover = GetRandomString() // TODO : add path to actual image when we have some in assets
                 };
 
                 _bookFactService.AddBookFact(newBookFact);
@@ -609,7 +611,9 @@ namespace BookWorm.API.Controllers
                 var newAuthorFact = new AuthorFact
                 {
                     AuthorId = author.Id,
-                    Text = GetLoremIpsumText()
+                    Text = GetLoremIpsumText(),
+                    Title = GetRandomString(), // TODO : add actual fact titles 
+                    Cover = GetRandomString() // TODO : add path to actual image when we have some in assets
                 };
 
                 _authorFactService.AddAuthorFact(newAuthorFact);
@@ -633,7 +637,8 @@ namespace BookWorm.API.Controllers
             {
                 var newGenre = new Genre
                 {
-                    Name = genreName
+                    Name = genreName,
+                    Cover = GetRandomString() // TODO : add path to the actual image when there are some in assets
                 };
 
                 _genreService.AddGenre(newGenre);
