@@ -1,5 +1,6 @@
 ﻿using BookWorm.Contracts.Services;
 using BookWorm.Contracts.Wrapper;
+using BookWorm.Entities;
 using BookWorm.Quartz.Factory;
 using BookWorm.Quartz.Interfaces;
 using BookWorm.Services.Services;
@@ -16,6 +17,8 @@ namespace BookWorm.API.Unity
     {
         public static void Initialize(IUnityContainer container)
         {
+            container.RegisterType<DataContext>();
+
             container.RegisterType<IRepositoryWrapper, RepositoryWrapper>();
             container.RegisterType<IAuthorFactService, AuthorFactService>();
             container.RegisterType<IAuthorService, AuthorService>();
