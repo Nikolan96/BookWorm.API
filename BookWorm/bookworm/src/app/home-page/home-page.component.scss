@@ -166,7 +166,10 @@ header {
   color: #01579b;
   overflow-x: hidden;
 }
-
+#book:hover {
+  cursor: pointer;
+  color: #0091ea;
+}
 .cover {
   width: 120px !important;
   height: 170px !important;
@@ -244,6 +247,7 @@ header {
     order: -1;
   }
 }
+
 
 /*FACT CARD*/
 .fact-card {
