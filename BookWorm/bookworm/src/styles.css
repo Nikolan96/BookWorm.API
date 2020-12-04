@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+html, body {
+  margin: 0;
+  padding: 0px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@font-face {
+  font-family: ubuntu;
+  src: url(assets/fonts/Ubuntu-Bold.ttf) format("opentype");
+}
+
+/*# sourceMappingURL=styles.css.map */

@@ -1,0 +1,404 @@
+
+$bg: #E1F5FE;
+$barsize: 30px;
+header {
+  background-color: whitesmoke;
+  height: 12%;
+  width: 100%;
+}
+#cover-book-line-wrapper {
+  width: 100%;
+  height: 100%;
+}
+.cover-book-line {
+  background-color: #0091ea;
+  height: 10%;
+  width: 100%;
+}
+
+#bottom-cover-book-line {
+  margin-top: auto;
+}
+.tabs {
+  position: absolute;
+  background-color: #01579b;
+  width: 100px;
+  overflow: visible;
+  color: whitesmoke;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
+    inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  transition: height 0.5s;
+}
+
+.tabs:hover {
+  cursor: pointer;
+  height: calc(15%) !important;
+  transition-timing-function: linear;
+}
+.active {
+  background-color: #0091ea;
+}
+#profile:hover {
+  height: calc(19%) !important;
+  #expand {
+    display: none;
+  }
+
+  #links {
+    display: flex;
+    margin-bottom: 10px;
+  }
+}
+.tabs p {
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+#profile {
+  height: 12%;
+  right: 2%;
+}
+#expand {
+  text-align: center;
+  color: white;
+}
+#avatar-and-name {
+  width: 60px;
+  height: 100%;
+  margin-top: 20px;
+}
+#links {
+  display: none;
+  flex-direction: column;
+}
+
+#links a {
+  color: whitesmoke !important;
+  text-decoration: none !important;
+}
+#avatar-and-name p {
+  margin: 0;
+}
+#logo {
+  height: 15%;
+  left: 2%;
+}
+
+#home {
+  height: 6%;
+  left: 16%;
+  top: 10%;
+}
+
+#myBooks {
+  height: 8%;
+  left: 30%;
+  top: 6%;
+}
+
+#library {
+  height: 10%;
+  left: 44%;
+  top: 7%;
+}
+
+#activity {
+  height: 12%;
+  left: 58%;
+  top: 3%;
+}
+
+#fun-facts {
+  height: 13%;
+  left: 72%;
+  top: 5%;
+}
+
+.book-lines {
+  margin: 1% 0;
+  width: 100%;
+  position: absolute;
+  overflow: visible;
+}
+.book-lines div {
+  background-color: #0091ea;
+  margin-top: 10px;
+}
+.book-lines :nth-child(1) {
+  width: 30%;
+  height: 2px;
+}
+.book-lines :nth-child(2) {
+  width: 24%;
+  height: 2px;
+  margin-left: auto;
+}
+
+.book-lines :nth-child(3) {
+  width: 31%;
+  height: 2px;
+  margin-left: 56%;
+}
+
+.book-lines :nth-child(4) {
+  width: 60%;
+  height: 2px;
+}
+
+.book-lines :nth-child(5) {
+  width: 60%;
+  height: 2px;
+  margin-left: auto;
+}
+.book-lines :nth-child(6) {
+  width: 60%;
+  height: 2px;
+  margin-left: 22%;
+}
+
+#content-wrapper {
+  width: 100%;
+  height: fit-content;
+  background-color: #e1f5fe;
+}
+
+#content {
+  height: 100%;
+  width: 70%;
+  color: #01579b;
+  overflow-x: hidden;
+}
+
+#reasons-to-read {
+  margin-bottom: 30px;
+  width: 100%;
+  height: 400px;
+  background-color: #003D64;
+
+}
+
+.hr {
+  width: 100%;
+    height: 10px;
+    display: block;
+    position: relative;
+    margin-bottom: 0em;
+    padding: 2em 0;
+
+    &:after,
+    &:before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 10px;
+        bottom: 50%;
+        left: 0;
+
+    }
+
+    &:before {
+
+        background: linear-gradient( 90deg, $bg 0%, $bg 50%, transparent 50%, transparent 100% );
+        background-size: $barsize;
+        background-position: center;
+        z-index: 1;
+
+    }
+
+    &:after {
+
+        transition: opacity 0.3s ease, animation 0.3s ease;
+
+        background: linear-gradient(
+            to right,
+            #8DCBF1 5%,
+            #55B1EB 15%,
+            #008BE1 25%,
+            #005C96 35%,
+            #005992 45%,
+            #005992 55%,
+            #008BE1 65%,
+            #55B1EB 75%,
+            #63b7eb 85%,
+            #8DCBF1 95%);
+
+        background-size: 200%;
+        background-position: 0%;
+        animation: bar 15s linear infinite;
+    }
+
+    @keyframes bar {
+
+      0% { background-position: 0%; }
+      100% { background-position: 200%; }
+
+  }
+}
+#book:hover {
+  cursor: pointer;
+  color: #0091ea;
+}
+.cover {
+  width: 120px !important;
+  height: 170px !important;
+  background-color: whitesmoke;
+}
+
+.title-and-author {
+  max-width: 130px;
+  text-align: center;
+}
+.title {
+  font-size: 16px;
+  margin: 5px;
+  line-break: loose;
+  align-items: center;
+}
+
+.author {
+  font-size: 13px;
+}
+
+.mat-card-wrapper {
+  z-index: 5;
+}
+.mat-card-book,
+.mat-card-genres {
+  flex-wrap: wrap;
+  padding: 0 !important;
+  width: 150px !important;
+  background: none;
+  color: #01579b;
+  box-shadow: none;
+}
+
+.fun-facts-side-div {
+  width: inherit;
+  // position: -webkit-sticky;
+  // position: sticky !important;
+  position: absolute;
+  top: 60%;
+  right: 20px !important;
+  transition: width 2s;
+}
+
+.fun-facts-side-div button {
+  overflow-x: hidden;
+  color: whitesmoke;
+  background-color: #0091ea;
+  font-size: 20px;
+  width: 50px;
+  height: 400px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+.fun-facts-side-div span {
+  display: inline-flex;
+  transform: rotate(-90deg);
+}
+
+.fun-facts-after {
+  cursor: pointer;
+  height: 400px;
+  z-index: 100 !important;
+  width: 100% !important;
+  transition-timing-function: linear !important;
+  background: linear-gradient(90deg, #01579b -1.39%, #40c4ff 100.66%);
+  .mat-card-wrapper {
+    z-index: -2;
+  }
+  .mat-card-book {
+    z-index: -2;
+  }
+
+  .fact-card {
+    display: flex;
+    flex-direction: row;
+    order: -1;
+  }
+}
+
+
+/*FACT CARD*/
+.fact-card {
+  max-width: 600px;
+  max-height: 250px;
+  display: none;
+  margin: auto;
+  background: none;
+  color: whitesmoke;
+  box-shadow: none;
+}
+.fact-card img {
+  width: 150px;
+  height: 180px;
+  margin-top: 20px;
+}
+
+.fact-card-content {
+  margin-left: 30px;
+}
+
+.fact-card-image {
+  height: 300px;
+}
+
+/*GENRES CARDS*/
+.mat-card-wrapper-genres {
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.mat-card-genres {
+  margin: 10px;
+  height: 300px;
+  width: 400px !important;
+}
+
+#genres {
+  width: 400px;
+  height: 280px;
+  background-color: #0091ea;
+}
+
+#glass-over-genres-div {
+  position: absolute;
+  width: 100%;
+  height: 60px;
+  background: rgba(255, 255, 251, 0.2);
+  backdrop-filter: blur(6px);
+
+}
+
+#glass-over-genres-div h2{
+  letter-spacing: 2px;
+  font-size: 20px;
+  text-shadow: -1px -1px 0px rgba(255,255,255,0.3), 1px 1px 0px rgba(0,0,0,0.8);
+	color: rgb(175, 175, 175);
+	opacity: 0.4;
+	font: 700 'Bitter';
+}
+#genres-cover figure img {
+  width: 100%;
+  height: 300px;
+	-webkit-filter: blur(0);
+	filter: blur(0);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+#genres-cover figure:hover img{
+  cursor: pointer;
+  -webkit-filter: blur(3px);
+	filter: blur(3px);
+}
+
+#glass-over-genres-div h2 {
+  color: white;
+}
+
+#glass-over-genres-div:hover{
+  cursor: pointer;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Lato:100);
