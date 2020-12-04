@@ -1,3 +1,6 @@
+
+$bg: #E1F5FE;
+$barsize: 30px;
 header {
   background-color: whitesmoke;
   height: 12%;
@@ -166,6 +169,72 @@ header {
   color: #01579b;
   overflow-x: hidden;
 }
+
+#reasons-to-read {
+  margin-bottom: 30px;
+  width: 100%;
+  height: 400px;
+  background-color: #003D64;
+
+}
+
+.hr {
+  width: 100%;
+    height: 10px;
+    display: block;
+    position: relative;
+    margin-bottom: 0em;
+    padding: 2em 0;
+
+    &:after,
+    &:before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 10px;
+        bottom: 50%;
+        left: 0;
+
+    }
+
+    &:before {
+
+        background: linear-gradient( 90deg, $bg 0%, $bg 50%, transparent 50%, transparent 100% );
+        background-size: $barsize;
+        background-position: center;
+        z-index: 1;
+
+    }
+
+    &:after {
+
+        transition: opacity 0.3s ease, animation 0.3s ease;
+
+        background: linear-gradient(
+            to right,
+            #8DCBF1 5%,
+            #55B1EB 15%,
+            #008BE1 25%,
+            #005C96 35%,
+            #005992 45%,
+            #005992 55%,
+            #008BE1 65%,
+            #55B1EB 75%,
+            #63b7eb 85%,
+            #8DCBF1 95%);
+
+        background-size: 200%;
+        background-position: 0%;
+        animation: bar 15s linear infinite;
+    }
+
+    @keyframes bar {
+
+      0% { background-position: 0%; }
+      100% { background-position: 200%; }
+
+  }
+}
 #book:hover {
   cursor: pointer;
   color: #0091ea;
@@ -206,9 +275,10 @@ header {
 
 .fun-facts-side-div {
   width: inherit;
-  position: -webkit-sticky;
-  position: sticky !important;
-  top: 40%;
+  // position: -webkit-sticky;
+  // position: sticky !important;
+  position: absolute;
+  top: 60%;
   right: 20px !important;
   transition: width 2s;
 }
@@ -230,6 +300,7 @@ header {
 
 .fun-facts-after {
   cursor: pointer;
+  height: 400px;
   z-index: 100 !important;
   width: 100% !important;
   transition-timing-function: linear !important;
@@ -329,3 +400,5 @@ header {
 #glass-over-genres-div:hover{
   cursor: pointer;
 }
+
+@import url(https://fonts.googleapis.com/css?family=Lato:100);
