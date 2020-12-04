@@ -13,6 +13,8 @@ namespace BookWorm.API.Controllers
     [ApiController]
     public class DataGeneratingController : ControllerBase
     {
+        private const string BookCoverPath = "../../assets/book-image.svg";
+
         private readonly IAddressService _addressService;
         private readonly IUserService _userService;
         private readonly IAuthorService _authorService;
@@ -37,7 +39,6 @@ namespace BookWorm.API.Controllers
         private Random _rnd = new Random();
         private List<Book> _generatedBooks = new List<Book>();
         private List<User> _generatedUsers = new List<User>();
-        private List<string> _genresList = new List<string>();
         private List<string> _bookTitles = new List<string>();
         private List<Publisher> _publishers = new List<Publisher>();
         private DateTime _start = new DateTime(1965, 1, 1);
@@ -88,7 +89,6 @@ namespace BookWorm.API.Controllers
             _achievementService = achievementService;
             _pickOfTheWeekService = pickOfTheWeekService;
 
-            PopulateGenresList(); 
             PopulateBookTitleList();
             PopulatePublishers();
 
@@ -547,7 +547,7 @@ namespace BookWorm.API.Controllers
                     BookId = book.Id,
                     Text = GetRandomString(),
                     Title = GetRandomString(), // TODO : add actual fact titles 
-                    Cover = GetRandomString() // TODO : add path to actual image when we have some in assets
+                    Cover = BookCoverPath 
                 };
 
                 _bookFactService.AddBookFact(newBookFact);
@@ -576,7 +576,8 @@ namespace BookWorm.API.Controllers
                 GenreId = rndGenre.Id,
                 Title = GetRandomTitle(),
                 PublisherId = GetRandomPublisherId(),
-                NumberOfPages = GetRandomNumberOfPages()
+                NumberOfPages = GetRandomNumberOfPages(),
+                Cover = BookCoverPath
             };
 
             var book = _bookService.AddBook(newBook);
@@ -613,7 +614,7 @@ namespace BookWorm.API.Controllers
                     AuthorId = author.Id,
                     Text = GetLoremIpsumText(),
                     Title = GetRandomString(), // TODO : add actual fact titles 
-                    Cover = GetRandomString() // TODO : add path to actual image when we have some in assets
+                    Cover = BookCoverPath
                 };
 
                 _authorFactService.AddAuthorFact(newAuthorFact);
@@ -624,24 +625,139 @@ namespace BookWorm.API.Controllers
 
         private void GenerateGenres()
         {
-            var genres = new List<string>();
-
-            while (genres.Count <= 10)
+            var genres = new List<Genre>
             {
-                var rndIndex = _rnd.Next(0, _genresList.Count - 1);
-                genres.Add(_genresList[rndIndex]);              
-                _genresList.RemoveAt(rndIndex);                
-            }
-
-            foreach (var genreName in _genresList)
-            {
-                var newGenre = new Genre
+                 new Genre
                 {
-                    Name = genreName,
-                    Cover = GetRandomString() // TODO : add path to the actual image when there are some in assets
-                };
+                    Id = Guid.NewGuid(),
+                    Name = "Alternate history",
+                    Cover = "../../assets/genres/alternate-history.jpg"
+                },
+                 new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Anthology",
+                    Cover = "../../assets/genres/anthology.jpg"
+                },
+                 new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Action and adventure",
+                    Cover = "../../assets/genres/action-and-adventure.jpg"
+                },
+                 new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Political thriller",
+                    Cover = "../../assets/genres/political-thriller.jpg"
+                },
+                 new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Mystery",
+                    Cover = "../../assets/genres/mystery.jpg"
+                },
+                 new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Fairytale",
+                    Cover = "../../assets/genres/fairytale.jpg"
+                },
+                 new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Classic",
+                    Cover = "../../assets/genres/classic.jpg"
+                },
+                 new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Health/fitness",
+                    Cover = "../../assets/genres/health.jpg"
+                },
+                  new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Diary",
+                    Cover = "../../assets/genres/diary.jpg"
+                },
+                  new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Encyclopedia",
+                    Cover = "../../assets/genres/encyclopedia.jpg"
+                },
+                 new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Western",
+                    Cover = "../../assets/genres/western.jpg"
+                },
+                 new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Autobiography",
+                    Cover = "../../assets/genres/autobiography.jpg"
+                },
+                 new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Science Fiction",
+                    Cover = "../../assets/genres/science-fiction.jpg"
+                },
+                  new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Satire",
+                    Cover = "../../assets/genres/satire.jpg"
+                },
+                  new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Thriller",
+                    Cover = "../../assets/genres/thriller.jpg"
+                },
+                  new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Romance",
+                    Cover = "../../assets/genres/romance.jpg"
+                },
+                 new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Poetry",
+                    Cover = "../../assets/genres/poetry.jpg"
+                },
+                 new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Crime",
+                    Cover = "../../assets/genres/crime.jpg"
+                },
+                 new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Memoir",
+                    Cover = "../../assets/genres/memoir.jpg"
+                },
+                  new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Biography",
+                    Cover = "../../assets/genres/biography.jpg"
+                },
+                  new Genre
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "True crime",
+                    Cover = "../../assets/genres/true-crime.jpg"
+                },
+            };
 
-                _genreService.AddGenre(newGenre);
+            foreach (var genre in genres)
+            {
+                _genreService.AddGenre(genre);
             }
         }
 
@@ -857,31 +973,6 @@ namespace BookWorm.API.Controllers
         private Guid GetRandomPublisherId()
         {
             return _publishers[_rnd.Next(0, _publishers.Count - 1)].Id;
-        }
-
-        private void PopulateGenresList()
-        {
-              _genresList.Add("Alternate history");
-              _genresList.Add("Anthology");
-              _genresList.Add("Classic");
-              _genresList.Add("Crime");
-              _genresList.Add("Fairytale");
-              _genresList.Add("Mystery");
-              _genresList.Add("Poetry");
-              _genresList.Add("Romance");
-              _genresList.Add("Thriller");
-              _genresList.Add("Satire");
-              _genresList.Add("Political thriller");
-              _genresList.Add("Western");
-              _genresList.Add("Science Fiction");
-              _genresList.Add("Autobiography");
-              _genresList.Add("Biography");
-              _genresList.Add("Diary");
-              _genresList.Add("Encyclopedia");
-              _genresList.Add("Health/fitness");
-              _genresList.Add("Memoir");
-              _genresList.Add("True crime");
-              _genresList.Add("Action and adventure");
         }
 
         private void PopulateBookTitleList()
