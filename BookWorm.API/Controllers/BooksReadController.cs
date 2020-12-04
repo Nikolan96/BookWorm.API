@@ -1,5 +1,7 @@
-﻿using BookWorm.API.Requests;
+﻿using BookWorm.API.Dto;
+using BookWorm.API.Requests;
 using BookWorm.Contracts.Services;
+using BookWorm.Entities.Constants;
 using BookWorm.Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,10 +15,13 @@ namespace BookWorm.API.Controllers
     public class BooksReadController : ControllerBase
     {
         private readonly IBooksReadService _booksReadService;
+        private readonly IAwardAchievementService _awardAchievementService;
 
-        public BooksReadController(IBooksReadService booksReadService)
+        public BooksReadController(IBooksReadService booksReadService,
+            IAwardAchievementService awardAchievementService)
         {
             _booksReadService = booksReadService;
+            _awardAchievementService = awardAchievementService;
         }
 
         [HttpGet("{id}")]
@@ -85,26 +90,53 @@ namespace BookWorm.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] BooksRead newItem)
+        public ActionResult Post([FromBody] BooksReadRequest request)
         {
-            if (newItem is null)
+            var response = new BooksReadResponse();
+
+            if (request is null)
             {
                 return BadRequest();
             }
 
-            var exists = _booksReadService
-                .AsQueryable()
-                .Where(x => x.BookId == newItem.BookId && x.UserId == newItem.UserId)
-                .FirstOrDefault();
-
-            if (exists != null)
+            if (request.UserId is null || request.BookIds is null)
             {
-                return BadRequest("You already read that book!");
+                return BadRequest();
             }
 
-            var item = _booksReadService.AddBooksRead(newItem);
+            foreach (var bookId in request.BookIds)
+            {
+                var exists = _booksReadService
+                .AsQueryable()
+                .Any(x => x.BookId == bookId && x.UserId == request.UserId);
 
-            return Ok(item);
+                if (exists)
+                {
+                    return BadRequest("User already read that book!");
+                }
+
+                var newBookRead = new BooksRead
+                {
+                    BookId = bookId,
+                    UserId = (Guid)request.UserId
+                };
+
+                var item = _booksReadService.AddBooksRead(newBookRead);
+
+                response.BooksRead.Add(item);
+            }
+
+            AwardAchievements((Guid)request.UserId, response.Achievements);
+
+            return Ok(response);
+        }
+
+        private void AwardAchievements(Guid userId, List<Achievement> achievements)
+        {
+            achievements.Add(_awardAchievementService.AwardAchievement(Achievements.TheJurneyBegins, userId));
+            achievements.Add(_awardAchievementService.AwardAchievement(Achievements.ApprenticeLibrarian, userId));
+            achievements.Add(_awardAchievementService.AwardAchievement(Achievements.Bibliophile, userId));
+            achievements.Add(_awardAchievementService.AwardAchievement(Achievements.Bookworm, userId));
         }
 
         [HttpPut]

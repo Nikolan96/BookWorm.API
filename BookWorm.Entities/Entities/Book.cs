@@ -43,7 +43,9 @@ namespace BookWorm.Entities.Entities
         public virtual ICollection<UserOpenedBookPage> UserOpenedBookPages { get; set; }
         [JsonIgnore]
         public virtual ICollection<BooksRead> BooksRead { get; set; }
-        
+
+        public virtual ICollection<UserCurrentlyReading> BooksUserIsCurrentlyReading { get; set; }
+
 
         [ForeignKey("GenreId")]
         [JsonIgnore]

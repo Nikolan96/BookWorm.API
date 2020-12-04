@@ -9,6 +9,7 @@ namespace BookWorm.Entities.Entities
     public class Genre : EntityBase
     {
         public string Name { get; set; }
+        public string Cover { get; set; }
 
         // EF Core relations
         [JsonIgnore]

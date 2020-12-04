@@ -33,6 +33,8 @@ namespace BookWorm.Entities
         public DbSet<Achievement> Achievements { get; set; }
         public DbSet<UserAchievement> UserAchievement { get; set; }
 
+        public DbSet<UserCurrentlyReading> UserCurrentlyReading { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -204,6 +206,15 @@ namespace BookWorm.Entities
                 .HasOne(bc => bc.Achievement)
                 .WithMany(c => c.UserAchievements)
                 .HasForeignKey(bc => bc.AchievementId);
+
+            modelBuilder.Entity<UserCurrentlyReading>()
+              .HasOne(bc => bc.User)
+              .WithMany(b => b.BooksUserIsCurrentlyReading)
+              .HasForeignKey(bc => bc.UserId);
+            modelBuilder.Entity<UserCurrentlyReading>()
+                .HasOne(bc => bc.Book)
+                .WithMany(c => c.BooksUserIsCurrentlyReading)
+                .HasForeignKey(bc => bc.BookId);
 
             #region Uniques
 

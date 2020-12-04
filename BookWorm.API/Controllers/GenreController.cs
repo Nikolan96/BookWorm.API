@@ -37,6 +37,7 @@ namespace BookWorm.API.Controllers
         {
             return Ok(_genreService
                 .AsQueryable()
+                .OrderBy(x => x.Name)
                 .ToList());
         }
 
