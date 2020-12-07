@@ -2,8 +2,11 @@
 using BookWorm.Entities.Constants;
 using BookWorm.Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 
@@ -36,6 +39,8 @@ namespace BookWorm.API.Controllers
         private readonly IPickOfTheDayService _pickOfTheDayService;
         private readonly IAchievementService _achievementService;
         private readonly IPickOfTheWeekService _pickOfTheWeekService;
+        private readonly IConfiguration _configuration;
+
         private Random _rnd = new Random();
         private List<Book> _generatedBooks = new List<Book>();
         private List<User> _generatedUsers = new List<User>();
@@ -64,7 +69,8 @@ namespace BookWorm.API.Controllers
             IPublisherService publisherService,
             IPickOfTheDayService pickOfTheDayService,
             IAchievementService achievementService,
-            IPickOfTheWeekService pickOfTheWeekService
+            IPickOfTheWeekService pickOfTheWeekService,
+            IConfiguration configuration
             )
         {
             _addressService = addressService;
@@ -88,7 +94,7 @@ namespace BookWorm.API.Controllers
             _pickOfTheDayService = pickOfTheDayService;
             _achievementService = achievementService;
             _pickOfTheWeekService = pickOfTheWeekService;
-
+            this._configuration = configuration;
             PopulateBookTitleList();
             PopulatePublishers();
 
@@ -99,6 +105,8 @@ namespace BookWorm.API.Controllers
         [Route("GenerateData")]
         public ActionResult GenerateData()
         {
+            DeleteAllData();
+
             GenerateAchievements();
 
             GenerateRoles();
@@ -545,9 +553,9 @@ namespace BookWorm.API.Controllers
                 var newBookFact = new BookFact
                 {
                     BookId = book.Id,
-                    Text = GetRandomString(),
-                    Title = GetRandomString(), // TODO : add actual fact titles 
-                    Cover = BookCoverPath 
+                    Text = GetLoremIpsumText(),
+                    Title = GetRandomString(),
+                    Cover = GetRandomBookCoverPath()
                 };
 
                 _bookFactService.AddBookFact(newBookFact);
@@ -571,13 +579,13 @@ namespace BookWorm.API.Controllers
         {
             var newBook = new Book
             {
-                ISBN = GetRandomString(),
+                ISBN = GenerateRandomISBN(),
                 PublishDate = GetRandomDateTime(_start, _range),
                 GenreId = rndGenre.Id,
                 Title = GetRandomTitle(),
                 PublisherId = GetRandomPublisherId(),
                 NumberOfPages = GetRandomNumberOfPages(),
-                Cover = BookCoverPath
+                Cover = GetRandomBookCoverPath()
             };
 
             var book = _bookService.AddBook(newBook);
@@ -613,8 +621,8 @@ namespace BookWorm.API.Controllers
                 {
                     AuthorId = author.Id,
                     Text = GetLoremIpsumText(),
-                    Title = GetRandomString(), // TODO : add actual fact titles 
-                    Cover = BookCoverPath
+                    Title = GetRandomString(),
+                    Cover = GetRandomBookCoverPath()
                 };
 
                 _authorFactService.AddAuthorFact(newAuthorFact);
@@ -1128,6 +1136,45 @@ namespace BookWorm.API.Controllers
             _bookTitles.Add("The Bridge to Lucy Dunne");
             _bookTitles.Add("The Battles of Tolkien");
             _bookTitles.Add("Wide Sargasso Sea");
+        }
+
+        private string GetRandomBookCoverPath()
+        {
+            var bookCoverPaths = new List<string>
+            {
+                "../../assets/bookCovers/theBoyWithTheTigersHeart.jpg",
+                "../../assets/bookCovers/redQueen.jpg",
+                "../../assets/bookCovers/risingOfTheRedMoon.jpg",
+                "../../assets/bookCovers/dancingWithTheTiger.jpg",
+                "../../assets/bookCovers/kattieWatsonAndThePaintersPiot.jpg",
+                "../../assets/bookCovers/theSwallows.jpg",
+                "../../assets/bookCovers/historyDesCans.jpg",
+                "../../assets/bookCovers/vote.jpg",
+                "../../assets/bookCovers/theGirlOfInkAndStars.jpg",
+                "../../assets/bookCovers/ToEveryManABrain.jpg",
+            };
+
+            return bookCoverPaths[_rnd.Next(0, bookCoverPaths.Count - 1)];
+        }
+
+        private void DeleteAllData()
+        {
+            var connString = _configuration.GetConnectionString("Bookworm");
+            var query = "EXEC sys.sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL';" +
+                        "EXEC sys.sp_msforeachtable 'DELETE FROM ?';" +
+                        "EXEC sys.sp_MSForEachTable 'ALTER TABLE ? CHECK CONSTRAINT ALL';";
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand command = new SqlCommand(query, conn);
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
+        private string GenerateRandomISBN()
+        {
+            return $"{ _rnd.Next(100, 999)}-{ _rnd.Next(10, 99)}-{ _rnd.Next(1000, 9999)}-{ _rnd.Next(100, 999)}-{ _rnd.Next(0, 9)}";
         }
     }
 }
