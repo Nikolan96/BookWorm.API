@@ -102,11 +102,11 @@
       >
         <span> Fun fact</span>
       </button>
-      <mat-card class="fact-card">
+      <mat-card class="fact-card" *ngFor="let bookFact of this.bookFacts">
         <div class="fact-card-image" fxLayout="column" fxLayoutAlign="center">
           <img
             mat-card-image
-            src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+            src="{{bookFact.cover}}"
             alt="Photo of a Shiba Inu"
           />
         </div>
@@ -115,7 +115,7 @@
           class="fact-card-content"
           fxLayout="column"
           fxLayoutAlign="center center"
-          *ngFor="let bookFact of this.bookFacts"
+
         >
           <h2>Fact title</h2>
           <p>{{ bookFact.text }}</p>
@@ -158,11 +158,11 @@
         <mat-card class="mat-card-book" *ngFor="let book of this.books">
           <mat-card-content class="card-content">
             <div id="picks-of-the-week">
-              <div class="books" id="book">
+              <div  class="books" id="book" (click)="goToBookPage(book.id)">
                 <div class="cover"><img src="{{ book.cover }}" alt="" /></div>
                 <div class="title-and-author">
                   <h2 class="title">{{ book.title }}</h2>
-                  <span class="author">{{ book.isbn }}</span>
+                  <span class="author">{{ book.author }}</span>
                 </div>
               </div>
             </div>
@@ -179,7 +179,7 @@
                 <div class="cover"><img src="{{ book.cover }}" alt="" /></div>
                 <div class="title-and-author">
                   <h2 class="title">{{ book.title }}</h2>
-                  <span class="author">{{ book.isbn }}</span>
+                  <span class="author">{{ book.author }}</span>
                 </div>
               </div>
             </div>

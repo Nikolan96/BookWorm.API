@@ -6,6 +6,7 @@ import { BookService } from '../book.service';
 import { Fact } from '../fact';
 import { Genre } from '../genre';
 import { ReasonsToRead } from '../reasonsToRead';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -18,7 +19,7 @@ export class HomePageComponent implements OnInit {
   reasonsToRead: Array<ReasonsToRead> = [];
   authorFacts: Array<Fact> = [];
   genres: Array<Genre> = [];
-  constructor(private bookService: BookService) {}
+  constructor(private bookService: BookService, private router: Router) {}
 
   ngOnInit(): void {
     this.generatePicksOfTheWeek();
@@ -118,11 +119,8 @@ export class HomePageComponent implements OnInit {
     );
   }
 
-  nextReason(): void {
 
-  }
-
-  previousReason(): void {
-    console.log('prethodna slika');
+  goToBookPage(id: any): void {
+    this.router.navigate([`/book/${id}`]);
   }
 }
