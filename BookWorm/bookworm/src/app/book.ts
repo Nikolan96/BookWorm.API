@@ -6,4 +6,5 @@ export interface BookPreview {
   'cover': string;
   'genreId': string;
   'publisherId': string;
+  'author': string;
 }

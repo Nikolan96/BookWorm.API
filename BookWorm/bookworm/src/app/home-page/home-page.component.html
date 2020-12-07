@@ -1,88 +1,6 @@
 <body>
   <header>
-    <div
-      id="cover-book-line-wrapper"
-      fxLayout="column"
-      fxLayoutAlign="space-between center"
-    >
-      <div class="cover-book-line"></div>
-      <div class="book-lines" fxLayout="column">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      <div class="tabs" id="logo" fxLayout="row" fxLayoutAlign="centrer end">
-        <img src="../../assets/logo.svg" alt="" />
-      </div>
-      <a href="http://localhost:4200/home-page"
-        ><div
-          class="tabs active"
-          id="home"
-          fxLayout="row"
-          fxLayoutAlign="end end"
-        >
-          <p>Home</p>
-        </div></a
-      >
-      <a href="http://" target="_blank" rel="noopener noreferrer"
-        ><div class="tabs" id="myBooks" fxLayout="row" fxLayoutAlign="end end">
-          <p>My books</p>
-        </div></a
-      >
-      <a href="http://" target="_blank" rel="noopener noreferrer"
-        ><div class="tabs" id="library" fxLayout="row" fxLayoutAlign="end end">
-          <p>Library</p>
-        </div></a
-      >
-      <a href="http://" target="_blank" rel="noopener noreferrer"
-        ><div class="tabs" id="activity" fxLayout="row" fxLayoutAlign="end end">
-          <p>Acitvity</p>
-        </div></a
-      >
-      <a href="http://" target="_blank" rel="noopener noreferrer"
-        ><div
-          class="tabs"
-          id="fun-facts"
-          fxLayout="row"
-          fxLayoutAlign="end end"
-        >
-          <p>Fun facts</p>
-        </div></a
-      >
-      <div
-        class="tabs"
-        id="profile"
-        fxLayout="column"
-        fxLayoutAlign="center center"
-      >
-        <div id="avatar-and-name" fxLayout="column">
-          <img src="../../assets/undraw_female_avatar_w3jk.svg" alt="" />
-          <p>User</p>
-          <div id="expand">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="19"
-              height="19"
-              viewBox="0 0 24 24"
-              fill="white"
-            >
-              <path
-                d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div id="links">
-          <a href="#">Profile</a>
-          <a href="#">Settings</a>
-          <a href="#">Log out</a>
-        </div>
-      </div>
-      <div id="bottom-cover-book-line" class="cover-book-line"></div>
-    </div>
+    <app-menu-bar></app-menu-bar>
   </header>
 
   <div id="content-wrapper" fxLayout="column" fxLayoutAlign="start center">
@@ -140,14 +58,13 @@
             fxLayoutAlign="center center">
               <div id="reasons-to-read-image">
                 <img
-                  src="../../assets/reasons to read/undraw_book_lover_mkck.svg"
+                  src="{{reason.cover}}"
                   alt=""
                 />
               </div>
               <div id="reasons-to-read-text">
-                <h1>Title</h1>
-                <p> {{ reason.text }}</p>
-
+                <h1>{{reason.title}}</h1>
+                <p> {{reason.text }}</p>
               </div>
             </div>
           </div>
@@ -155,14 +72,14 @@
       </div>
       <h1>Picks of the week</h1>
       <div class="mat-card-wrapper" fxLayout="row">
-        <mat-card class="mat-card-book" *ngFor="let book of this.books">
+        <mat-card class="mat-card-book" *ngFor="let pickOfTheWeek of this.picksOfTheWeek">
           <mat-card-content class="card-content">
             <div id="picks-of-the-week">
-              <div  class="books" id="book" (click)="goToBookPage(book.id)">
-                <div class="cover"><img src="{{ book.cover }}" alt="" /></div>
+              <div  class="books" id="book" (click)="goToBookPage(pickOfTheWeek.id)">
+                <div class="cover"><img src="{{ pickOfTheWeek.cover }}" alt="" /></div>
                 <div class="title-and-author">
-                  <h2 class="title">{{ book.title }}</h2>
-                  <span class="author">{{ book.author }}</span>
+                  <h2 class="title">{{ pickOfTheWeek.title }}</h2>
+                  <span class="author">{{ pickOfTheWeek.author }}</span>
                 </div>
               </div>
             </div>
@@ -172,14 +89,14 @@
       <b class="hr"></b>
       <h1>Picks of the day</h1>
       <div class="mat-card-wrapper" fxLayout="row">
-        <mat-card class="mat-card-book" *ngFor="let book of this.books">
+        <mat-card class="mat-card-book" *ngFor="let pickOfTheDay of this.picksOfTheDay">
           <mat-card-content class="card-content">
             <div id="picks-of-the-day">
               <div class="books" id="book">
-                <div class="cover"><img src="{{ book.cover }}" alt="" /></div>
+                <div class="cover"><img src="{{ pickOfTheDay.cover }}" alt="" /></div>
                 <div class="title-and-author">
-                  <h2 class="title">{{ book.title }}</h2>
-                  <span class="author">{{ book.author }}</span>
+                  <h2 class="title">{{ pickOfTheDay.title }}</h2>
+                  <span class="author">{{ pickOfTheDay.author }}</span>
                 </div>
               </div>
             </div>

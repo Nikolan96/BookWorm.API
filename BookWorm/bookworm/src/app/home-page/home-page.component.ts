@@ -1,6 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { throwToolbarMixedModesError } from '@angular/material/toolbar';
-import { NgImageSliderComponent } from 'ng-image-slider';
+import { Component, OnInit } from '@angular/core';
 import { BookPreview } from '../book';
 import { BookService } from '../book.service';
 import { Fact } from '../fact';
@@ -14,7 +12,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  books: Array<BookPreview> = [];
+  picksOfTheWeek: Array<BookPreview> = [];
+  picksOfTheDay: Array<BookPreview> = [];
   bookFacts: Array<Fact> = [];
   reasonsToRead: Array<ReasonsToRead> = [];
   authorFacts: Array<Fact> = [];
@@ -28,13 +27,13 @@ export class HomePageComponent implements OnInit {
     this.getAuthorFacts();
     this.getGenres();
     this.getReasonsToRead();
-    console.log(this.reasonsToRead);
   }
 
   generatePicksOfTheWeek(): void {
     this.bookService.getBooksOfTheWeek().subscribe(
       (books) => {
-        this.books = books;
+        this.picksOfTheWeek = books;
+        console.log(this.picksOfTheWeek);
       },
       (error) => {
         console.log(error.error);
@@ -45,7 +44,8 @@ export class HomePageComponent implements OnInit {
   generatePicksOfTheDay(): void {
     this.bookService.getBooksOfTheDay().subscribe(
       (books) => {
-        this.books = books;
+        this.picksOfTheDay = books;
+        console.log(this.picksOfTheDay);
       },
       (error) => {
         console.log(error.error);
@@ -98,7 +98,6 @@ export class HomePageComponent implements OnInit {
     this.bookService.getGenres().subscribe(
       (genres) => {
         this.genres = genres;
-        console.log(this.genres);
       },
       (error) => {
         console.log(error.error);

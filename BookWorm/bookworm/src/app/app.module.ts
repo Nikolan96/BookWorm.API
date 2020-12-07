@@ -11,12 +11,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomePageComponent } from './home-page/home-page.component';
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
 import { BookComponent } from './book/book.component';
+import { MenuBarComponent } from './menu-bar/menu-bar.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     RegistrationPageComponent,
     BookComponent,
+    MenuBarComponent,
 
   ],
   imports: [
