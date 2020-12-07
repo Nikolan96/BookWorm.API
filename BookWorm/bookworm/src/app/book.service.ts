@@ -6,6 +6,7 @@ import { Fact } from './fact';
 import { Genre } from './genre';
 import { ReasonsToRead } from './reasonsToRead';
 import { BookOpened } from './openedBook';
+import { BookRecommendation } from './bookRecommendation';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,9 @@ export class BookService {
     return this.http.get<ReasonsToRead[]>('http://localhost:57339/api/ReasonsToRead');
   }
 
+  getBookRecommendation(id: string): Observable<BookRecommendation[]>  {
+    return this.http.get<BookRecommendation[]>(`http://localhost:57339/api/BookRecommendation/GetRecommendations/${id}`);
+  }
   postUserOpenedBookPage(bookOpened: BookOpened): Observable<BookOpened> {
     return this.http.post<BookOpened>(`http://localhost:57339/api/UserOpenedBookPage`, bookOpened);
   }

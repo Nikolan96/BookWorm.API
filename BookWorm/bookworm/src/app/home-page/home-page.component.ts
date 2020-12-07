@@ -6,6 +6,7 @@ import { Fact } from '../fact';
 import { Genre } from '../genre';
 import { ReasonsToRead } from '../reasonsToRead';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BookRecommendation } from '../bookRecommendation';
 
 @Component({
   selector: 'app-home-page',
@@ -23,6 +24,7 @@ export class HomePageComponent implements OnInit {
       userId: '',
       bookId: ''
   };
+  bookRecommendations: Array<BookRecommendation> = [];
   userId: any;
 
   constructor(private bookService: BookService, private router: Router, private route: ActivatedRoute) {}
@@ -35,6 +37,7 @@ export class HomePageComponent implements OnInit {
     this.getAuthorFacts();
     this.getGenres();
     this.getReasonsToRead();
+    this.getBookRecommendations();
   }
 
   generatePicksOfTheWeek(): void {
@@ -132,6 +135,17 @@ export class HomePageComponent implements OnInit {
     this.bookOpened.bookId = id;
     this.bookOpened.userId = this.userId;
     this.bookService.postUserOpenedBookPage(this.bookOpened).subscribe();
+  }
 
+  getBookRecommendations(): void {
+    this.bookService.getBookRecommendation(this.userId).subscribe(
+      (recommendations) => {
+       this.bookRecommendations = recommendations;
+       console.log(this.bookRecommendations);
+      },
+      (error) => {
+        console.log(error.error);
+      }
+    );
   }
 }

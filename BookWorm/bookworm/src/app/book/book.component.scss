@@ -3,3 +3,18 @@ header {
   height: 12% !important;
   width: 100% !important;
 }
+
+#content-wrapper {
+  width: 100%;
+  height: 100%;
+  // height: fit-content;
+  background-color: whitesmoke;
+}
+
+#content {
+  height: 50%;
+  width: 100%;
+  background-color: #B3E5FC;
+  color: #01579b;
+  overflow-x: hidden;
+}
