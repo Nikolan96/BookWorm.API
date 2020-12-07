@@ -5,6 +5,7 @@ import { BookPreview } from '../book';
 import { BookService } from '../book.service';
 import { Fact } from '../fact';
 import { Genre } from '../genre';
+import { ReasonsToRead } from '../reasonsToRead';
 
 @Component({
   selector: 'app-home-page',
@@ -12,20 +13,9 @@ import { Genre } from '../genre';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  @ViewChild('nav') slider: NgImageSliderComponent;
-  imageObject: Array<object> = [
-    {
-      image: '../../assets/reasons to read/undraw_book_lover_mkck.svg',
-    },
-    {
-      image: '../../assets/reasons to read/undraw_book_reading_kx9s.svg', // Support base64 image
-      thumbImage: '../../assets/reasons to read/undraw_book_reading_kx9s.svg', // Support base64 image
-      title: 'Image title', //Optional: You can use this key if want to show image with title
-      alt: 'Image alt' //Optional: You can use this key if want to show image with alt
-    },
-  ];
   books: Array<BookPreview> = [];
   bookFacts: Array<Fact> = [];
+  reasonsToRead: Array<ReasonsToRead> = [];
   authorFacts: Array<Fact> = [];
   genres: Array<Genre> = [];
   constructor(private bookService: BookService) {}
@@ -36,6 +26,8 @@ export class HomePageComponent implements OnInit {
     this.getBookFacts();
     this.getAuthorFacts();
     this.getGenres();
+    this.getReasonsToRead();
+    console.log(this.reasonsToRead);
   }
 
   generatePicksOfTheWeek(): void {
@@ -112,11 +104,25 @@ export class HomePageComponent implements OnInit {
       }
     );
   }
-  prevImageClick() {
-    this.slider.prev();
+
+  getReasonsToRead(): void {
+    this.bookService.getReasonsToRead().subscribe(
+      (reasons) => {
+        for (let i = 0; i < 5; i++) {
+          this.reasonsToRead.push(reasons[i]);
+        }
+      },
+      (error) => {
+        console.log(error.error);
+      }
+    );
   }
 
-  nextImageClick() {
-    this.slider.next();
+  nextReason(): void {
+
+  }
+
+  previousReason(): void {
+    console.log('prethodna slika');
   }
 }
