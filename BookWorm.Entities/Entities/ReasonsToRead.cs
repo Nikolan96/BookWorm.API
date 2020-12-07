@@ -9,5 +9,9 @@ namespace BookWorm.Entities.Entities
     {
         [Required]
         public string Text { get; set; }
+        [Required]
+        public string Title { get; set; }
+        [Required]
+        public string Cover { get; set; }
     }
 }

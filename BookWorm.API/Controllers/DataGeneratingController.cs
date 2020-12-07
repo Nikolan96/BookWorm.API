@@ -140,7 +140,7 @@ namespace BookWorm.API.Controllers
             UserAddsCasesWithBooks(0, 3, 2, 10);
 
             // generate 50 reasons to read
-            GenerateReasonsToRead(50);
+            GenerateReasonsToRead();
 
             return Ok();
         }
@@ -501,16 +501,124 @@ namespace BookWorm.API.Controllers
             }
         }
 
-        private void GenerateReasonsToRead(int count)
+        private void GenerateReasonsToRead()
         {
-            for (int i = 0; i < count; i++)
+            var reasonsToRead = new List<ReasonsToRead>
             {
-                var newReasonToRead = new ReasonsToRead
+                new ReasonsToRead
                 {
-                    Text = GetRandomString()
-                };
+                    Title = "It improves your creativity and imagination",
+                    Text = "If you ever feel stuck creatively, reading can stretch those muscles. " +
+                    "When you read a book, especially fiction, it stimulates your imagination. Your mind paints a picture of what you’re reading," +
+                    " so you become an active participant in the activity. At least one study supports this benefit. 100 people read either " +
+                    "a fictional story or a nonfiction essay, and then completed a questionnaire. The fiction readers were more creative in" +
+                    " their answers than the essay readers.",
+                    Cover =  "../../assets/reasons to read/undraw_Bibliophile_hwqc.svg",
+                },
+                 new ReasonsToRead
+                {
+                    Title = "It helps you learn",
+                    Text = "To grow as a person, you always want to stay curious and keep learning." +
+                    " There will always be things you don’t know, and reading can bridge the gaps " +
+                    "and open up new worlds. In the 1990’s, Keith Stanovich and his colleagues " +
+                    "performed reading studies to identify the link between reading, cognitive skills, " +
+                    "and factual knowledge. According to Stanovich," +
+                    " the results showed that “avid readers” had 50% more fact-based knowledge than people who didn’t read much.",
+                    Cover =  "../../assets/reasons to read/undraw_book_lover_mkck.svg",
+                },
+                 new ReasonsToRead
+                {
+                    Title = "It increases your vocabulary",
+                    Text = "In those same studies by Stanovich, he also discovered that avid readers have a 50% larger vocabulary." +
+                    " This is most likely because the more you read, the more unfamiliar words you come across. " +
+                    "You can learn the meanings either through context or looking them up, and over time, " +
+                    "your vocabulary gets bigger and bigger. The process of learning new words is good for your brain.",
+                    Cover =  "../../assets/reasons to read/undraw_book_reading_kx9s.svg",
+                },
+                 new ReasonsToRead
+                {
+                    Title = "It improves memory",
+                    Text = "Research shows that reading, even if it’s just a little bit every day," +
+                    " can help improve your memory. This is because reading " +
+                    "stimulates the part of the brain responsible for attention " +
+                    "and memory. As you read through a text, you need to remember" +
+                    " what’s happened before in order to follow the narrative or" +
+                    " themes the writer is addressing. " +
+                    "You may not even be aware that your mind is remembering things," +
+                    " but the process exercises and stretches the brain.",
+                    Cover =  "../../assets/reasons to read/undraw_Books_l33t.svg",
+                },
+                 new ReasonsToRead
+                {
+                    Title = "It increases your concentration and attention span",
+                    Text = "Reading takes more concentration than a passive activity, like watching TV." +
+                    " To follow where a writer is going, you need to pay " +
+                    "close attention to the words you’re reading and their" +
+                    " meaning. This action stimulates the brain, improving " +
+                    "your ability to stay focused. People who can sit and read " +
+                    "for hours have excellent attention spans, which can be harnessed " +
+                    "for other tasks that require concentration.",
+                    Cover =  "../../assets/reasons to read/undraw_Bookshelves_re_lxoy.svg",
+                },
+                 new ReasonsToRead
+                {
+                    Title = "It improves your writing skills",
+                    Text = "If you are interested in the craft of writing at all, you know that some of the" +
+                    " best authors recommend lots of reading. The more you read, the more familiar you become with structure, " +
+                    "character development, and writing styles. This applies to both fiction and nonfiction writing. Even if" +
+                    " you don’t need to write much in your daily life, reading prepares you for any time when you might " +
+                    "need to, whether it’s a Christmas letter, email, personal blog, or journal entry.",
+                    Cover =  "../../assets/reasons to read/undraw_Personal_notebook_re_d7dc.svg",
+                },
+                 new ReasonsToRead
+                {
+                    Title = "It reduces stress",
+                    Text = "Stress is a common problem these days and there are many ways to deal with it." +
+                    " Reading is one of the best. A 2009 study conducted by Mindlab International " +
+                    "at the University of Sussex discovered that after people read quietly for just" +
+                    " six minutes, their heart rates slowed down and they had less muscle tension. " +
+                    "Their stress levels actually reduced by an impressive 68%, making reading more " +
+                    "effective than talking a walk or listening to music. By focusing their minds on" +
+                    " what they were reading, people could distance and distract themselves from anxious thoughts and feelings.",
+                    Cover =  "../../assets/reasons to read/undraw_Reading_book_re_kqpk.svg",
+                },
+                 new ReasonsToRead
+                {
+                    Title = "It could extend your life",
+                    Text = "Reading can actually help you live longer. In a 12-year study performed by Yale University, " +
+                    "researchers monitored 3600 adults over 50-years old. Those who read " +
+                    "books for at least 30 minutes a day lived around 2 years longer than those who" +
+                    " read newspapers or magazines. While we can’t say that reading ensures a longer life," +
+                    " this study does show a connection. It could be that reading and its ability to improve" +
+                    " cognitive functions keeps neurological diseases like Alzheimer’s at bay.",
+                    Cover =  "../../assets/reasons to read/undraw_reading_list_4boi.svg",
+                },
+                 new ReasonsToRead
+                {
+                    Title = "It boosts your empathy",
+                    Text = "Empathy is the ability to understand and sympathize with other people, even when we don’t agree with them on" +
+                    " something. While some people possess lots of natural empathy, most of us could use a bit more. Reading can help. " +
+                    "In 2013, different members of a group read different genres such as literary fiction, popular, fiction, and nonfiction." +
+                    " A control group read nothing. Throughout the experiment, researchers learned that people who read literary fiction" +
+                    " were better at identifying facial expressions and guessing how the characters in their books would act. This is " +
+                    "because in literary fiction, characters tend to be complex. Readers must pay closer attention and exercise empathy" +
+                    " in order to understand them. Those skills translate into the real world.",
+                    Cover =  "../../assets/reasons to read/undraw_reading_time_gvg0.svg",
+                },
+                 new ReasonsToRead
+                {
+                    Title = "It expands your understanding of the world",
+                    Text = "Speaking of the real world, reading both fiction and nonfiction can change your perspectives on things. " +
+                    "How? Books are like windows. By looking through them, you can see different views on humanity," +
+                    " current events, history, culture, and more. If you intentionally seek out voices and authors who are " +
+                    "very different from you, your understanding expands even more.",
+                    Cover =  "../../assets/reasons to read/undraw_road_to_knowledge_m8s0.svg",
+                },
+            };
 
-                _reasonToReadService.AddReasonToRead(newReasonToRead);
+            foreach (var reason in reasonsToRead)
+            {
+                _reasonToReadService.AddReasonToRead(reason);
             }
         }
 
