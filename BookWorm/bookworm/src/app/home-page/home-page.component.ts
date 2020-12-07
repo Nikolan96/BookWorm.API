@@ -1,10 +1,11 @@
+import { BookOpened } from './../openedBook';
 import { Component, OnInit } from '@angular/core';
 import { BookPreview } from '../book';
 import { BookService } from '../book.service';
 import { Fact } from '../fact';
 import { Genre } from '../genre';
 import { ReasonsToRead } from '../reasonsToRead';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -18,9 +19,16 @@ export class HomePageComponent implements OnInit {
   reasonsToRead: Array<ReasonsToRead> = [];
   authorFacts: Array<Fact> = [];
   genres: Array<Genre> = [];
-  constructor(private bookService: BookService, private router: Router) {}
+  bookOpened: BookOpened = {
+      userId: '',
+      bookId: ''
+  };
+  userId: any;
+
+  constructor(private bookService: BookService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.userId = this.route.snapshot.paramMap.get('id');
     this.generatePicksOfTheWeek();
     this.generatePicksOfTheDay();
     this.getBookFacts();
@@ -121,5 +129,9 @@ export class HomePageComponent implements OnInit {
 
   goToBookPage(id: any): void {
     this.router.navigate([`/book/${id}`]);
+    this.bookOpened.bookId = id;
+    this.bookOpened.userId = this.userId;
+    this.bookService.postUserOpenedBookPage(this.bookOpened).subscribe();
+
   }
 }

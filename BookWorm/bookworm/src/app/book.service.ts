@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Fact } from './fact';
 import { Genre } from './genre';
 import { ReasonsToRead } from './reasonsToRead';
+import { BookOpened } from './openedBook';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,9 @@ export class BookService {
 
   getReasonsToRead(): Observable<ReasonsToRead[]> {
     return this.http.get<ReasonsToRead[]>('http://localhost:57339/api/ReasonsToRead');
+  }
+
+  postUserOpenedBookPage(bookOpened: BookOpened): Observable<BookOpened> {
+    return this.http.post<BookOpened>(`http://localhost:57339/api/UserOpenedBookPage`, bookOpened);
   }
 }

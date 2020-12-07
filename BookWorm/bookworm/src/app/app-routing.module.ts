@@ -8,7 +8,7 @@ import { BookComponent } from './book/book.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login-page', pathMatch: 'full' },
   { path: 'login-page', component: LoginPageComponent },
-  { path: 'home-page', component: HomePageComponent },
+  { path: 'home-page/:id', component: HomePageComponent },
   { path: 'registration-page', component: RegistrationPageComponent },
   { path: 'book/:id', component: BookComponent }
 ];
