@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BookPreview } from './book';
+import { BookPreview } from './bookPreview';
 import { Observable } from 'rxjs';
 import { Fact } from './fact';
 import { Genre } from './genre';
@@ -8,6 +8,7 @@ import { ReasonsToRead } from './reasonsToRead';
 import { BookOpened } from './openedBook';
 import { BookRecommendation } from './bookRecommendation';
 import { CurrentlyReadingBook } from './currentlyReadingBook';
+import { Book } from './book';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +53,10 @@ export class BookService {
 
   postUserCurrentlyReading(bookAdded: CurrentlyReadingBook): Observable<CurrentlyReadingBook> {
     return this.http.post<CurrentlyReadingBook>('http://localhost:57339/api/UserCurrentlyReading', bookAdded);
+  }
+
+  getBook(id: string): Observable<Book[]> {
+    return this.http.get<Book[]>(`http://localhost:57339/api/Book/${id}`);
+
   }
 }

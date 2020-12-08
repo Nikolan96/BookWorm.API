@@ -1,6 +1,6 @@
 import { BookOpened } from './../openedBook';
 import { Component, OnInit } from '@angular/core';
-import { BookPreview } from '../book';
+import { BookPreview } from '../bookPreview';
 import { BookService } from '../book.service';
 import { Fact } from '../fact';
 import { Genre } from '../genre';

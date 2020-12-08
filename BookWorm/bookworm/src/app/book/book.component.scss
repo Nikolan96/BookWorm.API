@@ -24,14 +24,19 @@ header {
   height: 90%;
 }
 
-#content-top-left {
-
+#content-top-right h2, h3{
+  margin: 0;
 }
 
 #cover-image {
   width: 200px;
   height: 280px;
   background-color: red;
+}
+
+#cover-image img{
+  width: 100%;
+  height: 100%;
 }
 
 #title-author-text {
@@ -43,7 +48,7 @@ header {
   font-size: 30px;
   letter-spacing: 2px;
 }
-#title-author-text h2 {
+#title-author-text h2, #content-top-right h2 {
   font-family: baskervville;
   letter-spacing: 1.2px;
   font-size: 18px;
@@ -52,5 +57,5 @@ header {
 
 #title-author-text p {
   font-family: baskervville;
-
 }
+
