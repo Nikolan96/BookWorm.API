@@ -4,14 +4,24 @@
   </header>
 
   <div id="content-wrapper" fxLayout="column" fxLayoutAlign="start center">
-    <div id="content" fxLayout="row" fxLayoutAlign="start center">
-      <div>
-        <img src="" alt="">
-      </div>
+    <div id="content" >
+      <div id="content-top" fxLayout="row" fxLayoutAlign="space-evenly center">
+        <div id="content-top-left" fxLayoutAlign="center">
+          <div id="cover-image">
+            <img src="" alt="" />
+          </div>
+          <div id="title-author-text">
+            <h2>Book author</h2>
+            <h1>Book title</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A beatae minus enim. Neque a quae dignissimos officia provident delectus sequi animi vero repellendus odit, ea autem veritatis. Ut nihil esse provident consequuntur quod quae, officia corporis quia, natus fugiat tempora atque ipsam deserunt magni minima nemo dignissimos. Saepe, commodi cumque.</p>
+            <button mat-raised-button (click)="addToCurrentlyReading()" [disabled]="disabled" color="primary">+ Add to currently reading</button>
+          </div>
 
+        </div>
+        <div id="content-top-right">
+
+        </div>
+      </div>
     </div>
   </div>
-
 </body>
-
-

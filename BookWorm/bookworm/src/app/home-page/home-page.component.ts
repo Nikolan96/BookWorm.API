@@ -31,6 +31,7 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id');
+    localStorage.setItem('userId', this.userId);
     this.generatePicksOfTheWeek();
     this.generatePicksOfTheDay();
     this.getBookFacts();

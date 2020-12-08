@@ -11,9 +11,5 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-@font-face {
-  font-family: ubuntu;
-  src: url(assets/fonts/Ubuntu-Bold.ttf) format("opentype");
-}
 
 /*# sourceMappingURL=styles.css.map */

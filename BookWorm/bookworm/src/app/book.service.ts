@@ -7,6 +7,7 @@ import { Genre } from './genre';
 import { ReasonsToRead } from './reasonsToRead';
 import { BookOpened } from './openedBook';
 import { BookRecommendation } from './bookRecommendation';
+import { CurrentlyReadingBook } from './currentlyReadingBook';
 
 @Injectable({
   providedIn: 'root'
@@ -47,5 +48,9 @@ export class BookService {
   }
   postUserOpenedBookPage(bookOpened: BookOpened): Observable<BookOpened> {
     return this.http.post<BookOpened>(`http://localhost:57339/api/UserOpenedBookPage`, bookOpened);
+  }
+
+  postUserCurrentlyReading(bookAdded: CurrentlyReadingBook): Observable<CurrentlyReadingBook> {
+    return this.http.post<CurrentlyReadingBook>('http://localhost:57339/api/UserCurrentlyReading', bookAdded);
   }
 }

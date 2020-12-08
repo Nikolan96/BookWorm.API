@@ -18,3 +18,39 @@ header {
   color: #01579b;
   overflow-x: hidden;
 }
+
+#content-top {
+  width: 90%;
+  height: 90%;
+}
+
+#content-top-left {
+
+}
+
+#cover-image {
+  width: 200px;
+  height: 280px;
+  background-color: red;
+}
+
+#title-author-text {
+  width: 400px;
+  margin-left: 30px;
+}
+#title-author-text h1 {
+  font-family: bebas;
+  font-size: 30px;
+  letter-spacing: 2px;
+}
+#title-author-text h2 {
+  font-family: baskervville;
+  letter-spacing: 1.2px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+#title-author-text p {
+  font-family: baskervville;
+
+}
