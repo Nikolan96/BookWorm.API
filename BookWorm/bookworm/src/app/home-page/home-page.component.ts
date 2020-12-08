@@ -1,12 +1,12 @@
-import { BookOpened } from './../openedBook';
+import { BookOpened } from '../interfaces/openedBook';
 import { Component, OnInit } from '@angular/core';
-import { BookPreview } from '../bookPreview';
+import { BookPreview } from '../interfaces/bookPreview';
 import { BookService } from '../book.service';
-import { Fact } from '../fact';
-import { Genre } from '../genre';
-import { ReasonsToRead } from '../reasonsToRead';
+import { Fact } from '../interfaces/fact';
+import { Genre } from '../interfaces/genre';
+import { ReasonsToRead } from '../interfaces/reasonsToRead';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BookRecommendation } from '../bookRecommendation';
+import { BookRecommendation } from '../interfaces/bookRecommendation';
 
 @Component({
   selector: 'app-home-page',

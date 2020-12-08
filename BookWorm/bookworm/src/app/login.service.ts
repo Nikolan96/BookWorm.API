@@ -1,9 +1,9 @@
-import { UserLogin } from './userLogin';
+import { UserLogin } from './interfaces/userLogin';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { User } from './user';
-import { Registration } from './registration';
+import { User } from './interfaces/user';
+import { Registration } from './interfaces/registration';
 
 @Injectable({
   providedIn: 'root'

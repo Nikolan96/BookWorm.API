@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
-import { UserLogin } from '../userLogin';
+import { UserLogin } from '../interfaces/userLogin';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({

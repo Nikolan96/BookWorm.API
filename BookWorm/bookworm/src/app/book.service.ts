@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BookPreview } from './bookPreview';
+import { BookPreview } from './interfaces/bookPreview';
 import { Observable } from 'rxjs';
-import { Fact } from './fact';
-import { Genre } from './genre';
-import { ReasonsToRead } from './reasonsToRead';
-import { BookOpened } from './openedBook';
-import { BookRecommendation } from './bookRecommendation';
-import { CurrentlyReadingBook } from './currentlyReadingBook';
-import { Book } from './book';
+import { Fact } from './interfaces/fact';
+import { Genre } from './interfaces/genre';
+import { ReasonsToRead } from './interfaces/reasonsToRead';
+import { BookOpened } from './interfaces/openedBook';
+import { BookRecommendation } from './interfaces/bookRecommendation';
+import { CurrentlyReadingBook } from './interfaces/currentlyReadingBook';
+import { Book } from './interfaces/book';
 
 @Injectable({
   providedIn: 'root'
