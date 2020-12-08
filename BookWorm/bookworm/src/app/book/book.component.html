@@ -3,7 +3,7 @@
     <app-menu-bar></app-menu-bar>
   </header>
 
-  <div id="content-wrapper" fxLayout="column" fxLayoutAlign="start center" *ngIf="this.book">
+  <div id="content-wrapper" *ngIf="this.book">
     <div id="content" >
       <div id="content-top" fxLayout="row" fxLayoutAlign="space-evenly center">
         <div id="content-top-left" fxLayoutAlign="center">
@@ -36,6 +36,25 @@
             <h3>{{book.isbn}}</h3>
           </div>
         </div>
+      </div>
+      <div id="content-bottom" fxLayout="column" fxLayoutAlign="center center">
+        <h1>Book recommendations</h1>
+        <div id="mat-card-wrapper" fxLayout="row" fxLayoutAlign="center">
+        <mat-card class="mat-card-book"  *ngFor="let bookRecommendation of this.bookRecommendation">
+
+          <mat-card-content class="card-content">
+            <div id="picks-of-the-week">
+              <div  class="books" id="book" (click)="goToBookPage(bookRecommendation.id)">
+                <div class="cover"><img src="{{ bookRecommendation.cover }}" alt="" /></div>
+                <div class="title-and-author">
+                  <h2 class="title">{{ bookRecommendation.title }}</h2>
+                  <span class="author">{{ bookRecommendation.numberOfPages }}</span>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
       </div>
     </div>
   </div>
