@@ -92,7 +92,7 @@
         <mat-card class="mat-card-book" *ngFor="let pickOfTheDay of this.picksOfTheDay">
           <mat-card-content class="card-content">
             <div id="picks-of-the-day">
-              <div class="books" id="book">
+              <div class="books" id="book" (click)="goToBookPage(pickOfTheDay.id)">
                 <div class="cover"><img src="{{ pickOfTheDay.cover }}" alt="" /></div>
                 <div class="title-and-author">
                   <h2 class="title">{{ pickOfTheDay.title }}</h2>
