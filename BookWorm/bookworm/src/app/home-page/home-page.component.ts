@@ -1,11 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { throwToolbarMixedModesError } from '@angular/material/toolbar';
-import { NgImageSliderComponent } from 'ng-image-slider';
-import { BookPreview } from '../book';
+import { BookOpened } from '../interfaces/openedBook';
+import { Component, OnInit } from '@angular/core';
+import { BookPreview } from '../interfaces/bookPreview';
 import { BookService } from '../book.service';
-import { Fact } from '../fact';
-import { Genre } from '../genre';
-import { ReasonsToRead } from '../reasonsToRead';
+import { Fact } from '../interfaces/fact';
+import { Genre } from '../interfaces/genre';
+import { ReasonsToRead } from '../interfaces/reasonsToRead';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BookRecommendation } from '../interfaces/bookRecommendation';
 
 @Component({
   selector: 'app-home-page',
@@ -13,27 +14,38 @@ import { ReasonsToRead } from '../reasonsToRead';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  books: Array<BookPreview> = [];
+  picksOfTheWeek: Array<BookPreview> = [];
+  picksOfTheDay: Array<BookPreview> = [];
   bookFacts: Array<Fact> = [];
   reasonsToRead: Array<ReasonsToRead> = [];
   authorFacts: Array<Fact> = [];
   genres: Array<Genre> = [];
-  constructor(private bookService: BookService) {}
+  bookOpened: BookOpened = {
+      userId: '',
+      bookId: ''
+  };
+  bookRecommendations: Array<BookRecommendation> = [];
+  userId: any;
+
+  constructor(private bookService: BookService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.userId = this.route.snapshot.paramMap.get('id');
+    localStorage.setItem('userId', this.userId);
     this.generatePicksOfTheWeek();
     this.generatePicksOfTheDay();
     this.getBookFacts();
     this.getAuthorFacts();
     this.getGenres();
     this.getReasonsToRead();
-    console.log(this.reasonsToRead);
+    this.getBookRecommendations();
   }
 
   generatePicksOfTheWeek(): void {
     this.bookService.getBooksOfTheWeek().subscribe(
       (books) => {
-        this.books = books;
+        this.picksOfTheWeek = books;
+        console.log(this.picksOfTheWeek);
       },
       (error) => {
         console.log(error.error);
@@ -44,7 +56,8 @@ export class HomePageComponent implements OnInit {
   generatePicksOfTheDay(): void {
     this.bookService.getBooksOfTheDay().subscribe(
       (books) => {
-        this.books = books;
+        this.picksOfTheDay = books;
+        console.log(this.picksOfTheDay);
       },
       (error) => {
         console.log(error.error);
@@ -97,7 +110,6 @@ export class HomePageComponent implements OnInit {
     this.bookService.getGenres().subscribe(
       (genres) => {
         this.genres = genres;
-        console.log(this.genres);
       },
       (error) => {
         console.log(error.error);
@@ -118,11 +130,22 @@ export class HomePageComponent implements OnInit {
     );
   }
 
-  nextReason(): void {
 
+  goToBookPage(id: any): void {
+    this.router.navigate([`/book/${id}`]);
+    this.bookOpened.bookId = id;
+    this.bookOpened.userId = this.userId;
+    this.bookService.postUserOpenedBookPage(this.bookOpened).subscribe();
   }
 
-  previousReason(): void {
-    console.log('prethodna slika');
+  getBookRecommendations(): void {
+    this.bookService.getBookRecommendation(this.userId).subscribe(
+      (recommendations) => {
+       this.bookRecommendations = recommendations;
+      },
+      (error) => {
+        console.log(error.error);
+      }
+    );
   }
 }

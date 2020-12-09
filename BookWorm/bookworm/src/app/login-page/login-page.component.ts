@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
-import { UserLogin } from '../userLogin';
+import { UserLogin } from '../interfaces/userLogin';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
@@ -16,6 +16,7 @@ export class LoginPageComponent implements OnInit {
   public user: UserLogin = {
     email: '',
     password: '',
+    id: ''
   };
   login: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
@@ -57,7 +58,7 @@ export class LoginPageComponent implements OnInit {
   logIn(): void {
     this.loginService.login(this.login.value).subscribe(
       (response) => {
-        this.router.navigate(['home-page']);
+        this.router.navigate([`/home-page/${response.id}`]);
       },
       (error) => {
         const wrongCredentials = document.getElementById(

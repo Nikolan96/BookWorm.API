@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import countriesJson from '../../assets/countries.json';
-import { Registration } from '../registration';
+import { Registration } from '../interfaces/registration';
 import { LoginService } from '../login.service';
 
 @Component({
