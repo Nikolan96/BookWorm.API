@@ -18,6 +18,8 @@ export class BookComponent implements OnInit {
   userId: string;
   bookId: string;
   bookRecommendation: Array<BookRecommendation> = [];
+  booksOfSameGenre: Array<Book> = [];
+  booksOfSameAuthor: Array<Book> = [];
   book: Book = {
     id: '',
     isbn: '',
@@ -53,12 +55,13 @@ export class BookComponent implements OnInit {
     this.currentlyReadingBook.userId = this.userId;
     this.getBook();
     this.getRecommendations();
+    this.getBooksOfTheSameGenre(this.userId);
+    this.getBooksOfTheSameAuthor(this.userId);
   }
 
   addToCurrentlyReading(): void {
     this.bookService.postUserCurrentlyReading(this.currentlyReadingBook).subscribe(
       (currenlyReading) => {
-        console.log(currenlyReading);
         this.disabled = true;
       },
       (error) => {
@@ -82,8 +85,7 @@ export class BookComponent implements OnInit {
     this.bookService.getBookRecommendation(this.userId).subscribe(
       (bookRecommendations) => {
         this.bookRecommendation = bookRecommendations;
-        console.log('rec', this.bookRecommendation);
-      },
+     },
       (error) => {
         console.log(error.error);
       }
@@ -94,5 +96,29 @@ export class BookComponent implements OnInit {
     this.bookOpened.bookId = id;
     this.bookOpened.userId = this.userId;
     this.bookService.postUserOpenedBookPage(this.bookOpened).subscribe();
+  }
+
+  getBooksOfTheSameGenre(userId: any): void {
+    this.bookService.getBooksOfTheSameGenre(this.userId).subscribe(
+      (booksOfTheSameGenre) => {
+        this.booksOfSameGenre = booksOfTheSameGenre;
+        console.log('same genre books ', this.booksOfSameGenre)
+     },
+      (error) => {
+        console.log(error.error);
+      }
+    );
+  }
+
+  getBooksOfTheSameAuthor(userId: any): void {
+    this.bookService.getBooksOfTheSameAuthor(this.userId).subscribe(
+      (booksOfTheSameAuthor) => {
+        this.booksOfSameAuthor = booksOfTheSameAuthor;
+        console.log('same author books ', this.booksOfSameAuthor)
+     },
+      (error) => {
+        console.log(error.error);
+      }
+    );
   }
 }

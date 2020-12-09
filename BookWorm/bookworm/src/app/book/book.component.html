@@ -4,21 +4,34 @@
   </header>
 
   <div id="content-wrapper" *ngIf="this.book">
-    <div id="content" >
+    <div id="content">
       <div id="content-top" fxLayout="row" fxLayoutAlign="space-evenly center">
         <div id="content-top-left" fxLayoutAlign="center">
           <div id="cover-image">
-            <img src="{{book.cover}}" alt="" />
+            <img src="{{ book.cover }}" alt="" />
           </div>
           <div id="title-author-text">
             <h2>Book author</h2>
-            <h1>{{book.title}}</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A beatae minus enim. Neque a quae dignissimos officia provident delectus sequi animi vero repellendus odit, ea autem veritatis. Ut nihil esse provident consequuntur quod quae, officia corporis quia, natus fugiat tempora atque ipsam deserunt magni minima nemo dignissimos. Saepe, commodi cumque.</p>
-            <button mat-raised-button (click)="addToCurrentlyReading()" [disabled]="disabled" color="primary">+ Add to currently reading</button>
+            <h1>{{ book.title }}</h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. A beatae
+              minus enim. Neque a quae dignissimos officia provident delectus
+              sequi animi vero repellendus odit, ea autem veritatis. Ut nihil
+              esse provident consequuntur quod quae, officia corporis quia,
+              natus fugiat tempora atque ipsam deserunt magni minima nemo
+              dignissimos. Saepe, commodi cumque.
+            </p>
+            <button
+              mat-raised-button
+              (click)="addToCurrentlyReading()"
+              [disabled]="disabled"
+              color="primary"
+            >
+              + Add to currently reading
+            </button>
           </div>
-
         </div>
-        <div id="content-top-right" >
+        <div id="content-top-right">
           <div id="genre">
             <h2>Genre</h2>
             <h3>Genre name</h3>
@@ -29,32 +42,104 @@
           </div>
           <div id="number-of-pages">
             <h2>Number of pages</h2>
-            <h3>{{book.numberOfPages}}</h3>
+            <h3>{{ book.numberOfPages }}</h3>
           </div>
           <div id="isbn">
             <h2>ISBN</h2>
-            <h3>{{book.isbn}}</h3>
+            <h3>{{ book.isbn }}</h3>
           </div>
         </div>
       </div>
-      <div id="content-bottom" fxLayout="column" fxLayoutAlign="center center">
-        <h1>Book recommendations</h1>
-        <div id="mat-card-wrapper" fxLayout="row" fxLayoutAlign="center">
-        <mat-card class="mat-card-book"  *ngFor="let bookRecommendation of this.bookRecommendation">
-
-          <mat-card-content class="card-content">
-            <div id="picks-of-the-week">
-              <div  class="books" id="book" (click)="goToBookPage(bookRecommendation.id)">
-                <div class="cover"><img src="{{ bookRecommendation.cover }}" alt="" /></div>
-                <div class="title-and-author">
-                  <h2 class="title">{{ bookRecommendation.title }}</h2>
-                  <span class="author">{{ bookRecommendation.numberOfPages }}</span>
+      <div id="content-bottom-wrapper" fxLayout="column"
+      fxLayoutAlign="center center">
+        <div
+          id="content-bottom"
+          fxLayout="column"
+          fxLayoutAlign="center center"
+        >
+          <h1>Book recommendations</h1>
+          <div id="mat-card-wrapper" fxLayout="row" fxLayoutAlign="center">
+            <mat-card
+              class="mat-card-book"
+              *ngFor="let bookRecommendation of this.bookRecommendation"
+            >
+              <mat-card-content class="card-content">
+                <div id="picks-of-the-week">
+                  <div
+                    class="books"
+                    id="book"
+                    (click)="goToBookPage(bookRecommendation.id)"
+                  >
+                    <div class="cover">
+                      <img src="{{ bookRecommendation.cover }}" alt="" />
+                    </div>
+                    <div class="title-and-author">
+                      <h2 class="title">{{ bookRecommendation.title }}</h2>
+                      <span class="author">{{
+                        bookRecommendation.numberOfPages
+                      }}</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <h1>Books of the same genre</h1>
+          <div id="mat-card-wrapper" fxLayout="row" fxLayoutAlign="center">
+            <mat-card
+              class="mat-card-book"
+              *ngFor="let booksOfTheSameGenre of this.booksOfSameGenre"
+            >
+              <mat-card-content class="card-content">
+                <div id="picks-of-the-week">
+                  <div
+                    class="books"
+                    id="book"
+                    (click)="goToBookPage(booksOfTheSameGenre.id)"
+                  >
+                    <div class="cover">
+                      <img src="{{ booksOfTheSameGenre.cover }}" alt="" />
+                    </div>
+                    <div class="title-and-author">
+                      <h2 class="title">{{ booksOfTheSameGenre.title }}</h2>
+                      <span class="author">{{
+                        booksOfTheSameGenre.numberOfPages
+                      }}</span>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+          <h1>Books of the same author</h1>
+          <div id="mat-card-wrapper" fxLayout="row" fxLayoutAlign="center">
+            <mat-card
+              class="mat-card-book"
+              *ngFor="let booksOfTheSameAuthor of this.booksOfSameAuthor"
+            >
+              <mat-card-content class="card-content">
+                <div id="picks-of-the-week">
+                  <div
+                    class="books"
+                    id="book"
+                    (click)="goToBookPage(booksOfTheSameAuthor.id)"
+                  >
+                    <div class="cover">
+                      <img src="{{ booksOfTheSameAuthor.cover }}" alt="" />
+                    </div>
+                    <div class="title-and-author">
+                      <h2 class="title">{{ booksOfTheSameAuthor.title }}</h2>
+                      <span class="author">{{
+                        booksOfTheSameAuthor.numberOfPages
+                      }}</span>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -57,6 +57,13 @@ export class BookService {
 
   getBook(id: string): Observable<Book> {
     return this.http.get<Book>(`http://localhost:57339/api/Book/${id}`);
+  }
 
+  getBooksOfTheSameGenre(userId: string): Observable<Book[]>  {
+    return this.http.get<Book[]>(`http://localhost:57339/api/BookRecommendation/BooksByGenreRecommendation/${userId}`);
+  }
+
+  getBooksOfTheSameAuthor(userId: string): Observable<Book[]> {
+    return this.http.get<Book[]>(`http://localhost:57339/api/BookRecommendation/AuthorBooksRecommendation/${userId}`);
   }
 }
