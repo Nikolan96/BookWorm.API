@@ -38,12 +38,12 @@ namespace BookWorm.Entities.Entities
         [JsonIgnore]
         public virtual ICollection<UserReview> UserReviews { get; set; }
         [JsonIgnore]
-        public virtual ICollection<UserBookNote> UserBookNotes { get; set; }
+        public virtual ICollection<UserBookNote> UserBookNotes { get; set; } 
         [JsonIgnore]
         public virtual ICollection<UserOpenedBookPage> UserOpenedBookPages { get; set; }
         [JsonIgnore]
         public virtual ICollection<BooksRead> BooksRead { get; set; }
-
+        [JsonIgnore]
         public virtual ICollection<UserCurrentlyReading> BooksUserIsCurrentlyReading { get; set; }
 
 

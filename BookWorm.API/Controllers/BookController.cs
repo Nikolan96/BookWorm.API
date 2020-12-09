@@ -1,4 +1,5 @@
 ﻿using BookWorm.API.Dto;
+using BookWorm.API.Extensions;
 using BookWorm.API.Requests;
 using BookWorm.Contracts.Services;
 using BookWorm.Entities.Entities;
@@ -19,6 +20,8 @@ namespace BookWorm.API.Controllers
         private readonly IPickOfTheWeekService _pickOfTheWeekService;
         private readonly IAuthorService _authorService;
         private readonly IBookAuthorService _bookAuthorService;
+
+        private Random _rnd = new Random();
 
         public BookController(IBookService bookService,
             IPickOfTheDayService pickOfTheDayService,
@@ -52,6 +55,78 @@ namespace BookWorm.API.Controllers
             return Ok(_bookService
                 .AsQueryable()
                 .ToList());
+        }
+
+        [HttpGet]
+        [Route("GetFiveBooksFromOfGenre/{bookId}")]
+        public ActionResult<IEnumerable<BookDto>> GetFiveBooksFromOfGenre(Guid bookId)
+        {
+            var result = new List<BookDto>();
+
+            var openedBook = _bookService
+                .AsQueryable()
+                .FirstOrDefault();
+
+            if (openedBook is null)          
+                return BadRequest($"Book with id : {bookId} does not exist!");
+            
+            var booksOfTheSameGenre = _bookService
+                .AsQueryable()
+                .Where(x => x.Id != bookId && x.GenreId == openedBook.GenreId)
+                .Include(x => x.BookAuthors)
+                .Include(x => x.Publisher)
+                .Include(x => x.Genre)
+                .ToList();
+
+            booksOfTheSameGenre.Shuffle();
+
+            var list = booksOfTheSameGenre.Take(5);
+
+            foreach (var item in list)
+            {
+                result.Add(MapToBookDto(item));
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("GetFiveBooksFromSameAuthor/{bookId}")]
+        public ActionResult<IEnumerable<BookDto>> GetFiveBooksFromSameAuthor(Guid bookId)
+        {
+            var result = new List<BookDto>();
+
+            var openedBook = _bookService
+                .AsQueryable()
+                .Include(x => x.BookAuthors)
+                .FirstOrDefault();
+
+            if (openedBook is null)
+                return BadRequest($"Book with id : {bookId} does not exist!");
+
+            var authorId = openedBook.BookAuthors.FirstOrDefault().AuthorId;
+
+            var idsOfAuthorsBooks = _bookAuthorService
+                .AsQueryable()
+                .Where(x => x.AuthorId == authorId)
+                .Select(x => x.BookId)
+                .ToList();
+
+            idsOfAuthorsBooks.Shuffle();
+
+            foreach (var id in idsOfAuthorsBooks.Take(5))
+            {
+                var book = _bookService
+                    .AsQueryable()
+                    .Include(x => x.BookAuthors)
+                    .Include(x => x.Publisher)
+                    .Include(x => x.Genre)
+                    .FirstOrDefault(x => x.Id == id);
+
+                result.Add(MapToBookDto(book));
+            }
+
+            return Ok(result);
         }
 
         [HttpGet]

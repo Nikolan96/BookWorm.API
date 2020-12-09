@@ -1,5 +1,8 @@
-﻿using BookWorm.API.Requests;
+﻿using BookWorm.API.Dto;
+using BookWorm.API.Requests;
+using BookWorm.Contracts.Enums;
 using BookWorm.Contracts.Services;
+using BookWorm.Entities.Constants;
 using BookWorm.Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,10 +16,16 @@ namespace BookWorm.API.Controllers
     public class UserBookNoteController : ControllerBase
     {
         private readonly IUserBookNoteService _userBookNoteService;
+        private readonly ILevelingService _levelingService;
+        private readonly IAwardAchievementService _awardAchievementService;
 
-        public UserBookNoteController(IUserBookNoteService bookService)
+        public UserBookNoteController(IUserBookNoteService bookService,
+            ILevelingService levelingService,
+            IAwardAchievementService awardAchievementService)
         {
             _userBookNoteService = bookService;
+            _levelingService = levelingService;
+            _awardAchievementService = awardAchievementService;
         }
 
         [HttpGet("{id}")]
@@ -85,16 +94,32 @@ namespace BookWorm.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] UserBookNote newItem)
+        public ActionResult<UserBookNoteResponse> Post([FromBody] UserBookNote newItem)
         {
+            var response = new UserBookNoteResponse();
+
             if (newItem is null)
             {
                 return BadRequest();
             }
 
-            var item = _userBookNoteService.AddUserBookNote(newItem);
+            response.UserBookNote = _userBookNoteService.AddUserBookNote(newItem);
 
-            return Ok(item);
+            response.Achievements = AwardAchievements((Guid)newItem.UserId);
+
+            // TODO : award achies
+
+            var lvl = _levelingService.AddExperience(newItem.UserId, Activity.AddedNote);
+
+            if (lvl > 0)
+            {
+                response.LevelupResponse = new LevelupResponse
+                {
+                    NewLevel = lvl
+                };
+            }
+
+            return Ok(response);
         }
 
         [HttpPut]
@@ -128,6 +153,35 @@ namespace BookWorm.API.Controllers
             _userBookNoteService.RemoveUserBookNote(item);
 
             return Ok();
+        }
+
+        private List<Achievement> AwardAchievements(Guid userId)
+        {
+            // TODO : refactor when there is time
+
+            var a1 = _awardAchievementService.AwardAchievement(Achievements.OneNote, userId);
+            var a2 = _awardAchievementService.AwardAchievement(Achievements.ThreeNotes, userId);
+            var a3 = _awardAchievementService.AwardAchievement(Achievements.FiveNotes, userId);
+            var a4 = _awardAchievementService.AwardAchievement(Achievements.TenNotes, userId);
+
+            if (a1 != null || a2 != null || a3 != null || a4 != null)
+            {
+                var achies = new List<Achievement>();
+
+                if (a1 != null)
+                    achies.Add(a1);
+
+                if (a2 != null)
+                    achies.Add(a2);
+
+                if (a3 != null)
+                    achies.Add(a3);
+
+                if (a4 != null)
+                    achies.Add(a4);
+            }
+
+            return null;
         }
     }
 }

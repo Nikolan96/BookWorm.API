@@ -44,6 +44,7 @@ namespace BookWorm.API.Unity
             container.RegisterType<IUserAchievementService, UserAchievementService>();
             container.RegisterType<IAwardAchievementService, AwardAchievementService>();
             container.RegisterType<IUserCurrentlyReadingService, UserCurrentlyReadingService>();
+            container.RegisterType<ILevelingService, LevelingService>();
 
             // Add Quartz services
             container.RegisterInstance<ISchedulerFactory>(new StdSchedulerFactory());

@@ -1,5 +1,8 @@
-﻿using BookWorm.API.Requests;
+﻿using BookWorm.API.Dto;
+using BookWorm.API.Requests;
+using BookWorm.Contracts.Enums;
 using BookWorm.Contracts.Services;
+using BookWorm.Entities.Constants;
 using BookWorm.Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,10 +16,16 @@ namespace BookWorm.API.Controllers
     public class CaseController : ControllerBase
     {
         private readonly ICaseService _caseService;
+        private readonly ILevelingService _levelingService;
+        private readonly IAwardAchievementService _awardAchievementService;
 
-        public CaseController(ICaseService caseService)
+        public CaseController(ICaseService caseService,
+            ILevelingService levelingService,
+            IAwardAchievementService awardAchievementService)
         {
             _caseService = caseService;
+            _levelingService = levelingService;
+            _awardAchievementService = awardAchievementService;
         }
 
         [HttpGet("{id}")]
@@ -85,16 +94,30 @@ namespace BookWorm.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] Case newItem)
+        public ActionResult<CaseResponse> Post([FromBody] Case newItem)
         {
+            var response = new CaseResponse();
+
             if (newItem is null)
             {
                 return BadRequest();
             }
 
-            var item = _caseService.AddCase(newItem);
+            response.Case = _caseService.AddCase(newItem);
 
-            return Ok(item);
+            response.Achievements = AwardAchievements((Guid)newItem.UserId);
+
+            var lvl = _levelingService.AddExperience(newItem.UserId, Activity.CreatedCase);
+
+            if (lvl > 0)
+            {
+                response.LevelupResponse = new LevelupResponse
+                {
+                    NewLevel = lvl
+                };
+            }
+
+            return Ok(response);
         }
 
         [HttpPut]
@@ -128,6 +151,35 @@ namespace BookWorm.API.Controllers
             _caseService.RemoveCase(item);
 
             return Ok();
+        }
+
+        private List<Achievement> AwardAchievements(Guid userId)
+        {
+            // TODO : refactor when there is time
+
+            var a1 = _awardAchievementService.AwardAchievement(Achievements.OneCase, userId);
+            var a2 = _awardAchievementService.AwardAchievement(Achievements.ThreeCases, userId);
+            var a3 = _awardAchievementService.AwardAchievement(Achievements.FiveCases, userId);
+            var a4 = _awardAchievementService.AwardAchievement(Achievements.TenCases, userId);
+
+            if (a1 != null || a2 != null || a3 != null || a4 != null)
+            {
+                var achies = new List<Achievement>();
+
+                if (a1 != null)
+                    achies.Add(a1);
+
+                if (a2 != null)
+                    achies.Add(a2);
+
+                if (a3 != null)
+                    achies.Add(a3);
+
+                if (a4 != null)
+                    achies.Add(a4);
+            }
+
+            return null;
         }
     }
 }

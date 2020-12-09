@@ -5,7 +5,7 @@ namespace BookWorm.API.Requests
 {
     public class BooksReadRequest
     {
-        public Guid? UserId { get; set; }
+        public Guid UserId { get; set; }
         public List<Guid> BookIds { get; set; }
     }
 }
