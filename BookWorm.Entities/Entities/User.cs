@@ -26,6 +26,10 @@ namespace BookWorm.Entities.Entities
         public Guid AddressId { get; set; }
         public Guid RoleId { get; set; }
 
+        public int CurrentLevel { get; set; } = 1;
+        public int NextLevel { get; set; } = 2;
+        public int Experience { get; set; } 
+
 
         // EF Core relations
         [ForeignKey("AddressId")]
@@ -33,7 +37,6 @@ namespace BookWorm.Entities.Entities
         public Address Address { get; set; }
 
         [ForeignKey("RoleId")]
-        [JsonIgnore]
         public Role Role { get; set; }
         [JsonIgnore]
         public virtual ICollection<UserReview> UserReviews { get; set; }

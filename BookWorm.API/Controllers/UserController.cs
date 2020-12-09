@@ -2,6 +2,7 @@
 using BookWorm.Contracts.Services;
 using BookWorm.Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -100,8 +101,9 @@ namespace BookWorm.API.Controllers
             }
 
             var user = _userService
-                .AsQueryable()
+                .AsQueryable()           
                 .Where(x => x.Email == request.Email && x.Password == request.Password)
+                .Include(x => x.Role)
                 .FirstOrDefault();
 
             if (user is null)

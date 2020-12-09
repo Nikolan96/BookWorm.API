@@ -6,7 +6,6 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 
@@ -16,8 +15,6 @@ namespace BookWorm.API.Controllers
     [ApiController]
     public class DataGeneratingController : ControllerBase
     {
-        private const string BookCoverPath = "../../assets/book-image.svg";
-
         private readonly IAddressService _addressService;
         private readonly IUserService _userService;
         private readonly IAuthorService _authorService;
@@ -153,25 +150,87 @@ namespace BookWorm.API.Controllers
                 {
                     Id = Guid.NewGuid(),
                     Title = Achievements.TheJurneyBegins,
-                    Description = "Read one book"
+                    Description = "Read one book",
+                    Image = "../../assets/achievements/001-goal.svg"
                 },
                 new Achievement
                 {
                     Id = Guid.NewGuid(),
                     Title = Achievements.ApprenticeLibrarian,
-                    Description = "Read three books"
+                    Description = "Read three books",
+                    Image = "../../assets/achievements/002-flag.svg"
                 },
                     new Achievement
                 {
                     Id = Guid.NewGuid(),
                     Title = Achievements.Bibliophile,
-                    Description = "Read five books"
+                    Description = "Read five books",
+                    Image = "../../assets/achievements/003-tasks.svg"
                 },
                 new Achievement
                 {
                     Id = Guid.NewGuid(),
                     Title = Achievements.Bookworm,
-                    Description = "Read ten books"
+                    Description = "Read ten books",
+                    Image = "../../assets/achievements/004-cloud.svg"
+                },
+
+                new Achievement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = Achievements.OneCase,
+                    Description = "Added one case",
+                    Image = "../../assets/achievements/005-presentation.svg"
+                },
+                new Achievement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = Achievements.ThreeCases,
+                    Description = "Added three cases",
+                    Image = "../../assets/achievements/007-briefcase.svg"
+                },
+                    new Achievement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = Achievements.FiveCases,
+                    Description = "Added five cases",
+                    Image = "../../assets/achievements/008-rating.svg"
+                },
+                new Achievement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = Achievements.TenCases,
+                    Description = "Added ten cases",
+                    Image = "../../assets/achievements/010-badge.svg"
+                },
+
+                new Achievement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = Achievements.OneNote,
+                    Description = "Added one note",
+                    Image = "../../assets/achievements/011-trophy.svg"
+                },
+                new Achievement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = Achievements.ThreeNotes,
+                    Description = "Added three notes",
+                    Image = "../../assets/achievements/012-clipboard.svg"
+                },
+                    new Achievement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = Achievements.FiveNotes,
+                    Description = "Added five notes",
+                    Image = "../../assets/achievements/013-rating-2.svg"
+                },
+                new Achievement
+                {
+                    Id = Guid.NewGuid(),
+                    Title = Achievements.TenNotes,
+                    Description = "Added ten notes",
+                    Image = "../../assets/achievements/014-success.svg"
                 },
             };
 

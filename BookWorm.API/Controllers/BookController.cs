@@ -1,4 +1,5 @@
 ﻿using BookWorm.API.Dto;
+using BookWorm.API.Extensions;
 using BookWorm.API.Requests;
 using BookWorm.Contracts.Services;
 using BookWorm.Entities.Entities;
@@ -20,6 +21,8 @@ namespace BookWorm.API.Controllers
         private readonly IAuthorService _authorService;
         private readonly IBookAuthorService _bookAuthorService;
 
+        private Random _rnd = new Random();
+
         public BookController(IBookService bookService,
             IPickOfTheDayService pickOfTheDayService,
             IPickOfTheWeekService pickOfTheWeekService,
@@ -34,24 +37,114 @@ namespace BookWorm.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Book> Get(Guid id)
+        public ActionResult<BookDto> Get(Guid id)
         {
+            BookDto book = new BookDto();
+
             var item = _bookService.AsQueryable()
+                .Include(x => x.Publisher)
+                .Include(x => x.Genre)
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
 
             if (item is null)
                 return NoContent();
 
-            return Ok(item);
+            book = MapToBookDto(item);
+
+            return Ok(book);
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Book>> Get()
         {
-            return Ok(_bookService
+            List<BookDto> bookDtos = new List<BookDto>();
+
+            var books = _bookService
                 .AsQueryable()
-                .ToList());
+                .Include(x => x.Publisher)
+                .Include(x => x.Genre)
+                .ToList();
+
+            foreach (var book in books)
+            {
+                bookDtos.Add(MapToBookDto(book));
+            }
+
+            return Ok(bookDtos);
+
+        }
+
+        [HttpGet]
+        [Route("GetFiveBooksFromOfGenre/{bookId}")]
+        public ActionResult<IEnumerable<BookDto>> GetFiveBooksFromOfGenre(Guid bookId)
+        {
+            var result = new List<BookDto>();
+
+            var openedBook = _bookService
+                .AsQueryable()
+                .FirstOrDefault();
+
+            if (openedBook is null)          
+                return BadRequest($"Book with id : {bookId} does not exist!");
+            
+            var booksOfTheSameGenre = _bookService
+                .AsQueryable()
+                .Where(x => x.Id != bookId && x.GenreId == openedBook.GenreId)
+                .Include(x => x.BookAuthors)
+                .Include(x => x.Publisher)
+                .Include(x => x.Genre)
+                .ToList();
+
+            booksOfTheSameGenre.Shuffle();
+
+            var list = booksOfTheSameGenre.Take(5);
+
+            foreach (var item in list)
+            {
+                result.Add(MapToBookDto(item));
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("GetFiveBooksFromSameAuthor/{bookId}")]
+        public ActionResult<IEnumerable<BookDto>> GetFiveBooksFromSameAuthor(Guid bookId)
+        {
+            var result = new List<BookDto>();
+
+            var openedBook = _bookService
+                .AsQueryable()
+                .Include(x => x.BookAuthors)
+                .FirstOrDefault();
+
+            if (openedBook is null)
+                return BadRequest($"Book with id : {bookId} does not exist!");
+
+            var authorId = openedBook.BookAuthors.FirstOrDefault().AuthorId;
+
+            var idsOfAuthorsBooks = _bookAuthorService
+                .AsQueryable()
+                .Where(x => x.AuthorId == authorId)
+                .Select(x => x.BookId)
+                .ToList();
+
+            idsOfAuthorsBooks.Shuffle();
+
+            foreach (var id in idsOfAuthorsBooks.Take(5))
+            {
+                var book = _bookService
+                    .AsQueryable()
+                    .Include(x => x.BookAuthors)
+                    .Include(x => x.Publisher)
+                    .Include(x => x.Genre)
+                    .FirstOrDefault(x => x.Id == id);
+
+                result.Add(MapToBookDto(book));
+            }
+
+            return Ok(result);
         }
 
         [HttpGet]

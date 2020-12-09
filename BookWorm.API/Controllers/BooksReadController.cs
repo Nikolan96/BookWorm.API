@@ -1,5 +1,6 @@
 ﻿using BookWorm.API.Dto;
 using BookWorm.API.Requests;
+using BookWorm.Contracts.Enums;
 using BookWorm.Contracts.Services;
 using BookWorm.Entities.Constants;
 using BookWorm.Entities.Entities;
@@ -16,12 +17,15 @@ namespace BookWorm.API.Controllers
     {
         private readonly IBooksReadService _booksReadService;
         private readonly IAwardAchievementService _awardAchievementService;
+        private readonly ILevelingService _levelingService;
 
         public BooksReadController(IBooksReadService booksReadService,
-            IAwardAchievementService awardAchievementService)
+            IAwardAchievementService awardAchievementService,
+            ILevelingService levelingService)
         {
             _booksReadService = booksReadService;
             _awardAchievementService = awardAchievementService;
+            _levelingService = levelingService;
         }
 
         [HttpGet("{id}")]
@@ -99,11 +103,6 @@ namespace BookWorm.API.Controllers
                 return BadRequest();
             }
 
-            if (request.UserId is null || request.BookIds is null)
-            {
-                return BadRequest();
-            }
-
             foreach (var bookId in request.BookIds)
             {
                 var exists = _booksReadService
@@ -123,20 +122,50 @@ namespace BookWorm.API.Controllers
 
                 var item = _booksReadService.AddBooksRead(newBookRead);
 
+                var lvl = _levelingService.AddExperience(request.UserId, Activity.ReadBook);
+
+                if (lvl > 0)
+                {
+                    response.LevelupResponse = new LevelupResponse
+                    {
+                        NewLevel = lvl
+                    };
+                }
+
                 response.BooksRead.Add(item);
             }
 
-            AwardAchievements((Guid)request.UserId, response.Achievements);
-
+            response.Achievements = AwardAchievements((Guid)request.UserId);
             return Ok(response);
         }
 
-        private void AwardAchievements(Guid userId, List<Achievement> achievements)
+        private List<Achievement> AwardAchievements(Guid userId)
         {
-            achievements.Add(_awardAchievementService.AwardAchievement(Achievements.TheJurneyBegins, userId));
-            achievements.Add(_awardAchievementService.AwardAchievement(Achievements.ApprenticeLibrarian, userId));
-            achievements.Add(_awardAchievementService.AwardAchievement(Achievements.Bibliophile, userId));
-            achievements.Add(_awardAchievementService.AwardAchievement(Achievements.Bookworm, userId));
+            // TODO : refactor when there is time
+
+            var a1 = _awardAchievementService.AwardAchievement(Achievements.TheJurneyBegins, userId);
+            var a2 = _awardAchievementService.AwardAchievement(Achievements.ApprenticeLibrarian, userId);
+            var a3 = _awardAchievementService.AwardAchievement(Achievements.Bibliophile, userId);
+            var a4 = _awardAchievementService.AwardAchievement(Achievements.Bookworm, userId);
+            
+            if (a1 != null || a2 != null || a3 != null || a4 != null)
+            {
+                var achies = new List<Achievement>();
+
+                if (a1 != null)               
+                    achies.Add(a1);
+
+                if (a2 != null)
+                    achies.Add(a2);
+
+                if (a3 != null)
+                    achies.Add(a3);
+
+                if (a4 != null)
+                    achies.Add(a4);
+            }
+
+            return null;
         }
 
         [HttpPut]
