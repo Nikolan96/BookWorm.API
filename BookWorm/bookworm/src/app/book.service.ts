@@ -55,8 +55,8 @@ export class BookService {
     return this.http.post<CurrentlyReadingBook>('http://localhost:57339/api/UserCurrentlyReading', bookAdded);
   }
 
-  getBook(id: string): Observable<Book[]> {
-    return this.http.get<Book[]>(`http://localhost:57339/api/Book/${id}`);
+  getBook(id: string): Observable<Book> {
+    return this.http.get<Book>(`http://localhost:57339/api/Book/${id}`);
 
   }
 }

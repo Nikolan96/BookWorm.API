@@ -1,4 +1,9 @@
 @import '../../mat-card-preset.scss';
+@keyframes animation {
+  50% {margin-top: -10px;}
+  100%{margin-top: 0px;}
+}
+
 header {
   background-color: whitesmoke;
   height: 12% !important;
@@ -50,6 +55,8 @@ header {
   margin-left: 30px;
 }
 #title-author-text h1 {
+  animation-name: animation;
+  animation-duration: 0.5s;
   font-family: bebas;
   font-size: 30px;
   letter-spacing: 2px;
@@ -68,4 +75,23 @@ header {
 #content-bottom {
   width: 80%;
 }
+
+#genre {
+  animation-name: animation;
+  animation-duration: 0.4s;
+}
+
+#publisher {
+  animation-name: animation;
+  animation-duration: 0.8s;
+}
+#number-of-pages {
+  animation-name: animation;
+  animation-duration: 1.2s;
+}
+#isbn {
+  animation-name: animation;
+  animation-duration: 1.2s;
+}
+
 

@@ -18,23 +18,23 @@ export class BookComponent implements OnInit {
   userId: string;
   bookId: string;
   bookRecommendation: Array<BookRecommendation> = [];
-  // book: Book = {
-  //   id: '',
-  //   isbn: '',
-  //   publishDate: null,
-  //   title: '',
-  //   cover: '',
-  //   numberOfPages: 0,
-  //   genreId: '',
-  //   publisherId: '',
-  //   booksUserIsCurrentlyReading: {
-  //     id: '',
-  //     bookId: '',
-  //     userId: '',
-  //     currentPage: 0
-  //   }
-  // };
-  book: Book[];
+  book: Book = {
+    id: '',
+    isbn: '',
+    publishDate: null,
+    title: '',
+    cover: '',
+    numberOfPages: 0,
+    genreId: '',
+    publisherId: '',
+    booksUserIsCurrentlyReading: {
+      id: '',
+      bookId: '',
+      userId: '',
+      currentPage: 0
+    }
+  };
+
   currentlyReadingBook: CurrentlyReadingBook = {
     userId: '',
     bookId: '',
@@ -71,7 +71,6 @@ export class BookComponent implements OnInit {
     this.bookService.getBook(this.bookId).subscribe(
       (book) => {
         this.book = book;
-        console.log(this.book);
       },
       (error) => {
         console.log(error.error);

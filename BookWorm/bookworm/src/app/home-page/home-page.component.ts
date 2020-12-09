@@ -142,7 +142,6 @@ export class HomePageComponent implements OnInit {
     this.bookService.getBookRecommendation(this.userId).subscribe(
       (recommendations) => {
        this.bookRecommendations = recommendations;
-       console.log(this.bookRecommendations);
       },
       (error) => {
         console.log(error.error);
