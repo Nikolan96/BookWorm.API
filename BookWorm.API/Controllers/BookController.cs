@@ -37,24 +37,42 @@ namespace BookWorm.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Book> Get(Guid id)
+        public ActionResult<BookDto> Get(Guid id)
         {
+            BookDto book = new BookDto();
+
             var item = _bookService.AsQueryable()
+                .Include(x => x.Publisher)
+                .Include(x => x.Genre)
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
 
             if (item is null)
                 return NoContent();
 
-            return Ok(item);
+            book = MapToBookDto(item);
+
+            return Ok(book);
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Book>> Get()
         {
-            return Ok(_bookService
+            List<BookDto> bookDtos = new List<BookDto>();
+
+            var books = _bookService
                 .AsQueryable()
-                .ToList());
+                .Include(x => x.Publisher)
+                .Include(x => x.Genre)
+                .ToList();
+
+            foreach (var book in books)
+            {
+                bookDtos.Add(MapToBookDto(book));
+            }
+
+            return Ok(bookDtos);
+
         }
 
         [HttpGet]

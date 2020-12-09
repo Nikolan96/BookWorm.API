@@ -107,8 +107,6 @@ namespace BookWorm.API.Controllers
 
             response.Achievements = AwardAchievements((Guid)newItem.UserId);
 
-            // TODO : award achies
-
             var lvl = _levelingService.AddExperience(newItem.UserId, Activity.AddedNote);
 
             if (lvl > 0)

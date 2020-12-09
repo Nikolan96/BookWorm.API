@@ -37,7 +37,6 @@ namespace BookWorm.Entities.Entities
         public Address Address { get; set; }
 
         [ForeignKey("RoleId")]
-        [JsonIgnore]
         public Role Role { get; set; }
         [JsonIgnore]
         public virtual ICollection<UserReview> UserReviews { get; set; }
