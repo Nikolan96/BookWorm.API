@@ -121,4 +121,8 @@ export class BookComponent implements OnInit {
       }
     );
   }
+
+  goToAuthorPage(): void {
+
+  }
 }

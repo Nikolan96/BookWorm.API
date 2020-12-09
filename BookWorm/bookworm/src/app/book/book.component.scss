@@ -50,10 +50,32 @@ header {
   margin: 0;
 }
 
+hr {
+  height: 3px;
+  width: 0%;
+  margin-left: -1%;
+  background:none;
+  border: none;
+  transition: .6s ease-in-out;
+}
+
+#book-author h2{
+  margin: 0;
+}
+
+#book-author:hover {
+  cursor: pointer;
+}
+#book-author:hover ~ hr {
+  margin-left: 0;
+  background: #01579b;
+  width: 30%;
+}
+
 #cover-image {
   width: 200px;
   height: 280px;
-  background-color: red;
+  background-color: #B3E5FC;
 }
 
 #cover-image img{
@@ -71,6 +93,7 @@ header {
   font-family: bebas;
   font-size: 30px;
   letter-spacing: 2px;
+  margin-top: 15px;
 }
 #title-author-text h2, #content-top-right h2 {
   font-family: baskervville;
