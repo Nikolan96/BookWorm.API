@@ -1,14 +1,14 @@
 export interface User {
-  adress: any;
-  addressId: any;
-  cases: any;
-  dateOfBirth: Date;
-  email: string;
+  id?: any;
   firstName: string;
-  gender: string;
-  id: any;
   lastName: string;
+  email: string;
   password: string;
-  userBookNotes: any;
-  userReviews: any
+  gender: string;
+  dateOfBirth: Date;
+  addressId: any;
+  roleId: any;
+  currentLevel: any;
+  nextLevel: any;
+  experience: any;
 }

@@ -4,6 +4,7 @@ import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
 import { UserLogin } from '../interfaces/userLogin';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { User } from '../interfaces/user';
 
 @Component({
   selector: 'app-login-page',
@@ -13,11 +14,25 @@ import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 export class LoginPageComponent implements OnInit {
   email: string;
   check: boolean;
-  public user: UserLogin = {
+  public user: User = {
     email: '',
     password: '',
-    id: ''
+    id: '',
+    firstName: '',
+    lastName: '',
+    gender: '',
+    dateOfBirth: null,
+    addressId: '',
+    roleId: '',
+    currentLevel: '',
+    nextLevel: '',
+    experience: ''
   };
+
+  userLogin: UserLogin = {
+    email: '',
+    password: '',
+  }
   login: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.required, Validators.min(3)]),
@@ -58,7 +73,7 @@ export class LoginPageComponent implements OnInit {
   logIn(): void {
     this.loginService.login(this.login.value).subscribe(
       (response) => {
-
+        console.log(response);
         this.router.navigate([`/home-page/${response.id}`]);
       },
       (error) => {

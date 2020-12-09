@@ -20,8 +20,8 @@ export class LoginService {
     return this.http.get<boolean>(`http://localhost:57339/api/User/CheckIfEmailExists/${email}`);
   }
 
-  login(loginForm: UserLogin): Observable<UserLogin> {
-    return this.http.post<UserLogin>(`http://localhost:57339/api/User/Login`, loginForm);
+  login(loginForm: UserLogin): Observable<User> {
+    return this.http.post<User>(`http://localhost:57339/api/User/Login`, loginForm);
   }
 
   singup(singupForm: UserLogin): Observable<UserLogin> {
