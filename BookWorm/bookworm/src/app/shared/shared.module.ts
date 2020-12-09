@@ -18,6 +18,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import { NgImageSliderModule } from 'ng-image-slider';
+import {MatSidenavModule} from '@angular/material/sidenav';
 @NgModule({
   declarations: [],
   imports: [
@@ -38,7 +39,8 @@ import { NgImageSliderModule } from 'ng-image-slider';
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
-    NgImageSliderModule
+    NgImageSliderModule,
+    MatSidenavModule
   ],
   exports: [
     MatCardModule,
@@ -57,7 +59,8 @@ import { NgImageSliderModule } from 'ng-image-slider';
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
-    NgImageSliderModule
+    NgImageSliderModule,
+    MatSidenavModule
   ]
 })
 export class SharedModule { }

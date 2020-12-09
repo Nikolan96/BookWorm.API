@@ -1,0 +1,80 @@
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef>ID </mat-header-cell>
+    <mat-cell *matCellDef="let book"> {{ book.id }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="isbn">
+    <mat-header-cell *matHeaderCellDef>
+      isbn
+    </mat-header-cell>
+    <mat-cell *matCellDef="let book" appHighlightTitle>
+      {{ book.isbn }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="publishDate">
+    <mat-header-cell *matHeaderCellDef>
+      publishDate
+    </mat-header-cell>
+    <mat-cell *matCellDef="let book"> {{ book.publishDate }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef>
+      title
+    </mat-header-cell>
+    <mat-cell *matCellDef="let book"> {{ book.title }} </mat-cell>
+  </ng-container>
+
+
+  <ng-container matColumnDef="cover">
+    <mat-header-cell *matHeaderCellDef>
+      cover
+    </mat-header-cell>
+    <mat-cell *matCellDef="let book"> {{ book.cover }} </mat-cell>
+  </ng-container>
+
+
+  <ng-container matColumnDef="numberOfPages">
+    <mat-header-cell *matHeaderCellDef>
+      numberOfPages
+    </mat-header-cell>
+    <mat-cell *matCellDef="let book"> {{ book.numberOfPages }} </mat-cell>
+  </ng-container>
+
+
+  <ng-container matColumnDef="genreId">
+    <mat-header-cell *matHeaderCellDef>
+      numberOfPages
+    </mat-header-cell>
+    <mat-cell *matCellDef="let book"> {{ book.genreId }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="publisherId">
+    <mat-header-cell *matHeaderCellDef>
+      publisherId
+    </mat-header-cell>
+    <mat-cell *matCellDef="let book"> {{ book.publisherId }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <mat-header-cell
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      *matHeaderCellDef
+    >
+
+    </mat-header-cell>
+    <mat-cell class="deletebtn"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      *matCellDef="let element"
+    >
+      <mat-icon >delete</mat-icon></mat-cell
+    >
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>

@@ -58,6 +58,7 @@ export class LoginPageComponent implements OnInit {
   logIn(): void {
     this.loginService.login(this.login.value).subscribe(
       (response) => {
+
         this.router.navigate([`/home-page/${response.id}`]);
       },
       (error) => {

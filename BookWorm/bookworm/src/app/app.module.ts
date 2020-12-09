@@ -12,6 +12,8 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
 import { BookComponent } from './book/book.component';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
+import { BookTableComponent } from './admin-page/book-table/book-table.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { MenuBarComponent } from './menu-bar/menu-bar.component';
     RegistrationPageComponent,
     BookComponent,
     MenuBarComponent,
+    AdminPageComponent,
+    BookTableComponent,
 
   ],
   imports: [
