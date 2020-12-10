@@ -1,5 +1,7 @@
 ﻿using BookWorm.Entities.Base;
+using BookWorm.Entities.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace BookWorm.API.Dto
 {
@@ -12,6 +14,6 @@ namespace BookWorm.API.Dto
         public int NumberOfPages { get; set; }
         public string Genre { get; set; }
         public string Publisher { get; set; }
-        public string Author { get; set; }
+        public List<AuthorDto> Authors { get; set; }
     }
 }

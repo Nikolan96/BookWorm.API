@@ -55,17 +55,17 @@ namespace BookWorm.Entities.Entities
         [JsonIgnore]
         public virtual Publisher Publisher { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            var book = (Book)obj;
-            return Id == book.Id;
-        }
+        //public override bool Equals(object obj)
+        //{
+        //    var book = (Book)obj;
+        //    return Id == book.Id;
+        //}
 
-        public override int GetHashCode()
-        {
-            return ISBN.GetHashCode() ^
-                Title.GetHashCode() ^
-                Id.GetHashCode();
-        }
+        //public override int GetHashCode()
+        //{
+        //    return ISBN.GetHashCode() ^
+        //        Title.GetHashCode() ^
+        //        Id.GetHashCode();
+        //}
     }
 }

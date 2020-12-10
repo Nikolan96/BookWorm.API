@@ -293,29 +293,47 @@ namespace BookWorm.API.Controllers
             var x = book.Id.ToString().ToUpper();
             Guid id = new Guid(book.Id.ToString().ToUpper());
 
-            var bookAuthor = _bookAuthorService
+            var bookAuthors = _bookAuthorService
                                 .AsQueryable()
                                 .Where(x => x.BookId == id)
-                                .FirstOrDefault();
+                                .ToList();
 
-            var author = _authorService
+            List<AuthorDto> authors = new List<AuthorDto>();
+            foreach (var item in bookAuthors)
+            {
+                var author = _authorService
                 .AsQueryable()
-                .Where(x => x.Id == bookAuthor.AuthorId)
+                .Where(x => x.Id == item.AuthorId)
                 .FirstOrDefault();
+
+                authors.Add(MapToAuthorDto(author));
+            }
 
             var bookDto = new BookDto
             {
                 Id = book.Id,
-                ISBN = book.ISBN,
-                Author = $"{author.FirstName} {author.LastName}",
+                ISBN = book.ISBN, 
                 Cover = book.Cover,
                 Genre = book.Genre.Name,
                 NumberOfPages = book.NumberOfPages,
                 PublishDate = book.PublishDate,
                 Publisher = book.Publisher.Name,
-                Title = book.Title
+                Title = book.Title,
+                Authors = authors
             };
+
             return bookDto;
+        }
+
+        private AuthorDto MapToAuthorDto(Author author)
+        {
+            var dto = new AuthorDto
+            {
+                Id = author.Id,
+                Name = author.FirstName + " " + author.LastName
+            };
+
+            return dto;
         }
     }
 }
