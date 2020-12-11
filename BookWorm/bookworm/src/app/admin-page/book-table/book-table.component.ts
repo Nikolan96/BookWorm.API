@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { BookService } from 'src/app/book.service';
 import { Book } from 'src/app/interfaces/book';
 import { BookDeleteModalComponent } from './book-delete-modal/book-delete-modal.component';
+import { BookAddModalComponent } from './book-add-modal/book-add-modal.component';
 
 @Component({
   selector: 'app-book-table',
@@ -44,4 +45,12 @@ export class BookTableComponent implements OnInit {
       this.displayBooks();
     });
   }
+
+  openAddModal(): void{
+    let dialogRef = this.dialog.open(BookAddModalComponent);
+    // dialogRef.afterClosed().subscribe((x) => {
+    //   this.displayBooks();
+    // });
+  }
+
 }
