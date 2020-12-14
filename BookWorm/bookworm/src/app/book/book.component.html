@@ -11,7 +11,7 @@
             <img src="{{ book.cover }}" alt="" />
           </div>
           <div id="title-author-text">
-            <div id="book-author" (click)="goToAuthorPage()"> <h2 >Book author</h2></div>
+            <div id="book-author" (click)="goToAuthorPage()"> <h2 >{{book.author}}</h2></div>
             <hr />
             <h1>{{ book.title }}</h1>
             <p>
@@ -35,11 +35,11 @@
         <div id="content-top-right">
           <div id="genre">
             <h2>Genre</h2>
-            <h3>Genre name</h3>
+            <h3>{{book.genre}}</h3>
           </div>
           <div id="publisher">
             <h2>Publisher</h2>
-            <h3>Publisher name</h3>
+            <h3>{{book.publisher}}</h3>
           </div>
           <div id="number-of-pages">
             <h2>Number of pages</h2>

@@ -8,6 +8,10 @@ export interface User {
   dateOfBirth: Date;
   addressId: any;
   roleId: any;
+  role: {
+    id: string;
+    name: string;
+  }
   currentLevel: any;
   nextLevel: any;
   experience: any;

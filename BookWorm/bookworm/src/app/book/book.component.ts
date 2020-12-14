@@ -27,8 +27,11 @@ export class BookComponent implements OnInit {
     title: '',
     cover: '',
     numberOfPages: 0,
-    genreId: '',
+    publisher: '',
     publisherId: '',
+    genreId: '',
+    genre: '',
+    author: '',
     booksUserIsCurrentlyReading: {
       id: '',
       bookId: '',
@@ -102,7 +105,6 @@ export class BookComponent implements OnInit {
     this.bookService.getBooksOfTheSameGenre(this.userId).subscribe(
       (booksOfTheSameGenre) => {
         this.booksOfSameGenre = booksOfTheSameGenre;
-        console.log('same genre books ', this.booksOfSameGenre)
      },
       (error) => {
         console.log(error.error);
@@ -114,7 +116,6 @@ export class BookComponent implements OnInit {
     this.bookService.getBooksOfTheSameAuthor(this.userId).subscribe(
       (booksOfTheSameAuthor) => {
         this.booksOfSameAuthor = booksOfTheSameAuthor;
-        console.log('same author books ', this.booksOfSameAuthor)
      },
       (error) => {
         console.log(error.error);

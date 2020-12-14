@@ -71,4 +71,12 @@ export class BookService {
   getBooksOfTheSameAuthor(userId: string): Observable<Book[]> {
     return this.http.get<Book[]>(`http://localhost:57339/api/BookRecommendation/AuthorBooksRecommendation/${userId}`);
   }
+
+  deleteBook(id: any): Observable<{}> {
+    return this.http.delete(`http://localhost:57339/api/Book/${id}`);
+  }
+
+  addBook(bookForm: Book): Observable<Book> {
+    return this.http.post<Book>('http://localhost:57339/api/Book', bookForm);
+  }
 }

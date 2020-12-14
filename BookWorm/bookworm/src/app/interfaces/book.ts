@@ -5,8 +5,11 @@ export interface Book {
   title: string;
   cover: string;
   numberOfPages: number;
-  genreId: string;
+  author: string;
   publisherId: string;
+  genreId: string;
+  genre: string;
+  publisher: string;
   booksUserIsCurrentlyReading: {
       id: string;
       bookId: string;

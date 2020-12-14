@@ -24,6 +24,10 @@ export class LoginPageComponent implements OnInit {
     dateOfBirth: null,
     addressId: '',
     roleId: '',
+    role: {
+      id: '',
+      name: ''
+    },
     currentLevel: '',
     nextLevel: '',
     experience: ''
@@ -73,8 +77,12 @@ export class LoginPageComponent implements OnInit {
   logIn(): void {
     this.loginService.login(this.login.value).subscribe(
       (response) => {
-        console.log(response);
-        this.router.navigate([`/home-page/${response.id}`]);
+        if (response.role.name === "User") {
+          this.router.navigate([`/home-page/${response.id}`]);
+        } else {
+          this.router.navigate([`/admin-page`]);
+        }
+
       },
       (error) => {
         const wrongCredentials = document.getElementById(

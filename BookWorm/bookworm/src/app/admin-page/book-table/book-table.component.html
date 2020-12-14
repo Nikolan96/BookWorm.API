@@ -1,61 +1,63 @@
+<button mat-raised-button color="primary" (click)="openAddModal()">Add new</button>
+
 <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="id">
-    <mat-header-cell *matHeaderCellDef>ID </mat-header-cell>
-    <mat-cell *matCellDef="let book"> {{ book.id }} </mat-cell>
+    <mat-header-cell *matHeaderCellDef class="center">ID </mat-header-cell>
+    <mat-cell *matCellDef="let book" class="center"> {{ book.id }} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="isbn">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef class="center">
       isbn
     </mat-header-cell>
-    <mat-cell *matCellDef="let book" appHighlightTitle>
+    <mat-cell *matCellDef="let book" class="center">
       {{ book.isbn }}
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="publishDate">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef class="center">
       publishDate
     </mat-header-cell>
-    <mat-cell *matCellDef="let book"> {{ book.publishDate }} </mat-cell>
+    <mat-cell *matCellDef="let book" class="center"> {{ book.publishDate }} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef class="center">
       title
     </mat-header-cell>
-    <mat-cell *matCellDef="let book"> {{ book.title }} </mat-cell>
+    <mat-cell *matCellDef="let book" class="center"> {{ book.title }} </mat-cell>
   </ng-container>
 
 
   <ng-container matColumnDef="cover">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef class="center">
       cover
     </mat-header-cell>
-    <mat-cell *matCellDef="let book"> {{ book.cover }} </mat-cell>
+    <mat-cell *matCellDef="let book" class="center"> {{ book.cover }} </mat-cell>
   </ng-container>
 
 
   <ng-container matColumnDef="numberOfPages">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef class="center">
       numberOfPages
     </mat-header-cell>
-    <mat-cell *matCellDef="let book"> {{ book.numberOfPages }} </mat-cell>
+    <mat-cell *matCellDef="let book" class="center"> {{ book.numberOfPages }} </mat-cell>
   </ng-container>
 
 
-  <ng-container matColumnDef="genreId">
-    <mat-header-cell *matHeaderCellDef>
-      numberOfPages
+  <ng-container matColumnDef="genre">
+    <mat-header-cell *matHeaderCellDef class="center">
+      genre
     </mat-header-cell>
-    <mat-cell *matCellDef="let book"> {{ book.genreId }} </mat-cell>
+    <mat-cell *matCellDef="let book" class="center"> {{ book.genre }} </mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="publisherId">
-    <mat-header-cell *matHeaderCellDef>
+  <ng-container matColumnDef="publisher">
+    <mat-header-cell *matHeaderCellDef class="center">
       publisherId
     </mat-header-cell>
-    <mat-cell *matCellDef="let book"> {{ book.publisherId }} </mat-cell>
+    <mat-cell *matCellDef="let book" class="center"> {{ book.publisher }} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="delete">
@@ -64,12 +66,13 @@
       fxLayoutAlign="center center"
       *matHeaderCellDef
     >
-
+     delete
     </mat-header-cell>
     <mat-cell class="deletebtn"
       fxLayout="row"
       fxLayoutAlign="center center"
       *matCellDef="let element"
+      (click)="openDeleteModal(element.id)"
     >
       <mat-icon >delete</mat-icon></mat-cell
     >
