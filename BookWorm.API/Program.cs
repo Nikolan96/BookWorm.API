@@ -9,12 +9,15 @@ namespace BookWorm.API
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder(args)
+                .UseDefaultServiceProvider(options => options.ValidateScopes = false)
+                .Build()
+                .Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-            .UseUnityServiceProvider(UnityConfig.Container)
+            //.UseUnityServiceProvider(UnityConfig.Container)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

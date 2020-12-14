@@ -13,23 +13,23 @@ namespace BookWorm.Quartz.Services
 {
     public class QuartzHostedService : IHostedService
     {
-        private const int PickOfTheDayInterval = 30;
-        private const int PickOfTheWeekinterval = 60;
+        private const int PickOfTheDayInterval = 1;
+        private const int PickOfTheWeekinterval = 2;
 
         private IScheduler _scheduler;
         private readonly ISchedulerFactory _schedulerFactory;
         private readonly IJobFactory _jobFactory;
         private readonly IQuartzTriggerFactory _triggerFactory;
-        private readonly IBookService _bookService;
-        private readonly IPickOfTheDayService _pickOfTheDayService;
-        private readonly IPickOfTheWeekService _pickOfTheWeekService;
+        private readonly Func<IBookService> _bookService;
+        private readonly Func<IPickOfTheDayService> _pickOfTheDayService;
+        private readonly Func<IPickOfTheWeekService> _pickOfTheWeekService;
 
         public QuartzHostedService(ISchedulerFactory schedulerFactory,
             IJobFactory jobFactory,
             IQuartzTriggerFactory quartzTriggerFactory,
-            IBookService bookService,
-            IPickOfTheDayService pickOfTheDayService,
-            IPickOfTheWeekService pickOfTheWeekService)
+            Func<IBookService> bookService,
+            Func<IPickOfTheDayService> pickOfTheDayService,
+            Func<IPickOfTheWeekService> pickOfTheWeekService)
         {
             _schedulerFactory = schedulerFactory;
             _jobFactory = jobFactory;
@@ -51,8 +51,8 @@ namespace BookWorm.Quartz.Services
 
         public async Task ScheduleJobs(CancellationToken cancellationToken)
         {
-            await SchedulePickOfTheDayJob(cancellationToken);
-            await SchedulePickOfTheWeekJob(cancellationToken);
+            SchedulePickOfTheDayJob(cancellationToken);
+            SchedulePickOfTheWeekJob(cancellationToken);
         }
 
         private async Task SchedulePickOfTheDayJob(CancellationToken cancellationToken)
@@ -61,11 +61,11 @@ namespace BookWorm.Quartz.Services
                             .WithIdentity(new JobKey(Guid.NewGuid().ToString()))
                             .Build();
 
-            jobDetail.JobDataMap.Add("PickOfTheDayService", _pickOfTheDayService);
-            jobDetail.JobDataMap.Add("BookService", _bookService);
+            jobDetail.JobDataMap.Add("PickOfTheDayService", _pickOfTheDayService.Invoke());
+            jobDetail.JobDataMap.Add("BookService", _bookService.Invoke());
 
             var triggers = new HashSet<ITrigger>(_triggerFactory.GetOccuringInMinutes(PickOfTheDayInterval));
-            await _scheduler.ScheduleJob(jobDetail, triggers, true, cancellationToken);
+            _scheduler.ScheduleJob(jobDetail, triggers, true, cancellationToken);
         }
 
         private async Task SchedulePickOfTheWeekJob(CancellationToken cancellationToken)
@@ -74,11 +74,11 @@ namespace BookWorm.Quartz.Services
                             .WithIdentity(new JobKey(Guid.NewGuid().ToString()))
                             .Build();
 
-            jobDetail.JobDataMap.Add("PickOfTheWeekService", _pickOfTheWeekService);
-            jobDetail.JobDataMap.Add("BookService", _bookService);
+            jobDetail.JobDataMap.Add("PickOfTheWeekService", _pickOfTheWeekService.Invoke());
+            jobDetail.JobDataMap.Add("BookService", _bookService.Invoke());
 
             var triggers = new HashSet<ITrigger>(_triggerFactory.GetOccuringInMinutes(PickOfTheWeekinterval));
-            await _scheduler.ScheduleJob(jobDetail, triggers, true, cancellationToken);
+            _scheduler.ScheduleJob(jobDetail, triggers, true, cancellationToken);
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)

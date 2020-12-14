@@ -2,6 +2,7 @@
 using BookWorm.Contracts.Wrapper;
 using BookWorm.Entities;
 using BookWorm.Repository.Repositories;
+using System;
 
 namespace BookWorm.Services.Wrapper
 {
@@ -33,9 +34,9 @@ namespace BookWorm.Services.Wrapper
         private IUserAchievementRepository _userAchievementRepository;
         private IUserCurrentlyReadingRepository _userCurrentlyReadingRepository;
 
-        public RepositoryWrapper(DataContext dataContext)
+        public RepositoryWrapper(Func<DataContext> dataContext)
         {
-            _dataContext = dataContext;
+            _dataContext = dataContext.Invoke();
         }
 
         public IUserAchievementRepository UserAchievement

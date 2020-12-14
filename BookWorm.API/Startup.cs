@@ -40,11 +40,11 @@ namespace BookWorm.API
 
 
             services.AddCorsPolicy();
-            services.ConfigureSqlContext(Configuration);
 
-            services.AddHostedService<QuartzHostedService>();
             // services.AddIdentityServerConfig(Configuration);
-            services.ConfigureServices();
+            services.ConfigureServices(Configuration);
+
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

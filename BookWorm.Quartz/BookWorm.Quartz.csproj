@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BookWorm.Contracts\BookWorm.Contracts.csproj" />
     <ProjectReference Include="..\BookWorm.Entities\BookWorm.Entities.csproj" />
+    <ProjectReference Include="..\BookWorm.Services\BookWorm.Services.csproj" />
   </ItemGroup>
 
 </Project>

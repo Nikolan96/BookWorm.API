@@ -17,7 +17,7 @@ namespace BookWorm.API.Unity
     {
         public static void Initialize(IUnityContainer container)
         {
-            container.RegisterType<DataContext>();
+            //container.RegisterType<DataContext>();
 
             container.RegisterType<IRepositoryWrapper, RepositoryWrapper>();
             container.RegisterType<IAuthorFactService, AuthorFactService>();
