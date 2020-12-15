@@ -1,1 +1,86 @@
-<p>book-add-modal works!</p>
+
+<form class="forms" [formGroup]="addForm">
+  <mat-form-field>
+    <mat-label>Book id</mat-label>
+    <input
+      matInput
+      placeholder="ID"
+      formControlName="id"
+      required
+    />
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+    <mat-label>ISBN</mat-label>
+    <input
+      matInput
+      placeholder="ISBN"
+      formControlName="isbn"
+      required
+    />
+  </mat-form-field>
+
+  <br />
+
+  <mat-form-field appearance="fill">
+    <mat-label>Input disabled</mat-label>
+    <input
+      matInput
+      [matDatepicker]="dp3"
+      disabled
+      formControlName="publishDate"
+      required
+    />
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="dp3"
+    ></mat-datepicker-toggle>
+
+    <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input
+      matInput
+      placeholder="Title"
+      formControlName="title"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Number of pages</mat-label>
+    <input
+      matInput
+      placeholder="Number of pages"
+      formControlName="numberOfPages"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Cover</mat-label>
+    <input
+      matInput
+      placeholder="Cover"
+      formControlName="cover"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Genre id</mat-label>
+    <input
+      matInput
+      placeholder="Genre id"
+      formControlName="genreId"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Publisher id</mat-label>
+    <input
+      matInput
+      placeholder="Publisher id"
+      formControlName="publisherId"
+      required
+    />
+  </mat-form-field>
+</form>

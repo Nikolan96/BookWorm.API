@@ -15,6 +15,7 @@ import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { BookTableComponent } from './admin-page/book-table/book-table.component';
 import { BookDeleteModalComponent } from './admin-page/book-table/book-delete-modal/book-delete-modal.component';
+import { BookAddModalComponent } from './admin-page/book-table/book-add-modal/book-add-modal.component';
 
 
 @NgModule({
@@ -27,7 +28,7 @@ import { BookDeleteModalComponent } from './admin-page/book-table/book-delete-mo
     AdminPageComponent,
     BookTableComponent,
     BookDeleteModalComponent,
-
+    BookAddModalComponent
   ],
   imports: [
     BrowserModule,
